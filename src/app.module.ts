@@ -2,11 +2,34 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import { PrismaService } from './prisma/prisma.service';
+import { HelmetMiddleware } from '@nest-middlewares/helmet';
+import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser';
+import { ErrorHandlerMiddleware } from '@nest-middlewares/errorhandler';
+import { RateLimiterGuard, RateLimiterModule } from 'nestjs-rate-limiter';
+import { APP_GUARD } from '@nestjs/core';
+import { TerminusModule } from '@nestjs/terminus';
+import { HealthController } from './health/health.controller';
 
 @Module({
-  imports: [ConfigModule.forRoot()],
-  controllers: [AppController],
-  providers: [AppService, PrismaService],
+  imports: [ConfigModule.forRoot(), RateLimiterModule, TerminusModule],
+  controllers: [AppController, HealthController],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: RateLimiterGuard,
+    },
+  ],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: import('@nestjs/common').MiddlewareConsumer) {
+    HelmetMiddleware.configure({});
+    consumer.apply(HelmetMiddleware).forRoutes('*');
+    CookieParserMiddleware.configure('MySecret');
+    consumer.apply(CookieParserMiddleware).forRoutes('*');
+    ErrorHandlerMiddleware.configure({
+      log: false,
+    });
+    consumer.apply(ErrorHandlerMiddleware).forRoutes('*');
+  }
+}
