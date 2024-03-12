@@ -6,9 +6,100 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
 
 
+model Restaurant {
+  id           String        @id @unique @default(uuid())
+  name         String
+  address      String
+  description  String
+  price        Price
+  n_siret      String
+  phone        String
+  code_postal  String
+  city         String
+  email        String
+  features     Feature[]
+  favorites    Favorite[]
+  reservations Reservation[]
+  user         User[]
+  createdAt    DateTime
+  updatedAt    DateTime
+}
+
+model Favorite {
+  id           String     @id @unique @default(uuid())
+  user         User       @relation(fields: [userId], references: [id])
+  userId       String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+}
+
+model Reservation {
+  id           String     @id @unique @default(uuid())
+  date         DateTime
+  nb_people    Int
+  status       Status
+  user         User       @relation(fields: [userId], references: [id])
+  userId       String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+  createdAt    DateTime
+  updatedAt    DateTime
+}
+
+model Feature {
+  id         String       @id @unique @default(uuid())
+  name       String
+  icon       String?
+  category   Category     @relation(fields: [categoryId], references: [id])
+  categoryId String
+  restaurant Restaurant[]
+}
+
+model Category {
+  id      String    @id @unique @default(uuid())
+  name    String
+  feature Feature[]
+}
+
+model User {
+  id           String        @id @unique @default(uuid())
+  name         String
+  email        String        @unique
+  phone        String?
+  password     String
+  description  String?
+  role         Role[]
+  avatar       String?
+  banner       String?
+  restaurant   Restaurant?   @relation(fields: [restaurantId], references: [id])
+  restaurantId String?
+  favorite     Favorite[]
+  reservation  Reservation[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Role {
+  id   String @id @unique @default(uuid())
+  name String
+  user User[]
+}
+
+enum Status {
+  PENDING
+  ACCEPTED
+  REFUSED
+}
+
+enum Price {
+  ECO
+  MODERATE
+  EXPENSIVE
+  VERY_EXPENSIVE
+}
