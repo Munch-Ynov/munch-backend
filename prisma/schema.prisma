@@ -107,6 +107,7 @@ model RestaurateurProfile {
 
 enum Role {
   USER
+  RESTAURATEUR
   ADMIN
 }
 
