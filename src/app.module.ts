@@ -7,12 +7,15 @@ import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser';
 import { ErrorHandlerMiddleware } from '@nest-middlewares/errorhandler';
 import { RateLimiterGuard, RateLimiterModule } from 'nestjs-rate-limiter';
 import { APP_GUARD } from '@nestjs/core';
-import { TerminusModule } from '@nestjs/terminus';
-import { HealthController } from './health/health.controller';
+import { HealthModule } from './module/health/health.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), RateLimiterModule, TerminusModule],
-  controllers: [AppController, HealthController],
+  imports: [
+    ConfigModule.forRoot(),
+    RateLimiterModule,
+    HealthModule,
+  ],
+  controllers: [AppController],
   providers: [
     AppService,
     {
