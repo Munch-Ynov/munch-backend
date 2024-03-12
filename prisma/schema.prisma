@@ -11,49 +11,49 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-
 model Restaurant {
-  id           String        @id @unique @default(uuid())
+  id           String                @id @unique @default(cuid())
   name         String
   address      String
   description  String
-  price        Price
+  price        PriceCategory
   n_siret      String
   phone        String
   code_postal  String
   city         String
   email        String
-  features     Feature[]
+  features     RestaurantFeature[]
   favorites    Favorite[]
   reservations Reservation[]
-  user         User[]
   createdAt    DateTime
   updatedAt    DateTime
+  restaurateur RestaurateurProfile[]
 }
 
 model Favorite {
-  id           String     @id @unique @default(uuid())
-  user         User       @relation(fields: [userId], references: [id])
+  id           String       @id @unique @default(cuid())
+  user         UserProfile? @relation(fields: [userId], references: [id])
   userId       String
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurant   Restaurant   @relation(fields: [restaurantId], references: [id])
   restaurantId String
+  createdAt    DateTime     @default(now())
 }
 
 model Reservation {
-  id           String     @id @unique @default(uuid())
+  id           String            @id @unique @default(cuid())
   date         DateTime
   nb_people    Int
-  status       Status
-  user         User       @relation(fields: [userId], references: [id])
-  userId       String
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  status       ReservationStatus
+  user         UserProfile?      @relation(fields: [userId], references: [id])
+  userId       String?
+  restaurant   Restaurant        @relation(fields: [restaurantId], references: [id])
   restaurantId String
   createdAt    DateTime
   updatedAt    DateTime
 }
 
-model Feature {
-  id         String       @id @unique @default(uuid())
+model RestaurantFeature {
+  id         String       @id @unique @default(cuid())
   name       String
   icon       String?
   category   Category     @relation(fields: [categoryId], references: [id])
@@ -62,42 +62,62 @@ model Feature {
 }
 
 model Category {
-  id      String    @id @unique @default(uuid())
+  id      String              @id @unique @default(cuid())
   name    String
-  feature Feature[]
+  feature RestaurantFeature[]
 }
 
-model User {
-  id           String        @id @unique @default(uuid())
-  name         String
-  email        String        @unique
-  phone        String?
-  password     String
-  description  String?
-  role         Role[]
-  avatar       String?
-  banner       String?
-  restaurant   Restaurant?   @relation(fields: [restaurantId], references: [id])
-  restaurantId String?
-  favorite     Favorite[]
-  reservation  Reservation[]
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+model Auth {
+  id        String   @id @unique @default(cuid())
+  email     String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role      Role     @default(USER)
 }
 
-model Role {
-  id   String @id @unique @default(uuid())
-  name String
-  user User[]
+model UserProfile {
+  // id of the auth
+  id String @id @unique
+
+  userId String
+  avatar String?
+  banner String?
+
+  favorite    Favorite[]
+  reservation Reservation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-enum Status {
+model RestaurateurProfile {
+  // id of the auth
+  id String @id @unique
+
+  avatar String?
+  banner String?
+
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  restaurantId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  RESTAURATEUR
+  ADMIN
+}
+
+enum ReservationStatus {
   PENDING
   ACCEPTED
   REFUSED
 }
 
-enum Price {
+enum PriceCategory {
   ECO
   MODERATE
   EXPENSIVE
