@@ -80,7 +80,6 @@ model UserProfile {
   // id of the auth
   id String @id @unique
 
-  userId String
   avatar String?
   banner String?
 

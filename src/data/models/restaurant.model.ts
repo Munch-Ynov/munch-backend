@@ -1,3 +1,4 @@
+import type Entity from "./entity.model";
 import type PriceCategory from "./enum/price-category.enum";
 import type Favorite from "./favorite.model";
 import type Reservation from "./reservation.model";
@@ -25,7 +26,7 @@ import type RestaurateurProfile from "./restaurateur-profile";
  * @param {Date} updatedAt - timestamp of the last update of the restaurant
  * @param {RestaurateurProfile[]} restaurateur - profiles of the restaurateurs
  */
-interface Restaurant {
+abstract class Restaurant implements Entity {
   id: string;
   name: string;
   address: string;
@@ -42,6 +43,8 @@ interface Restaurant {
   createdAt: Date;
   updatedAt: Date;
   restaurateur: RestaurateurProfile[];
+
+  model = "Restaurant"
 }
 
 export default Restaurant;

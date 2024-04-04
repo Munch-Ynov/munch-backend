@@ -1,3 +1,4 @@
+import type Entity from "./entity.model";
 import type Restaurant from "./restaurant.model";
 
 /**
@@ -12,7 +13,7 @@ import type Restaurant from "./restaurant.model";
  * @param {Date} createdAt - timestamp of the creation of the restaurant profile
  * @param {Date} updatedAt - timestamp of the last update of the restaurant profile
  */
-interface RestaurateurProfile {
+abstract class RestaurateurProfile implements Entity {
   id: string;
   avatar?: string;
   banner?: string;
@@ -20,6 +21,8 @@ interface RestaurateurProfile {
   restaurantId: string;
   createdAt: Date;
   updatedAt: Date;
+
+  model = "RestaurateurProfile"
 }
 
 export default RestaurateurProfile;

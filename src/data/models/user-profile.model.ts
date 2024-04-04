@@ -1,3 +1,4 @@
+import type Entity from "./entity.model";
 import type Favorite from "./favorite.model";
 import type Reservation from "./reservation.model";
 
@@ -14,7 +15,7 @@ import type Reservation from "./reservation.model";
  * @param {Date} createdAt - timestamp of the creation of the user profile
  * @param {Date} updatedAt - timestamp of the last update of the user profile
  */
-interface UserProfile {
+abstract class UserProfile implements Entity {
   id: string;
   userId: string;
   avatar?: string;
@@ -23,6 +24,8 @@ interface UserProfile {
   reservation: Reservation[];
   createdAt: Date;
   updatedAt: Date;
+
+  model = "UserProfile"
 }
 
 export default UserProfile;

@@ -1,3 +1,4 @@
+import type Entity from "./entity.model";
 import type RestaurantFeature from "./restaurant-feature.model";
 
 /**
@@ -8,10 +9,12 @@ import type RestaurantFeature from "./restaurant-feature.model";
  * @param {string} name - name of the category
  * @param {RestaurantFeature[]} feature - features in this category
  */
-interface Category {
+abstract class Category implements Entity {
   id: string;
   name: string;
   feature: RestaurantFeature[];
+
+  model = "Category"
 }
 
 export default Category;
