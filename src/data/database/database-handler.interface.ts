@@ -69,3 +69,49 @@ export abstract class DatabaseHandler<T extends Entity> {
    */
   abstract deleteMany(filter: Filter<T>): Promise<T[]>;
 }
+
+
+// abstract class UserDatabaseHandler extends DatabaseHandler<User> {
+//   // Add user-specific methods here
+
+
+// }
+
+
+// class UserPrismaHandler extends UserDatabaseHandler {
+
+//   constructor(
+//     private readonly prisma: PrismaClient,
+//   ) {
+//     super();
+//   }
+
+
+//   createOne(entity: User): Promise<User> {
+//     this.prisma.user.create({
+//       data: entity,
+//     });
+//   }
+//   createMany(entities: User[]): Promise<User[]> {
+//     throw new Error("Method not implemented.");
+//   }
+//   findOne(id: string): Promise<User> {
+//     throw new Error("Method not implemented.");
+//   }
+//   findMany(filter: Filter<User>, sort: Sort<User>, size: number, page: number): Promise<User[]> {
+//     throw new Error("Method not implemented.");
+//   }
+//   updateOne<T>(id: string, entity: Partial<T>): Promise<T> {
+//     throw new Error("Method not implemented.");
+//   }
+//   updateMany(filter: Filter<User>, entity: User): Promise<User[]> {
+//     throw new Error("Method not implemented.");
+//   }
+//   deleteOne(id: string): Promise<User> {
+//     throw new Error("Method not implemented.");
+//   }
+//   deleteMany(filter: Filter<User>): Promise<User[]> {
+//     throw new Error("Method not implemented.");
+//   }
+//   // Implement the abstract methods here
+// }
