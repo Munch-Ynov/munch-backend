@@ -13,8 +13,6 @@ abstract class Category implements Entity {
   id: string;
   name: string;
   feature: RestaurantFeature[];
-
-  model = "Category"
 }
 
 export default Category;

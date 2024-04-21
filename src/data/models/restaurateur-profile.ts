@@ -21,8 +21,6 @@ abstract class RestaurateurProfile implements Entity {
   restaurantId: string;
   createdAt: Date;
   updatedAt: Date;
-
-  model = "RestaurateurProfile"
 }
 
 export default RestaurateurProfile;

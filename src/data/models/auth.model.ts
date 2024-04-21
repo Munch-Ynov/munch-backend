@@ -1,4 +1,5 @@
 import type Entity from "./entity.model";
+import Role from "./enum/role-enum";
 
 /**
  * Model of the Auth
@@ -18,8 +19,6 @@ abstract class Auth implements Entity {
   createdAt: Date;
   updatedAt: Date;
   role: Role;
-
-  model = "Auth"
 }
 
 export default Auth;

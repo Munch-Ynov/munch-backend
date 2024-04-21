@@ -43,8 +43,6 @@ abstract class Restaurant implements Entity {
   createdAt: Date;
   updatedAt: Date;
   restaurateur: RestaurateurProfile[];
-
-  model = "Restaurant"
 }
 
 export default Restaurant;

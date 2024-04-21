@@ -20,8 +20,6 @@ abstract class Favorite implements Entity {
   restaurant: Restaurant;
   restaurantId: string;
   createdAt: Date;
-
-  model = "Favorite"
 }
 
 export default Favorite;

@@ -1,4 +1,1 @@
-export default interface Entity {
-  model: string;
-
-}
+export default interface Entity {}

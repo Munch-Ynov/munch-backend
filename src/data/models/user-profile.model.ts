@@ -18,14 +18,14 @@ import type Reservation from "./reservation.model";
 abstract class UserProfile implements Entity {
   id: string;
   userId: string;
+  name: string;
+  phone: string;
   avatar?: string;
   banner?: string;
   favorite: Favorite[];
   reservation: Reservation[];
   createdAt: Date;
   updatedAt: Date;
-
-  model = "UserProfile"
 }
 
 export default UserProfile;

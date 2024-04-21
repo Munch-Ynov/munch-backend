@@ -20,8 +20,6 @@ abstract class RestaurantFeature implements Entity {
   category: Category;
   categoryId: string;
   restaurant: Restaurant[];
-
-  model = "RestaurantFeature"
 }
 
 export default RestaurantFeature;

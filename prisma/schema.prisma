@@ -8,7 +8,6 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
 }
 
 model Restaurant {
@@ -79,6 +78,9 @@ model Auth {
 model UserProfile {
   // id of the auth
   id String @id @unique
+
+  name String
+  phone String?
 
   avatar String?
   banner String?

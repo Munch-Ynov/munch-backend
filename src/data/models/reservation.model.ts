@@ -1,4 +1,5 @@
 import type Entity from "./entity.model";
+import ReservationStatus from "./enum/reservation-status.enum";
 import type Restaurant from "./restaurant.model";
 import type UserProfile from "./user-profile.model";
 
@@ -28,8 +29,6 @@ abstract class Reservation implements Entity {
   restaurantId: string;
   createdAt: Date;
   updatedAt: Date;
-
-  model = "Reservation"
 }
 
 export default Reservation;

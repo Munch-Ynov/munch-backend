@@ -1,5 +1,6 @@
-enum Role {
-  ADMIN = "ADMIN",
-  RESTAURATEUR = "RESTAURATEUR",
+enum Role  {
   USER = "USER",
+  RESTAURATEUR = "RESTAURATEUR",
+  ADMIN = "ADMIN",
 }
+export default Role;

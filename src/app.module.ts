@@ -23,7 +23,7 @@ import { DatabaseModule } from "./data/database/database.module";
     {
       provide: APP_GUARD,
       useClass: RateLimiterGuard,
-    },
+    }
   ],
 })
 export class AppModule {
