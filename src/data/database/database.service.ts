@@ -10,6 +10,19 @@ export class DatabaseService {
     private readonly prisma: PrismaService,
     private readonly hashService: HashService
   ) {}
+  
+  async createAuth(email: string, password: string, role: Role) {
+    // Create auth
+    const encryptedPassword = await this.hashService.hashPassword(password);
+
+    return this.prisma.auth.create({
+      data: {
+        email,
+        password,
+        role,
+      },
+    });
+  }
 
   async createUser(
     authId: Auth["id"],
@@ -17,7 +30,7 @@ export class DatabaseService {
       name: string;
       avatar: string;
       banner: string;
-      phone: string;
+      phone?: string;
     }
   ) {
     // Create user
@@ -38,16 +51,26 @@ export class DatabaseService {
     return user;
   }
 
-  async createAuth(email: string, password: string, role: Role) {
-    // Create auth
-    const encryptedPassword = await this.hashService.hashPassword(password);
-
-    return this.prisma.auth.create({
+  async createRestaurantProfile(
+    authId: Auth["id"],
+    restaurantDTO: {
+      avatar: string;
+      banner: string;
+    }
+  ) {
+    // Create restaurant profile
+    const restaurant = await this.prisma.restaurateurProfile.create({
       data: {
-        email,
-        password,
-        role,
+        id: authId,
+        avatar: restaurantDTO.avatar,
+        banner: restaurantDTO.banner,
       },
     });
+
+    if (!restaurant) {
+      throw new InternalServerErrorException("Failed to create restaurant");
+    }
+
+    return restaurant;
   }
 }
