@@ -1,10 +1,11 @@
 /**
  * Enum for reservation status
  */
-enum ReservationStatus {
+enum ReservationStatusEnum {
   PENDING = 'PENDING',
   ACCEPTED = 'ACCEPTED',
   REFUSED = 'REFUSED',
 }
 
-export { ReservationStatus };
+export { ReservationStatusEnum };
+export type ReservationStatus = keyof typeof ReservationStatusEnum;

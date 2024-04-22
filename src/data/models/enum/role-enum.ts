@@ -1,7 +1,10 @@
-enum Role {
+enum RoleEnum {
   ADMIN = "ADMIN",
   RESTAURATEUR = "RESTAURATEUR",
   USER = "USER",
 }
 
-export { Role };
+export { RoleEnum };
+export type Role = keyof typeof RoleEnum;
+
+
