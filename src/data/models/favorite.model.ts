@@ -1,6 +1,6 @@
-import type Entity from "./entity.model";
-import type Restaurant from "./restaurant.model";
-import type UserProfile from "./user-profile.model";
+import type { Model } from "./base.model";
+import type { Restaurant } from "./restaurant.model";
+import type { UserProfile } from "./user-profile.model";
 
 /**
  * Model of the Favorite
@@ -13,15 +13,11 @@ import type UserProfile from "./user-profile.model";
  * @param {string} restaurantId - id of the restaurant : eg. abcdef123456
  * @param {Date} createdAt - timestamp of the creation of the favorite
  */
-abstract class Favorite implements Entity {
+abstract class Favorite implements Model {
   id: string;
-  user?: UserProfile;
   userId: string;
-  restaurant: Restaurant;
   restaurantId: string;
   createdAt: Date;
-
-  model = "Favorite"
 }
 
-export default Favorite;
+export { Favorite };

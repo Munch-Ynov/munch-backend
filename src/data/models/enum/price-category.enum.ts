@@ -8,4 +8,4 @@ enum PriceCategory {
   VERY_EXPENSIVE = "VERY_EXPENSIVE",
 }
 
-export default PriceCategory;
+export { PriceCategory };

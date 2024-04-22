@@ -1,13 +1,12 @@
-import type Entity from "./entity.model";
-import type Favorite from "./favorite.model";
-import type Reservation from "./reservation.model";
+import type { Model } from "./base.model";
+import type { Favorite } from "./favorite.model";
+import type { Reservation } from "./reservation.model";
 
 /**
  * Model of the UserProfile
  * @category Models
  * @interface UserProfile
  * @param {string} id - id of the profile : eg. abcdef123456
- * @param {string} userId - id of the user : eg. abcdef123456
  * @param {string} avatar - avatar of the user
  * @param {string} banner - banner of the user
  * @param {Favorite[]} favorite - favorites of the user
@@ -15,17 +14,13 @@ import type Reservation from "./reservation.model";
  * @param {Date} createdAt - timestamp of the creation of the user profile
  * @param {Date} updatedAt - timestamp of the last update of the user profile
  */
-abstract class UserProfile implements Entity {
+abstract class UserProfile implements Model {
   id: string;
-  userId: string;
   avatar?: string;
   banner?: string;
-  favorite: Favorite[];
-  reservation: Reservation[];
   createdAt: Date;
   updatedAt: Date;
-
-  model = "UserProfile"
+  deletedAt?: Date;
 }
 
-export default UserProfile;
+export { UserProfile };

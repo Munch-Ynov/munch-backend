@@ -8,14 +8,14 @@ import { ErrorHandlerMiddleware } from "@nest-middlewares/errorhandler";
 import { RateLimiterGuard, RateLimiterModule } from "nestjs-rate-limiter";
 import { APP_GUARD } from "@nestjs/core";
 import { HealthModule } from "./module/health/health.module";
-import { DatabaseModule } from "./data/database/database.module";
+import { RepositoryModule } from './data/repository/repository.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     RateLimiterModule,
     HealthModule,
-    DatabaseModule,
+    RepositoryModule,
   ],
   controllers: [AppController],
   providers: [

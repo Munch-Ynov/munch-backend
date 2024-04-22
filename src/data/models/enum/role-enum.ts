@@ -3,3 +3,5 @@ enum Role {
   RESTAURATEUR = "RESTAURATEUR",
   USER = "USER",
 }
+
+export { Role };

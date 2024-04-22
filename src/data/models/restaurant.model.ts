@@ -1,9 +1,9 @@
-import type Entity from "./entity.model";
-import type PriceCategory from "./enum/price-category.enum";
-import type Favorite from "./favorite.model";
-import type Reservation from "./reservation.model";
-import type RestaurantFeature from "./restaurant-feature.model";
-import type RestaurateurProfile from "./restaurateur-profile";
+import type { Model } from "./base.model";
+import type { PriceCategory } from "./enum/price-category.enum";
+import type { Favorite } from "./favorite.model";
+import type { Reservation } from "./reservation.model";
+import type { RestaurantFeature } from "./restaurant-feature.model";
+import type { RestaurateurProfile } from "./restaurateur-profile";
 
 /**
  * Model of the Restaurant
@@ -26,7 +26,7 @@ import type RestaurateurProfile from "./restaurateur-profile";
  * @param {Date} updatedAt - timestamp of the last update of the restaurant
  * @param {RestaurateurProfile[]} restaurateur - profiles of the restaurateurs
  */
-abstract class Restaurant implements Entity {
+abstract class Restaurant implements Model {
   id: string;
   name: string;
   address: string;
@@ -37,14 +37,10 @@ abstract class Restaurant implements Entity {
   code_postal: string;
   city: string;
   email: string;
-  features: RestaurantFeature[];
-  favorites: Favorite[];
-  reservations: Reservation[];
   createdAt: Date;
   updatedAt: Date;
-  restaurateur: RestaurateurProfile[];
-
-  model = "Restaurant"
+  deletedAt?: Date;
 }
 
-export default Restaurant;
+export { Restaurant };
+

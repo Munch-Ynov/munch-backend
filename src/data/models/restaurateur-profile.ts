@@ -1,5 +1,5 @@
-import type Entity from "./entity.model";
-import type Restaurant from "./restaurant.model";
+import type { Model } from "./base.model";
+import type { Restaurant } from "./restaurant.model";
 
 /**
  * Model of the RestaurateurProfile
@@ -13,16 +13,14 @@ import type Restaurant from "./restaurant.model";
  * @param {Date} createdAt - timestamp of the creation of the restaurant profile
  * @param {Date} updatedAt - timestamp of the last update of the restaurant profile
  */
-abstract class RestaurateurProfile implements Entity {
+abstract class RestaurateurProfile implements Model {
   id: string;
   avatar?: string;
   banner?: string;
-  restaurant: Restaurant;
   restaurantId: string;
   createdAt: Date;
   updatedAt: Date;
-
-  model = "RestaurateurProfile"
+  deletedAt?: Date;
 }
 
-export default RestaurateurProfile;
+export { RestaurateurProfile };

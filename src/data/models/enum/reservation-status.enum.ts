@@ -6,3 +6,5 @@ enum ReservationStatus {
   ACCEPTED = 'ACCEPTED',
   REFUSED = 'REFUSED',
 }
+
+export { ReservationStatus };

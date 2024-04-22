@@ -1,8 +1,7 @@
-import type Entity from "./entity.model";
-import type Restaurant from "./restaurant.model";
-import type UserProfile from "./user-profile.model";
-
-/**
+import type { Model } from "./base.model";
+import type { ReservationStatus } from "./enum";
+import type { Restaurant } from "./restaurant.model";
+import type { UserProfile } from "./user-profile.model";/**
  * Model of the Reservation
  * @category Models
  * @interface Reservation
@@ -17,19 +16,15 @@ import type UserProfile from "./user-profile.model";
  * @param {Date} createdAt - timestamp of the creation of the reservation
  * @param {Date} updatedAt - timestamp of the last update of the reservation
  */
-abstract class Reservation implements Entity {
+abstract class Reservation implements Model {
   id: string;
   date: Date;
   nb_people: number;
   status: ReservationStatus;
-  user?: UserProfile;
   userId?: string;
-  restaurant: Restaurant;
   restaurantId: string;
   createdAt: Date;
   updatedAt: Date;
-
-  model = "Reservation"
 }
+export { Reservation };
 
-export default Reservation;
