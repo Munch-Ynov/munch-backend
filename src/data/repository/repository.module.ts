@@ -55,5 +55,15 @@ import { PrismaService } from './prisma/prisma.service';
       useClass: UserPrismaRepository,
     }
   ],
+  exports: [
+    AuthRepository,
+    CategoryRepository,
+    FavoriteRepository,
+    ReservationRepository,
+    RestaurantRepository,
+    RestaurantFeatureRepository,
+    RestaurateurRepository,
+    UserRepository
+  ]
 })
 export class RepositoryModule { }
