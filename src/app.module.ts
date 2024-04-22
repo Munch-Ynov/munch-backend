@@ -9,6 +9,7 @@ import { RateLimiterGuard, RateLimiterModule } from "nestjs-rate-limiter";
 import { APP_GUARD } from "@nestjs/core";
 import { HealthModule } from "./module/health/health.module";
 import { DatabaseModule } from "./data/database/database.module";
+import { SeederModule } from "./data/seeder/seeder.module";
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { DatabaseModule } from "./data/database/database.module";
     RateLimiterModule,
     HealthModule,
     DatabaseModule,
+    SeederModule,
   ],
   controllers: [AppController],
   providers: [
@@ -23,7 +25,7 @@ import { DatabaseModule } from "./data/database/database.module";
     {
       provide: APP_GUARD,
       useClass: RateLimiterGuard,
-    }
+    },
   ],
 })
 export class AppModule {

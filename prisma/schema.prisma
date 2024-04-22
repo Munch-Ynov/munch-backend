@@ -79,9 +79,9 @@ model UserProfile {
   // id of the auth
   id String @id @unique
 
-  name  String
-  phone String?
-
+  name   String
+  phone  String?
+  // 
   avatar String?
   banner String?
 
