@@ -5,7 +5,7 @@ import type { Mapper } from "src/data/mapper/base.mapper";
 import type { Filter, PageableRequest } from "src/data/util";
 import { Pageable } from "src/data/util";
 
-export class PrismaRepository<M extends Model, D> implements Repository<M> {
+export abstract class PrismaRepository<M extends Model, D> implements Repository<M> {
   private $prisma;
   private $mapper: Mapper<M, D>;
 

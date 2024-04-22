@@ -1,8 +1,8 @@
 import type { Reservation } from "src/data/models";
-import type { Repository } from "./base.repository";
+import { Repository } from "./base.repository";
 
-interface ReservationRepository extends Repository<Reservation> {
-  findByUserId(userId: string): Promise<Reservation>;
+abstract class ReservationRepository extends Repository<Reservation> {
+  abstract findByUserId(userId: string): Promise<Reservation>;
 }
 
-export type { ReservationRepository };
+export { ReservationRepository };

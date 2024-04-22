@@ -59,13 +59,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/AppModule.html" data-type="entity-link" >AppModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
-                                            'data-bs-target="#controllers-links-module-AppModule-b0e7df26e0ad695cac84591a3d2ac4be8f47433caec43d2a30cb59f928f5ea132895e88de941e013bd18dd75864204c10fd6420d9ab6a1abadc6c18855eb6a05"' : 'data-bs-target="#xs-controllers-links-module-AppModule-b0e7df26e0ad695cac84591a3d2ac4be8f47433caec43d2a30cb59f928f5ea132895e88de941e013bd18dd75864204c10fd6420d9ab6a1abadc6c18855eb6a05"' }>
+                                            'data-bs-target="#controllers-links-module-AppModule-398282d0bda4795838f087307df06de268eeef659a1142765f39805165d39527b36f00e3076ab34acac11d67f8decda397c49e20ee882deab8eac4b08b27f28c"' : 'data-bs-target="#xs-controllers-links-module-AppModule-398282d0bda4795838f087307df06de268eeef659a1142765f39805165d39527b36f00e3076ab34acac11d67f8decda397c49e20ee882deab8eac4b08b27f28c"' }>
                                             <span class="icon ion-md-swap"></span>
                                             <span>Controllers</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="controllers-links-module-AppModule-b0e7df26e0ad695cac84591a3d2ac4be8f47433caec43d2a30cb59f928f5ea132895e88de941e013bd18dd75864204c10fd6420d9ab6a1abadc6c18855eb6a05"' :
-                                            'id="xs-controllers-links-module-AppModule-b0e7df26e0ad695cac84591a3d2ac4be8f47433caec43d2a30cb59f928f5ea132895e88de941e013bd18dd75864204c10fd6420d9ab6a1abadc6c18855eb6a05"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="controllers-links-module-AppModule-398282d0bda4795838f087307df06de268eeef659a1142765f39805165d39527b36f00e3076ab34acac11d67f8decda397c49e20ee882deab8eac4b08b27f28c"' :
+                                            'id="xs-controllers-links-module-AppModule-398282d0bda4795838f087307df06de268eeef659a1142765f39805165d39527b36f00e3076ab34acac11d67f8decda397c49e20ee882deab8eac4b08b27f28c"' }>
                                             <li class="link">
                                                 <a href="controllers/AppController.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >AppController</a>
                                             </li>
@@ -73,13 +73,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     </li>
                                 <li class="chapter inner">
                                     <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ?
-                                        'data-bs-target="#injectables-links-module-AppModule-b0e7df26e0ad695cac84591a3d2ac4be8f47433caec43d2a30cb59f928f5ea132895e88de941e013bd18dd75864204c10fd6420d9ab6a1abadc6c18855eb6a05"' : 'data-bs-target="#xs-injectables-links-module-AppModule-b0e7df26e0ad695cac84591a3d2ac4be8f47433caec43d2a30cb59f928f5ea132895e88de941e013bd18dd75864204c10fd6420d9ab6a1abadc6c18855eb6a05"' }>
+                                        'data-bs-target="#injectables-links-module-AppModule-398282d0bda4795838f087307df06de268eeef659a1142765f39805165d39527b36f00e3076ab34acac11d67f8decda397c49e20ee882deab8eac4b08b27f28c"' : 'data-bs-target="#xs-injectables-links-module-AppModule-398282d0bda4795838f087307df06de268eeef659a1142765f39805165d39527b36f00e3076ab34acac11d67f8decda397c49e20ee882deab8eac4b08b27f28c"' }>
                                         <span class="icon ion-md-arrow-round-down"></span>
                                         <span>Injectables</span>
                                         <span class="icon ion-ios-arrow-down"></span>
                                     </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-AppModule-b0e7df26e0ad695cac84591a3d2ac4be8f47433caec43d2a30cb59f928f5ea132895e88de941e013bd18dd75864204c10fd6420d9ab6a1abadc6c18855eb6a05"' :
-                                        'id="xs-injectables-links-module-AppModule-b0e7df26e0ad695cac84591a3d2ac4be8f47433caec43d2a30cb59f928f5ea132895e88de941e013bd18dd75864204c10fd6420d9ab6a1abadc6c18855eb6a05"' }>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-module-AppModule-398282d0bda4795838f087307df06de268eeef659a1142765f39805165d39527b36f00e3076ab34acac11d67f8decda397c49e20ee882deab8eac4b08b27f28c"' :
+                                        'id="xs-injectables-links-module-AppModule-398282d0bda4795838f087307df06de268eeef659a1142765f39805165d39527b36f00e3076ab34acac11d67f8decda397c49e20ee882deab8eac4b08b27f28c"' }>
                                         <li class="link">
                                             <a href="injectables/AppService.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >AppService</a>
                                         </li>
@@ -103,6 +103,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         </ul>
                                     </li>
                             </li>
+                            <li class="link">
+                                <a href="modules/RepositoryModule.html" data-type="entity-link" >RepositoryModule</a>
+                            </li>
                 </ul>
                 </li>
                         <li class="chapter">
@@ -121,6 +124,73 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                             </ul>
                         </li>
+                    <li class="chapter">
+                        <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ? 'data-bs-target="#classes-links"' :
+                            'data-bs-target="#xs-classes-links"' }>
+                            <span class="icon ion-ios-paper"></span>
+                            <span>Classes</span>
+                            <span class="icon ion-ios-arrow-down"></span>
+                        </div>
+                        <ul class="links collapse " ${ isNormalMode ? 'id="classes-links"' : 'id="xs-classes-links"' }>
+                            <li class="link">
+                                <a href="classes/Auth.html" data-type="entity-link" >Auth</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/AuthPrismaRepository.html" data-type="entity-link" >AuthPrismaRepository</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/Category.html" data-type="entity-link" >Category</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/CategoryPrismaRepository.html" data-type="entity-link" >CategoryPrismaRepository</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/Favorite.html" data-type="entity-link" >Favorite</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/FavoritePrismaRepository.html" data-type="entity-link" >FavoritePrismaRepository</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/Pageable.html" data-type="entity-link" >Pageable</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/PrismaRepository.html" data-type="entity-link" >PrismaRepository</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/Reservation.html" data-type="entity-link" >Reservation</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/ReservationPrismaRepository.html" data-type="entity-link" >ReservationPrismaRepository</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/Restaurant.html" data-type="entity-link" >Restaurant</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/RestaurantFeature.html" data-type="entity-link" >RestaurantFeature</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/RestaurantFeaturePrismaRepository.html" data-type="entity-link" >RestaurantFeaturePrismaRepository</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/RestaurantPrismaRepository.html" data-type="entity-link" >RestaurantPrismaRepository</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/RestaurateurPrismaRepository.html" data-type="entity-link" >RestaurateurPrismaRepository</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/RestaurateurProfile.html" data-type="entity-link" >RestaurateurProfile</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/Sort.html" data-type="entity-link" >Sort</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/UserPrismaRepository.html" data-type="entity-link" >UserPrismaRepository</a>
+                            </li>
+                            <li class="link">
+                                <a href="classes/UserProfile.html" data-type="entity-link" >UserProfile</a>
+                            </li>
+                        </ul>
+                    </li>
                         <li class="chapter">
                             <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ? 'data-bs-target="#injectables-links"' :
                                 'data-bs-target="#xs-injectables-links"' }>
@@ -131,6 +201,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <ul class="links collapse " ${ isNormalMode ? 'id="injectables-links"' : 'id="xs-injectables-links"' }>
                                 <li class="link">
                                     <a href="injectables/AppService.html" data-type="entity-link" >AppService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/PrismaService.html" data-type="entity-link" >PrismaService</a>
                                 </li>
                             </ul>
                         </li>
@@ -143,28 +216,40 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
                             <li class="link">
-                                <a href="interfaces/Auth.html" data-type="entity-link" >Auth</a>
+                                <a href="interfaces/AuthRepository.html" data-type="entity-link" >AuthRepository</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/Category.html" data-type="entity-link" >Category</a>
+                                <a href="interfaces/CategoryRepository.html" data-type="entity-link" >CategoryRepository</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/Favorite.html" data-type="entity-link" >Favorite</a>
+                                <a href="interfaces/FavoriteRepository.html" data-type="entity-link" >FavoriteRepository</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/Reservation.html" data-type="entity-link" >Reservation</a>
+                                <a href="interfaces/Mapper.html" data-type="entity-link" >Mapper</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/Restaurant.html" data-type="entity-link" >Restaurant</a>
+                                <a href="interfaces/Model.html" data-type="entity-link" >Model</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/RestaurantFeature.html" data-type="entity-link" >RestaurantFeature</a>
+                                <a href="interfaces/PageableRequest.html" data-type="entity-link" >PageableRequest</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/RestaurateurProfile.html" data-type="entity-link" >RestaurateurProfile</a>
+                                <a href="interfaces/Repository.html" data-type="entity-link" >Repository</a>
                             </li>
                             <li class="link">
-                                <a href="interfaces/UserProfile.html" data-type="entity-link" >UserProfile</a>
+                                <a href="interfaces/ReservationRepository.html" data-type="entity-link" >ReservationRepository</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/RestaurantFeatureRepository.html" data-type="entity-link" >RestaurantFeatureRepository</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/RestaurantRepository.html" data-type="entity-link" >RestaurantRepository</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/RestaurateurRepository.html" data-type="entity-link" >RestaurateurRepository</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/UserRepository.html" data-type="entity-link" >UserRepository</a>
                             </li>
                         </ul>
                     </li>
@@ -181,6 +266,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="miscellaneous/functions.html" data-type="entity-link">Functions</a>
+                            </li>
+                            <li class="link">
+                                <a href="miscellaneous/typealiases.html" data-type="entity-link">Type aliases</a>
+                            </li>
+                            <li class="link">
+                                <a href="miscellaneous/variables.html" data-type="entity-link">Variables</a>
                             </li>
                         </ul>
                     </li>

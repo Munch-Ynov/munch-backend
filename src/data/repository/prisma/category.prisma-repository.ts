@@ -5,8 +5,9 @@ import { PrismaRepository } from "./base.prisma-repository";
 import { PrismaService } from "./prisma.service";
 import { CategoryMapper } from "src/data/mapper/prisma";
 import type { Category as PrismaCategory } from '@prisma/client';
+import { Injectable } from "@nestjs/common";
 
-
+@Injectable()
 export class CategoryPrismaRepository extends PrismaRepository<Category, PrismaCategory> implements CategoryRepository {
   constructor(private prisma: PrismaService) {
     super(prisma.category, CategoryMapper);

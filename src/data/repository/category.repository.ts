@@ -1,8 +1,8 @@
 import type { Category } from "src/data/models";
-import type { Repository } from "./base.repository";
+import { Repository } from "./base.repository";
 
-interface CategoryRepository extends Repository<Category> {
-  findByName(name: string): Promise<Category>;
+abstract class CategoryRepository extends Repository<Category> {
+  abstract findByName(name: string): Promise<Category>;
 }
 
-export type { CategoryRepository };
+export { CategoryRepository };

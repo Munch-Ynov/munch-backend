@@ -1,7 +1,7 @@
 import type { UserProfile } from "src/data/models";
-import type { Repository } from "./base.repository";
+import { Repository } from "./base.repository";
 
 
-interface UserRepository extends Repository<UserProfile> { }
+abstract class UserRepository extends Repository<UserProfile> { }
 
-export type { UserRepository };
+export { UserRepository };

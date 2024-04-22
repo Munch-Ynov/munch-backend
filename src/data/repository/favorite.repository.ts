@@ -1,9 +1,9 @@
 import type { Favorite } from "src/data/models";
-import type { Repository } from "./base.repository";
+import { Repository } from "./base.repository";
 
-interface FavoriteRepository extends Repository<Favorite> {
-  findByUserId(userId: string): Promise<Favorite>;
+abstract class FavoriteRepository extends Repository<Favorite> {
+  abstract findByUserId(userId: string): Promise<Favorite>;
 }
 
-export type { FavoriteRepository };
+export { FavoriteRepository };
 

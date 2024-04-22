@@ -1,8 +1,8 @@
 import type { Auth } from "src/data/models";
-import type { Repository } from "./base.repository";
+import { Repository } from "./base.repository";
 
-interface AuthRepository extends Repository<Auth> {
-  findByEmail(email: string): Promise<Auth>;
+abstract class AuthRepository extends Repository<Auth> {
+  abstract findByEmail(email: string): Promise<Auth>;
 }
 
-export type { AuthRepository };
+export { AuthRepository };

@@ -1,8 +1,7 @@
 import type { RestaurantFeature } from "src/data/models";
-import type { Repository } from "./base.repository";
-import type { Pageable } from "../util";
+import { Repository } from "./base.repository";
 
-interface RestaurantFeatureRepository extends Repository<RestaurantFeature> {
+abstract class RestaurantFeatureRepository extends Repository<RestaurantFeature> {
 }
 
-export type { RestaurantFeatureRepository };
+export { RestaurantFeatureRepository };

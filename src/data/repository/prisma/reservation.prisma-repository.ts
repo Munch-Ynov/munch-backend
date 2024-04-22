@@ -5,8 +5,9 @@ import { PrismaRepository } from "./base.prisma-repository";
 import { PrismaService } from "./prisma.service";
 import { ReservationMapper } from "src/data/mapper/prisma";
 import type { Reservation as PrismaReservation } from '@prisma/client';
+import { Injectable } from "@nestjs/common";
 
-
+@Injectable()
 export class ReservationPrismaRepository extends PrismaRepository<Reservation, PrismaReservation> implements ReservationRepository {
   constructor(private prisma: PrismaService) {
     super(prisma.reservation, ReservationMapper);

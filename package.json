@@ -10,6 +10,8 @@
     "init": "npm install && npx prisma generate",
     "start": "nest start -b swc --type-check",
     "dev": "npm run start:dev",
+    "doc:generate": "compodoc -p tsconfig.json",
+    "doc:serve": "compodoc -s",
     "start:dev": "nest start -b swc --type-check -w",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
