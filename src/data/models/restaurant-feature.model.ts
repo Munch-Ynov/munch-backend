@@ -1,5 +1,4 @@
 import type { Model } from "./base.model";
-import type { Category } from "./category.model";
 
 /**
  * Model of the RestaurantFeature

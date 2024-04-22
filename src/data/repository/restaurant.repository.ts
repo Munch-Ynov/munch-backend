@@ -4,5 +4,5 @@ import { Repository } from "./base.repository";
 abstract class RestaurantRepository extends Repository<Restaurant> {
 }
 
-export type { RestaurantRepository };
+export { RestaurantRepository };
 

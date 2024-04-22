@@ -3,7 +3,8 @@ import type { RestaurantFeatureRepository } from "..";
 import { PrismaRepository } from "./base.prisma-repository";
 import type { RestaurantFeature as PrismaRestaurantFeature } from '@prisma/client';
 import { RestaurantFeatureMapper } from "src/data/mapper/prisma";
-import type { PrismaService } from "./prisma.service";
+// biome-ignore lint/style/useImportType: <explanation>
+import { PrismaService } from "./prisma.service";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()

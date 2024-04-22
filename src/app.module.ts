@@ -28,13 +28,13 @@ import { RepositoryModule } from './data/repository/repository.module';
 })
 export class AppModule {
   configure(consumer: import("@nestjs/common").MiddlewareConsumer) {
+    ErrorHandlerMiddleware.configure({
+      log: false,
+    });
+    // consumer.apply(ErrorHandlerMiddleware).forRoutes("*");
     HelmetMiddleware.configure({});
     consumer.apply(HelmetMiddleware).forRoutes("*");
     CookieParserMiddleware.configure("MySecret");
     consumer.apply(CookieParserMiddleware).forRoutes("*");
-    ErrorHandlerMiddleware.configure({
-      log: false,
-    });
-    consumer.apply(ErrorHandlerMiddleware).forRoutes("*");
   }
 }
