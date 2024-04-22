@@ -86,7 +86,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content injectable">
+               <div class="content class">
                    <div class="content-data">
 
 
@@ -96,9 +96,13 @@
 
 
 
+
+
+
+
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Injectables</li>
-  <li class="breadcrumb-item" >AppService</li>
+  <li class="breadcrumb-item">Classes</li>
+  <li class="breadcrumb-item" >Category</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -122,28 +126,47 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app.service.ts</code>
+            <code>src/data/models/category.model.ts</code>
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Model of the Category</p>
 
+            </p>
+
+
+            <p class="comment">
+                <h3>Implements</h3>
+            </p>
+            <p class="comment">
+                            <code><a href="../interfaces/Entity.html" target="_self" >Entity</a></code>
+            </p>
 
 
             <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
-
                 <tr>
                     <td class="col-md-4">
-                        <h6><b>Methods</b></h6>
+                        <h6><b>Properties</b></h6>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getHello" >getHello</a>
+                                <a href="#feature" >feature</a>
+                            </li>
+                            <li>
+                                <a href="#id" >id</a>
+                            </li>
+                            <li>
+                                <a href="#name" >name</a>
                             </li>
                         </ul>
                     </td>
@@ -153,76 +176,126 @@
 
 
 
+
         </tbody>
     </table>
 </section>
 
 
-            <section data-compodoc="block-methods">
+            <section data-compodoc="block-properties">
     
-    <h3 id="methods">
-        Methods
+    <h3 id="inputs">
+        Properties
     </h3>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getHello"></a>
+                    <a name="feature"></a>
                     <span class="name">
-                        <span ><b>getHello</b></span>
-                        <a href="#getHello"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>feature</b></span>
+                        <a href="#feature"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getHello()</code>
-                </td>
-            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>RestaurantFeature[]</code>
 
-
+                    </td>
+                </tr>
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="6"
-                                    class="link-to-prism">src/app.service.ts:6</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/data/models/category.model.ts:15</a></div>
                         </td>
                     </tr>
 
 
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
             <tr>
                 <td class="col-md-4">
-
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                        </div>
+                    <a name="id"></a>
+                    <span class="name">
+                        <span ><b>id</b></span>
+                        <a href="#id"><span class="icon ion-ios-link"></span></a>
+                    </span>
                 </td>
             </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/data/models/category.model.ts:13</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="name"></a>
+                    <span class="name">
+                        <span ><b>name</b></span>
+                        <a href="#name"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/data/models/category.model.ts:14</a></div>
+                        </td>
+                    </tr>
+
+
         </tbody>
     </table>
 </section>
+
+
+
+
+
+
 
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Entity } from &quot;./entity.model&quot;;
+import { RestaurantFeature } from &quot;./restaurant-feature.model&quot;;
 
-@Injectable()
-export class AppService {
-
-  getHello(): string {
-    return &#x27;Hello World!&#x27;;
-  }
+/**
+ * Model of the Category
+ * @category Models
+ * @interface Category
+ * @param {string} id - id of the category : eg. abcdef123456
+ * @param {string} name - name of the category
+ * @param {RestaurantFeature[]} feature - features in this category
+ */
+export abstract class Category implements Entity {
+  id: string;
+  name: string;
+  feature: RestaurantFeature[];
 }
 </code></pre>
     </div>
-
 </div>
-
-
-
-
 
 
 
@@ -257,8 +330,8 @@ export class AppService {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'AppService.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'Category.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

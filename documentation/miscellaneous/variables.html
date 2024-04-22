@@ -86,7 +86,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content injectable">
+               <div class="content miscellaneous-variables">
                    <div class="content-data">
 
 
@@ -96,139 +96,212 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 <ol class="breadcrumb">
-  <li class="breadcrumb-item">Injectables</li>
-  <li class="breadcrumb-item" >AppService</li>
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Variables</li>
 </ol>
 
-<ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-            <a href="#info" 
-                class="nav-link"
-                class="nav-link active"
-                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
-        </li>
-        <li class="nav-item">
-            <a href="#source" 
-                class="nav-link"
-                
-                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
-        </li>
-</ul>
-
-<div class="tab-content">
-    <div class="tab-pane fade active in" id="info">
-        <p class="comment">
-            <h3>File</h3>
-        </p>
-        <p class="comment">
-            <code>src/app.service.ts</code>
-        </p>
-
-
-
-
-
-            <section data-compodoc="block-index">
+<section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
-
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Methods</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                <a href="#getHello" >getHello</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
-
-
-
-
-
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#adminSeeder" title="src/data/seeder/profile.seeder.ts" ><b>adminSeeder</b>&nbsp;&nbsp;&nbsp;(src/.../profile.seeder.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#categoriesFeaturesSeeder" title="src/data/seeder/features.seeder.ts" ><b>categoriesFeaturesSeeder</b>&nbsp;&nbsp;&nbsp;(src/.../features.seeder.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#featuresSeeder" title="src/data/seeder/features.seeder.ts" ><b>featuresSeeder</b>&nbsp;&nbsp;&nbsp;(src/.../features.seeder.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#restaurantSeeder" title="src/data/seeder/profile.seeder.ts" ><b>restaurantSeeder</b>&nbsp;&nbsp;&nbsp;(src/.../profile.seeder.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#userSeeder" title="src/data/seeder/profile.seeder.ts" ><b>userSeeder</b>&nbsp;&nbsp;&nbsp;(src/.../profile.seeder.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
 </section>
 
+    <h3>src/data/seeder/profile.seeder.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="adminSeeder"></a>
+                    <span class="name">
+                        <span ><b>adminSeeder</b></span>
+                        <a href="#adminSeeder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  email: &quot;admin@munch.com&quot;,
+  password: &quot;admin&quot;,
+  name: &quot;Administrator&quot;,
+  avatar: &quot;https://api.dicebear.com/8.x/shapes/svg?seed&#x3D;Sugar&quot;,
+  banner: &quot;https://picsum.photos/seed/munch/800&quot;,
+}</code>
+                    </td>
+                </tr>
 
-            <section data-compodoc="block-methods">
-    
-    <h3 id="methods">
-        Methods
-    </h3>
+
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getHello"></a>
+                    <a name="restaurantSeeder"></a>
                     <span class="name">
-                        <span ><b>getHello</b></span>
-                        <a href="#getHello"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>restaurantSeeder</b></span>
+                        <a href="#restaurantSeeder"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  email: &quot;restaurateur@test.com&quot;,
+  password: &quot;restaurateur&quot;,
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
             <tr>
                 <td class="col-md-4">
-<code>getHello()</code>
+                    <a name="userSeeder"></a>
+                    <span class="name">
+                        <span ><b>userSeeder</b></span>
+                        <a href="#userSeeder"><span class="icon ion-ios-link"></span></a>
+                    </span>
                 </td>
             </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  email: &quot;client@test.com&quot;,
+  password: &quot;client&quot;,
+  name: &quot;Client&quot;,
+  avatar: &quot;https://api.dicebear.com/8.x/shapes/svg?seed&#x3D;Client&quot;,
+  banner: &quot;https://picsum.photos/seed/client/800&quot;,
+  phone: &quot;+33612345678&quot;,
+}</code>
+                    </td>
+                </tr>
 
 
-                    <tr>
-                        <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="6"
-                                    class="link-to-prism">src/app.service.ts:6</a></div>
-                        </td>
-                    </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                        <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                        </div>
-                </td>
-            </tr>
         </tbody>
     </table>
 </section>
+    <h3>src/data/seeder/features.seeder.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categoriesFeaturesSeeder"></a>
+                    <span class="name">
+                        <span ><b>categoriesFeaturesSeeder</b></span>
+                        <a href="#categoriesFeaturesSeeder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
 
-    </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  {
+    index: 0,
+    name: &quot;Régime alimentaire&quot;,
+  },
+  {
+    index: 1,
+    name: &quot;Type de cuisine&quot;,
+  },
+  {
+    index: 2,
+    name: &quot;Type d&#x27;établissement&quot;,
+  },
+]</code>
+                    </td>
+                </tr>
 
 
-    <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="featuresSeeder"></a>
+                    <span class="name">
+                        <span ><b>featuresSeeder</b></span>
+                        <a href="#featuresSeeder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  {
+    name: &quot;Végétarien&quot;,
+    icon: &quot;🥦&quot;,
+  },
+  {
+    name: &quot;Vegan&quot;,
+    icon: &quot;🌱&quot;,
+  },
+  {
+    name: &quot;Sans gluten&quot;,
+    icon: &quot;🌾&quot;,
+  },
+  {
+    name: &quot;Halal&quot;,
+    icon: &quot;🥩&quot;,
+  },
+  {
+    name: &quot;Cacherout&quot;,
+    icon: &quot;🔯&quot;,
+  },
+] as RestaurantFeature[]</code>
+                    </td>
+                </tr>
 
-@Injectable()
-export class AppService {
 
-  getHello(): string {
-    return &#x27;Hello World!&#x27;;
-  }
-}
-</code></pre>
-    </div>
-
-</div>
-
-
-
-
-
-
-
-
-
-
+        </tbody>
+    </table>
+</section>
 
 
 
@@ -257,8 +330,8 @@ export class AppService {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'AppService.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

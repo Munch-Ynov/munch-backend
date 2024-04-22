@@ -1,19 +1,13 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { PrismaService } from "./prisma/prisma.service";
-import { HashService } from "src/util/hash/hash.service";
-import { Auth, Role } from "../models";
+import { Auth, Category, RestaurantFeature, Role } from "../models";
 
 @Injectable()
 export class DatabaseService {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly hashService: HashService
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async createAuth(email: string, password: string, role: Role) {
     // Create auth
-    const encryptedPassword = await this.hashService.hashPassword(password);
-
     return this.prisma.auth.create({
       data: {
         email,
@@ -33,7 +27,7 @@ export class DatabaseService {
     }
   ) {
     // Create user
-    const user = await this.prisma.userProfile.create({
+    return this.prisma.userProfile.create({
       data: {
         id: authId,
         name: userDTO.name,
@@ -42,12 +36,6 @@ export class DatabaseService {
         phone: userDTO.phone,
       },
     });
-
-    if (!user) {
-      throw new InternalServerErrorException("Failed to create user");
-    }
-
-    return user;
   }
 
   async createRestaurantProfile(
@@ -58,18 +46,42 @@ export class DatabaseService {
     }
   ) {
     // Create restaurant profile
-    const restaurant = await this.prisma.restaurateurProfile.create({
+    return this.prisma.restaurateurProfile.create({
       data: {
         id: authId,
         avatar: restaurantDTO.avatar,
         banner: restaurantDTO.banner,
       },
     });
+  }
 
-    if (!restaurant) {
-      throw new InternalServerErrorException("Failed to create restaurant");
-    }
+  async createCategoriesFeatures(categories: string[]) {
+    // Create categories
+    return this.prisma.category.createMany({
+      data: categories.map((category) => ({
+        name: category,
+      })),
+    });
+  }
 
-    return restaurant;
+  async createFeatures(
+    features: Omit<
+      RestaurantFeature,
+      "id" | "icon" | "category" | "restaurant" | "categoryId"
+    >[],
+    categoryId: Category["id"]
+  ) {
+    // Create features
+    return this.prisma.restaurantFeature.createMany({
+      data: features.map((feature) => ({
+        ...feature,
+        categoryId,
+      })),
+    });
+  }
+
+  async getCategories() {
+    // Get categories
+    return this.prisma.category.findMany();
   }
 }

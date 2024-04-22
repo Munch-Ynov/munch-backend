@@ -98,7 +98,7 @@
 
 <ol class="breadcrumb">
   <li class="breadcrumb-item">Injectables</li>
-  <li class="breadcrumb-item" >AppService</li>
+  <li class="breadcrumb-item" >PrismaService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -122,11 +122,17 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app.service.ts</code>
+            <code>src/data/database/prisma/prisma.service.ts</code>
         </p>
 
 
 
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                        <code>PrismaClient</code>
+            </p>
 
 
             <section data-compodoc="block-index">
@@ -143,7 +149,8 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getHello" >getHello</a>
+                                    <span class="modifier">Async</span>
+                                <a href="#onModuleInit" >onModuleInit</a>
                             </li>
                         </ul>
                     </td>
@@ -167,16 +174,18 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getHello"></a>
+                    <a name="onModuleInit"></a>
                     <span class="name">
-                        <span ><b>getHello</b></span>
-                        <a href="#getHello"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier">Async</span>
+                        <span ><b>onModuleInit</b></span>
+                        <a href="#onModuleInit"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getHello()</code>
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onModuleInit()</code>
                 </td>
             </tr>
 
@@ -184,7 +193,7 @@
                     <tr>
                         <td class="col-md-4">
                             <div class="io-line">Defined in <a href="" data-line="6"
-                                    class="link-to-prism">src/app.service.ts:6</a></div>
+                                    class="link-to-prism">src/data/database/prisma/prisma.service.ts:6</a></div>
                         </td>
                     </tr>
 
@@ -193,7 +202,7 @@
                 <td class="col-md-4">
 
                         <div class="io-description">
-                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
                 </td>
@@ -206,13 +215,13 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, OnModuleInit } from &quot;@nestjs/common&quot;;
+import { PrismaClient } from &quot;@prisma/client&quot;;
 
 @Injectable()
-export class AppService {
-
-  getHello(): string {
-    return &#x27;Hello World!&#x27;;
+export class PrismaService extends PrismaClient implements OnModuleInit {
+  async onModuleInit() {
+    await this.$connect();
   }
 }
 </code></pre>
@@ -258,7 +267,7 @@ export class AppService {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'AppService.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'PrismaService.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

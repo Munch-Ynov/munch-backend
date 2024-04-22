@@ -1,6 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { DatabaseService } from "../database/database.service";
 import { adminSeeder, userSeeder, restaurantSeeder } from "./profile.seeder";
+import {
+  categoriesFeaturesSeeder,
+  cuisineSeeder,
+  etablissementSeeder,
+  regimeSeeder,
+} from "./features.seeder";
 import { Role } from "src/data/models/enum";
 
 @Injectable()
@@ -12,6 +18,11 @@ export class SeederService {
     await this.seedAdmin();
     await this.seedUsers();
     await this.seedRestaurantProfiles();
+    // await this.seedRestaurants();
+    await this.seedCategories();
+    await this.seedRestaurantFeatures();
+    // await this.seedReservations();
+    // await this.seedFavorites();
   }
 
   async seedAdmin() {
@@ -92,12 +103,59 @@ export class SeederService {
     // Seed restaurants here
   }
 
-  async seedRestaurantFeatures() {
-    // Seed restaurant features here
-  }
-
   async seedCategories() {
     // Seed categories here
+    const categories = await this.db.createCategoriesFeatures(
+      categoriesFeaturesSeeder
+    );
+    if (categories) {
+      return Promise.resolve();
+    } else {
+      throw new Error("Failed to create categories");
+    }
+  }
+
+  async seedRestaurantFeatures() {
+    // Seed restaurant features here
+    const categories = await this.db.getCategories();
+    if (!categories) {
+      throw new Error("Failed to get categories");
+    }
+
+    const regimeCategory = categories.find(
+      (category) => category.name === "Régime alimentaire"
+    );
+    const cuisineCategory = categories.find(
+      (category) => category.name === "Type de cuisine"
+    );
+    const etablissementCategory = categories.find(
+      (category) => category.name === "Type d'établissement"
+    );
+
+    if (!regimeCategory || !cuisineCategory || !etablissementCategory) {
+      throw new Error("Failed to get categories");
+    }
+
+    const regimeFeatures = await this.db.createFeatures(
+      regimeSeeder,
+      regimeCategory.id
+    );
+
+    const cuisineFeatures = await this.db.createFeatures(
+      cuisineSeeder.map((name) => ({ name })),
+      cuisineCategory.id
+    );
+
+    const etablissementFeatures = await this.db.createFeatures(
+      etablissementSeeder.map((name) => ({ name })),
+      etablissementCategory.id
+    );
+
+    if (regimeFeatures && cuisineFeatures && etablissementFeatures) {
+      return Promise.resolve();
+    } else {
+      throw new Error("Failed to create features");
+    }
   }
 
   async seedReservations() {
