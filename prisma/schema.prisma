@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Restaurant {
@@ -72,14 +72,14 @@ model Auth {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  role      Role     @default(USER)
+  role      Role
 }
 
 model UserProfile {
   // id of the auth
   id String @id @unique
 
-  name String
+  name  String
   phone String?
 
   avatar String?

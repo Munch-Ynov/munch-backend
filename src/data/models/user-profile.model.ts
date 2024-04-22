@@ -1,6 +1,6 @@
-import type Entity from "./entity.model";
-import type Favorite from "./favorite.model";
-import type Reservation from "./reservation.model";
+import { Entity } from "./entity.model";
+import { Favorite } from "./favorite.model";
+import Reservation from "./reservation.model";
 
 /**
  * Model of the UserProfile
@@ -15,7 +15,7 @@ import type Reservation from "./reservation.model";
  * @param {Date} createdAt - timestamp of the creation of the user profile
  * @param {Date} updatedAt - timestamp of the last update of the user profile
  */
-abstract class UserProfile implements Entity {
+export abstract class UserProfile implements Entity {
   id: string;
   userId: string;
   name: string;
@@ -27,5 +27,3 @@ abstract class UserProfile implements Entity {
   createdAt: Date;
   updatedAt: Date;
 }
-
-export default UserProfile;

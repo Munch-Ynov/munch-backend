@@ -1,8 +1,7 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { PrismaService } from "./prisma/prisma.service";
 import { HashService } from "src/util/hash/hash.service";
-import type Auth from "../models/auth.model";
-import type { Role } from "../models/enum";
+import { Auth, Role } from "../models";
 
 @Injectable()
 export class DatabaseService {
@@ -10,7 +9,7 @@ export class DatabaseService {
     private readonly prisma: PrismaService,
     private readonly hashService: HashService
   ) {}
-  
+
   async createAuth(email: string, password: string, role: Role) {
     // Create auth
     const encryptedPassword = await this.hashService.hashPassword(password);
