@@ -1,3 +1,6 @@
+import { Entity } from "./entity.model";
+import { Role } from "./enum";
+
 /**
  * Model of the Auth
  * @category Models
@@ -9,7 +12,7 @@
  * @param {Date} updatedAt - timestamp of the last update of the auth
  * @param {Role} role - role of the auth
  */
-interface Auth {
+export abstract class Auth implements Entity {
   id: string;
   email: string;
   password: string;
@@ -17,5 +20,3 @@ interface Auth {
   updatedAt: Date;
   role: Role;
 }
-
-export default Auth;

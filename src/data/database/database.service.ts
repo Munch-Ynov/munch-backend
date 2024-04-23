@@ -1,47 +1,87 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "./prisma/prisma.service";
-import Model from "../models/model.interface";
+import { Auth, Category, RestaurantFeature, Role } from "../models";
 
 @Injectable()
 export class DatabaseService {
   constructor(private readonly prisma: PrismaService) {}
 
-  private getModelName<M extends Model>(data: M) {
-    return data.constructor.name.toLowerCase();
-  }
-
-  async create<M extends Model>(data: M) {
-    return this.prisma[this.getModelName(data)].create({ data });
-  }
-
-  async findMany<M extends Model>(data: M) {
-    return this.prisma[this.getModelName(data)].findMany();
-  }
-
-  async findOne<M extends Model>(data: M & { id: number }) {
-    return this.prisma[this.getModelName(data)].findUnique({
-      where: { id: data.id },
+  async createAuth(email: string, password: string, role: Role) {
+    // Create auth
+    return this.prisma.auth.create({
+      data: {
+        email,
+        password,
+        role,
+      },
     });
   }
 
-  async update<M extends Model>(data: M & { id: number }) {
-    return this.prisma[this.getModelName(data)].update({
-      where: { id: data.id },
-      data,
+  async createUser(
+    authId: Auth["id"],
+    userDTO: {
+      name: string;
+      avatar: string;
+      banner: string;
+      phone?: string;
+    }
+  ) {
+    // Create user
+    return this.prisma.userProfile.create({
+      data: {
+        id: authId,
+        name: userDTO.name,
+        avatar: userDTO.avatar,
+        banner: userDTO.banner,
+        phone: userDTO.phone,
+      },
     });
   }
 
-  async delete<M extends Model>(data: M & { id: number }) {
-    return this.prisma[this.getModelName(data)].delete({
-      where: { id: data.id },
+  async createRestaurantProfile(
+    authId: Auth["id"],
+    restaurantDTO: {
+      avatar: string;
+      banner: string;
+    }
+  ) {
+    // Create restaurant profile
+    return this.prisma.restaurateurProfile.create({
+      data: {
+        id: authId,
+        avatar: restaurantDTO.avatar,
+        banner: restaurantDTO.banner,
+      },
     });
   }
 
-  async deleteMany<M extends Model>(data: M) {
-    return this.prisma[this.getModelName(data)].deleteMany();
+  async createCategoriesFeatures(categories: string[]) {
+    // Create categories
+    return this.prisma.category.createMany({
+      data: categories.map((category) => ({
+        name: category,
+      })),
+    });
   }
 
-  async count<M extends Model>(data: M) {
-    return this.prisma[this.getModelName(data)].count();
+  async createFeatures(
+    features: Omit<
+      RestaurantFeature,
+      "id" | "icon" | "category" | "restaurant" | "categoryId"
+    >[],
+    categoryId: Category["id"]
+  ) {
+    // Create features
+    return this.prisma.restaurantFeature.createMany({
+      data: features.map((feature) => ({
+        ...feature,
+        categoryId,
+      })),
+    });
+  }
+
+  async getCategories() {
+    // Get categories
+    return this.prisma.category.findMany();
   }
 }

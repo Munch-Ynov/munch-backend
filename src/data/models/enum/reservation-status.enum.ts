@@ -1,8 +1,5 @@
-/**
- * Enum for reservation status
- */
-enum ReservationStatus {
-  PENDING = 'PENDING',
-  ACCEPTED = 'ACCEPTED',
-  REFUSED = 'REFUSED',
+export enum ReservationStatus {
+  PENDING = "PENDING",
+  ACCEPTED = "ACCEPTED",
+  REFUSED = "REFUSED",
 }
