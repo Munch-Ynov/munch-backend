@@ -27,13 +27,12 @@ export const regimeSeeder: Omit<
 ];
 
 export const cuisineSeeder = [
-  "Moyen-Orient",
-  "Asiatique",
-  "Indienne",
-  "Européenne",
-  "Américaine",
-  "Africaine",
-  "Latine",
+  { name: "Moyen-Orient", icon: "chicken-leg" },
+  { name: "Asiatique", icon: "asia-gate" },
+  { name: "Européenne", icon: "french-fries" },
+  { name: "Américaine", icon: "hamburger" },
+  { name: "Africaine", icon: "barbeque" },
+  { name: "Latine", icon: "taco" },
 ];
 
 export const etablissementSeeder = [
