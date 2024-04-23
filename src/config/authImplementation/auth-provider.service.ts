@@ -13,8 +13,8 @@ import {
 import { HashService } from "src/util/hash/hash.service";
 import { JwtService } from "@nestjs/jwt";
 import { Auth, Role } from "@/models";
-import { v4 as uuid } from "uuid";
 import { AuthRepository } from "src/data/repository";
+import cuid2 from "@paralleldrive/cuid2";
 
 @Injectable()
 export class AuthProviderService implements AuthProvider {
@@ -22,7 +22,7 @@ export class AuthProviderService implements AuthProvider {
     private readonly authRepository: AuthRepository,
     private readonly hashService: HashService,
     private readonly jwtService: JwtService
-  ) {}
+  ) { }
 
   async login(
     email: string,
@@ -82,7 +82,7 @@ export class AuthProviderService implements AuthProvider {
   }
 
   private async createRefreshToken(authUser: Auth) {
-    const tokenId = uuid();
+    const tokenId = cuid2.createId();
     return this.jwtService.sign(
       { authId: authUser.id, tokenId: tokenId, role: authUser.role },
       { expiresIn: process.env.EXPIRATION_JWT_REFRESH_TOKEN || "7d" }
