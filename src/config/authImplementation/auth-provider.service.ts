@@ -1,57 +1,4 @@
-<<<<<<< Updated upstream
-import { Injectable } from "@nestjs/common";
-import { PrismaClient } from "@prisma/client";
-import { AuthProvider } from "src/auth/interface/auth-provider.interface";
-import { Auth } from "src/data/models/auth.model";
-import { passeportProviderService } from "../passeportImplementation/passeport-provider.service";
-import { PasseportProvider, accessToken } from "src/passeport/interface/passeport-provider.interface";
-import { PasseportService } from "src/passeport/passeport.service";
 
-// const authUsers: Auth[] = [
-//     {
-//         id: 'axf1',
-//         email: 'test@gmail.com',
-//         password: 'test',
-//         createdAt: new Date(),
-//         updatedAt: new Date(),
-//         role: Role.ADMIN,
-//     },
-//     {
-//         id: 'axf2',
-//         email: 'test2@gmail.com',
-//         password: 'test2',
-//         createdAt: new Date(),
-//         updatedAt: new Date(),
-//         role: Role.USER,
-//     },
-// ];
-
-const prisma = new PrismaClient();
-
-@Injectable()
-export class AuthProviderService implements AuthProvider {
-    constructor(private readonly passportService: PasseportService) {
-    }
-
-    async login(email: string, password: string): Promise<accessToken> {
-        // throw new Error("Method not implemented.");
-        const authUser = prisma.auth.findUnique({
-            where: {
-                email: email
-            }
-        });
-
-        if(!authUser) {
-            return null;
-        }
-
-        const isPasswordMatch = await bcrypt.compare(password, authUser.password);
-
-        return 
-
-    }
-    
-=======
 import { Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { PrismaClient } from "@prisma/client";
 import { AuthProvider, Payload, accessToken, refreshToken } from "src/auth/interface/auth-provider.interface";
@@ -133,6 +80,4 @@ export class AuthProviderService implements AuthProvider {
         return this.validate(payload);
     }
 
-    
->>>>>>> Stashed changes
 }

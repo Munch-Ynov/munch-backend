@@ -1,6 +1,8 @@
-import { BadRequestException, Controller, ForbiddenException, HttpException, Post } from '@nestjs/common';
+import { BadRequestException, Body, Controller, ForbiddenException, HttpException, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
+import { Role } from '@/models';
+import { CreateAuthUserDto } from './dto/create-auth-user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -18,11 +20,7 @@ export class AuthController {
       const tokens = await this.authService.login(email, password);
       if(!tokens.accessToken || !tokens.refreshToken){
         // http error not authentification
-<<<<<<< Updated upstream
-        throw new Error('No crédentaials found');
-=======
         throw new ForbiddenException('Invalid credentials');
->>>>>>> Stashed changes
       }
 
       res.cookie('refreshToken', tokens.refreshToken, {
@@ -31,16 +29,18 @@ export class AuthController {
         sameSite: 'strict',
       });
 
-<<<<<<< Updated upstream
-      return {"accessToken" : tokens}
-=======
       return {"accessToken" : tokens.accessToken}
->>>>>>> Stashed changes
     }catch(e){
       // http error
       throw new ForbiddenException('Invalid credentials');
     }
      
+  }
+
+  @Post('register')
+  async register(@Body() createAuthUserDto: CreateAuthUserDto) {
+
+    return await this.authService.register(createAuthUserDto.email, createAuthUserDto.password, createAuthUserDto.role);
   }
 
   @Post('logout')
