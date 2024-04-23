@@ -6,7 +6,6 @@ import { JwtModule } from "@nestjs/jwt";
 import { JwtStrategy } from "./jwt.strategy";
 import { AuthProvider } from "./interface/auth-provider.interface";
 import { HashService } from "src/util/hash/hash.service";
-import { RepositoryModule } from "src/data/repository";
 
 @Module({
   imports: [
@@ -14,7 +13,6 @@ import { RepositoryModule } from "src/data/repository";
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: "15m" },
     }),
-    RepositoryModule,
   ],
   controllers: [AuthController],
   providers: [
