@@ -36,7 +36,6 @@ export class ReservationCreateDto {
   })
   restaurantId: string;
 
-
   toEntity(): Partial<Reservation> {
     return {
       date: this.date,
@@ -48,14 +47,12 @@ export class ReservationCreateDto {
   }
 }
 
-
 /**
  * External reservation create dto
  * This is the data transfer object for creating a reservation from an external source, the user will not be specified
  * Status will be set to ACCEPTED
  */
 export class ExternalReservationCreateDto {
-
   @ApiProperty({
     description: "Date of the reservation",
     type: "string",
@@ -77,8 +74,7 @@ export class ExternalReservationCreateDto {
   })
   restaurantId: string;
 
-
-  toEntity(): Partial<Reservation> {
+  toEntity(): Omit<Reservation, "id" | "createdAt" | "updatedAt"> {
     return {
       date: this.date,
       nb_people: this.nb_people,

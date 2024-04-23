@@ -1,33 +1,30 @@
-import { UserRole } from '@/models';
-import { ApiProperty } from '@nestjs/swagger';
+import { Role } from "@/models";
+import { ApiProperty } from "@nestjs/swagger";
 import {
   IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
   MinLength,
-} from 'class-validator';
+} from "class-validator";
 // }
 export class CreateAuthUserDto {
-
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
   email: string;
 
   @IsOptional()
-  @IsEnum(UserRole
-  )
+  @IsEnum(Role)
   @ApiProperty({
-    enum: UserRole,
-    default: UserRole.USER,
+    enum: Role,
+    default: Role.USER,
   })
-  role: UserRole;
+  role: Role;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(6)
   @ApiProperty()
   password: string;
-
 }
