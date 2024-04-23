@@ -1,31 +1,22 @@
-import { CookieParserMiddleware } from "@nest-middlewares/cookie-parser";
-import { ErrorHandlerMiddleware } from "@nest-middlewares/errorhandler";
-import { HelmetMiddleware } from "@nest-middlewares/helmet";
-import { Module } from "@nestjs/common";
-import { ConfigModule } from "@nestjs/config";
-import { APP_GUARD } from "@nestjs/core";
-import { RateLimiterGuard, RateLimiterModule } from "nestjs-rate-limiter";
-import { RepositoryModule } from './data/repository/repository.module';
-import { HealthModule } from "./module/health/health.module";
-import { ReservationModule } from './module/reservation/reservation.module';
-import { SeederModule } from "./data/seeder/seeder.module";
-import { HashModule } from "./util/hash/hash.module";
+import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
+import { HelmetMiddleware } from '@nest-middlewares/helmet';
+import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser';
+import { ErrorHandlerMiddleware } from '@nest-middlewares/errorhandler';
+import { RateLimiterGuard, RateLimiterModule } from 'nestjs-rate-limiter';
+import { APP_GUARD } from '@nestjs/core';
+import { HealthModule } from './module/health/health.module';
+import { AuthModule } from './auth/auth.module';
+import { DatabaseModule } from './data/database/database.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     RateLimiterModule,
     HealthModule,
-    ReservationModule,
-    {
-      global: true,
-      module: RepositoryModule,
-    },
-    {
-      global: true,
-      module: HashModule,
-    },
-    SeederModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [
@@ -45,5 +36,9 @@ export class AppModule {
     consumer.apply(HelmetMiddleware).forRoutes("*");
     CookieParserMiddleware.configure("MySecret");
     consumer.apply(CookieParserMiddleware).forRoutes("*");
+    // ErrorHandlerMiddleware.configure({
+    //   log: false,
+    // });
+    // consumer.apply(ErrorHandlerMiddleware).forRoutes("*");
   }
 }
