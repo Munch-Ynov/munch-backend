@@ -36,7 +36,7 @@ export class ReservationCreateDto {
   })
   restaurantId: string;
 
-  toEntity(): Partial<Reservation> {
+  toEntity(): Omit<Reservation, "id" | "createdAt" | "updatedAt"> {
     return {
       date: this.date,
       nb_people: this.nb_people,
