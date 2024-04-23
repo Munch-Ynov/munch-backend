@@ -2,7 +2,7 @@
 import type { Repository } from "../base.repository";
 import type { Model } from "src/data/models";
 import type { Mapper } from "src/data/mapper/base.mapper";
-import type { Filter, PageableRequest } from "src/data/util";
+import type { Filter, PaginationRequest } from "src/data/util";
 import { Pageable } from "src/data/util";
 
 export abstract class PrismaRepository<M extends Model, D> implements Repository<M> {
@@ -33,7 +33,7 @@ export abstract class PrismaRepository<M extends Model, D> implements Repository
     pageable: { page, size, sort },
   }: {
     filter?: Filter<M>;
-    pageable?: PageableRequest<M>;
+    pageable?: PaginationRequest<M>;
   }): Promise<Pageable<M>> {
     const totalElements = await this.$prisma.auth.count({ where: filter });
     const content = await this.$prisma.auth.findMany({

@@ -25,8 +25,8 @@ model Restaurant {
   features     RestaurantFeature[]
   favorites    Favorite[]
   reservations Reservation[]
-  createdAt    DateTime
-  updatedAt    DateTime
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime?             @updatedAt
   restaurateur RestaurateurProfile[]
 }
 
@@ -48,8 +48,8 @@ model Reservation {
   userId       String?
   restaurant   Restaurant        @relation(fields: [restaurantId], references: [id])
   restaurantId String
-  createdAt    DateTime
-  updatedAt    DateTime
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime?         @updatedAt
 }
 
 model RestaurantFeature {
@@ -113,6 +113,7 @@ enum Role {
 enum ReservationStatus {
   PENDING
   ACCEPTED
+  CANCELED
   REFUSED
 }
 

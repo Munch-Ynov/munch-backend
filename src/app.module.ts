@@ -1,25 +1,27 @@
-import { Module } from "@nestjs/common";
-import { AppController } from "./app.controller";
-import { AppService } from "./app.service";
-import { ConfigModule } from "@nestjs/config";
-import { HelmetMiddleware } from "@nest-middlewares/helmet";
 import { CookieParserMiddleware } from "@nest-middlewares/cookie-parser";
 import { ErrorHandlerMiddleware } from "@nest-middlewares/errorhandler";
-import { RateLimiterGuard, RateLimiterModule } from "nestjs-rate-limiter";
+import { HelmetMiddleware } from "@nest-middlewares/helmet";
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
-import { HealthModule } from "./module/health/health.module";
+import { RateLimiterGuard, RateLimiterModule } from "nestjs-rate-limiter";
 import { RepositoryModule } from './data/repository/repository.module';
+import { HealthModule } from "./module/health/health.module";
+import { ReservationModule } from './reservation/reservation.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     RateLimiterModule,
     HealthModule,
-    RepositoryModule,
+    ReservationModule,
+    {
+      global: true,
+      module: RepositoryModule,
+    }
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
-    AppService,
     {
       provide: APP_GUARD,
       useClass: RateLimiterGuard,

@@ -1,6 +1,6 @@
 import { Sort } from "./sort";
 
-export interface PageableRequest<T> {
+export interface PaginationRequest<T> {
   page: number;
   size: number;
   sort: Sort<T>;
@@ -50,7 +50,7 @@ export class Pageable<T> {
     {
       content: T[],
       totalElements: number,
-      request: PageableRequest<T>
+      request: PaginationRequest<T>
     }
   ) {
     const { page, size, sort } = request;
