@@ -12,7 +12,15 @@ import { Role } from "./enum";
  * @param {Date} updatedAt - timestamp of the last update of the auth
  * @param {Role} role - role of the auth
  */
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 export abstract class Auth implements Entity {
+=======
+export interface Auth {
+>>>>>>> Stashed changes
+=======
+export interface Auth {
+>>>>>>> Stashed changes
   id: string;
   email: string;
   password: string;
@@ -20,3 +28,7 @@ export abstract class Auth implements Entity {
   updatedAt: Date;
   role: Role;
 }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes

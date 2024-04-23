@@ -84,4 +84,20 @@ export class DatabaseService {
     // Get categories
     return this.prisma.category.findMany();
   }
+
+  async findAuthByEmail(email: string){
+    return this.prisma.auth.findUnique({
+      where: {
+        email,
+      },
+    });
+  }
+
+  async findAuthById(id: string) {
+    return await this.prisma.auth.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
 }
