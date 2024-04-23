@@ -13,8 +13,10 @@ import type { Model } from "./base.model";
  */
 abstract class RestaurateurProfile implements Model {
   id: string;
+  authId: string;
   avatar?: string;
   banner?: string;
+  name: string;
   restaurantId: string;
   createdAt: Date;
   updatedAt: Date;

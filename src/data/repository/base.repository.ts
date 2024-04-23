@@ -3,8 +3,8 @@ import type { Filter } from "src/data/util/filter";
 import type { Pageable, PaginationRequest } from "src/data/util/pageable";
 
 abstract class Repository<T extends Model> {
-  abstract createOne(entity: Partial<T>): Promise<T>;
-  abstract createMany(entities: Array<Partial<T>>): Promise<Array<T>>;
+  abstract createOne(entity: Omit<T, "id" | "createdAt" | "updatedAt">): Promise<T>;
+  abstract createMany(entities: Array<Omit<T, "id" | "createdAt" | "updatedAt">>): Promise<Array<T>>;
   abstract findOne(id: string): Promise<T>;
   abstract findMany(args: {
     filter?: Filter<T>;

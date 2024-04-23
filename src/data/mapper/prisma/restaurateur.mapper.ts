@@ -9,12 +9,14 @@ const RestaurateurMapper: Mapper<RestaurateurProfile, PrismaRestaurateurProfile>
   static toEntity(restaurateurProfile: PrismaRestaurateurProfile): RestaurateurProfile {
     return {
       ...restaurateurProfile,
+      authId: restaurateurProfile.id,
     }
   }
 
   static toData(restaurateurProfile: RestaurateurProfile): PrismaRestaurateurProfile {
     return {
       ...restaurateurProfile,
+      id: restaurateurProfile.authId,
       avatar: restaurateurProfile.avatar,
       banner: restaurateurProfile.banner,
     }
