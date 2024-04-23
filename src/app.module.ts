@@ -7,8 +7,9 @@ import { APP_GUARD } from "@nestjs/core";
 import { RateLimiterGuard, RateLimiterModule } from "nestjs-rate-limiter";
 import { RepositoryModule } from './data/repository/repository.module';
 import { HealthModule } from "./module/health/health.module";
-import { ReservationModule } from './reservation/reservation.module';
+import { ReservationModule } from './module/reservation/reservation.module';
 import { SeederModule } from "./data/seeder/seeder.module";
+import { HashModule } from "./util/hash/hash.module";
 
 @Module({
   imports: [
@@ -19,6 +20,10 @@ import { SeederModule } from "./data/seeder/seeder.module";
     {
       global: true,
       module: RepositoryModule,
+    },
+    {
+      global: true,
+      module: HashModule,
     },
     SeederModule,
   ],

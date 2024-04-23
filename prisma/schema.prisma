@@ -81,7 +81,7 @@ model UserProfile {
 
   name   String
   phone  String?
-  // 
+  //
   avatar String?
   banner String?
 

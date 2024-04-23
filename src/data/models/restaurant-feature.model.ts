@@ -9,7 +9,6 @@ import type { Model } from "./base.model";
  * @param {string} icon - icon of the feature
  * @param {Category} category - category of the feature
  * @param {string} categoryId - id of the category : eg. abcdef123456
- * @param {Restaurant[]} restaurant - restaurants with this feature
  */
 abstract class RestaurantFeature implements Model {
   id: string;

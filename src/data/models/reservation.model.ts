@@ -1,7 +1,7 @@
 import type { Model } from "./base.model";
 import type { ReservationStatus } from "./enum";
-import type { Restaurant } from "./restaurant.model";
-import type { UserProfile } from "./user-profile.model";/**
+
+/**
  * Model of the Reservation
  * @category Models
  * @interface Reservation
@@ -9,9 +9,7 @@ import type { UserProfile } from "./user-profile.model";/**
  * @param {Date} date - date of the reservation
  * @param {number} nb_people - number of people for the reservation
  * @param {ReservationStatus} status - status of the reservation
- * @param {UserProfile} user - user who made the reservation
  * @param {string} userId - id of the user : eg. abcdef123456
- * @param {Restaurant} restaurant - restaurant for the reservation
  * @param {string} restaurantId - id of the restaurant : eg. abcdef123456
  * @param {Date} createdAt - timestamp of the creation of the reservation
  * @param {Date} updatedAt - timestamp of the last update of the reservation
