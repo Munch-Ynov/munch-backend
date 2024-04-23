@@ -8,6 +8,7 @@ import { RateLimiterGuard, RateLimiterModule } from "nestjs-rate-limiter";
 import { RepositoryModule } from './data/repository/repository.module';
 import { HealthModule } from "./module/health/health.module";
 import { ReservationModule } from './reservation/reservation.module';
+import { SeederModule } from "./data/seeder/seeder.module";
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { ReservationModule } from './reservation/reservation.module';
     {
       global: true,
       module: RepositoryModule,
-    }
+    },
+    SeederModule,
   ],
   controllers: [],
   providers: [
