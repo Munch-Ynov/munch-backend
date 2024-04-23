@@ -1,5 +1,9 @@
-export enum Role {
+enum RoleEnum {
   USER = "USER",
-  RESTAURATEUR = "RESTAURATEUR",
   ADMIN = "ADMIN",
+  RESTAURATEUR = "RESTAURATEUR",
 }
+
+export type Role = keyof typeof RoleEnum;
+
+export const Role: typeof RoleEnum = RoleEnum;

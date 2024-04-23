@@ -1,6 +1,4 @@
-import { Category } from "./category.model";
-import { Entity } from "./entity.model";
-import { Restaurant } from "./restaurant.model";
+import type { Model } from "./base.model";
 
 /**
  * Model of the RestaurantFeature
@@ -11,13 +9,13 @@ import { Restaurant } from "./restaurant.model";
  * @param {string} icon - icon of the feature
  * @param {Category} category - category of the feature
  * @param {string} categoryId - id of the category : eg. abcdef123456
- * @param {Restaurant[]} restaurant - restaurants with this feature
  */
-export abstract class RestaurantFeature implements Entity {
+abstract class RestaurantFeature implements Model {
   id: string;
   name: string;
   icon?: string;
-  category: Category;
   categoryId: string;
-  restaurant: Restaurant[];
 }
+
+export { RestaurantFeature };
+

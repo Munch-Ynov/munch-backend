@@ -1,10 +1,5 @@
-import { Entity } from "./entity.model";
-import { PriceCategory } from "./enum";
-import { Favorite } from "./favorite.model";
-import Reservation from "./reservation.model";
-import { RestaurantFeature } from "./restaurant-feature.model";
-import { RestaurateurProfile } from "./restaurateur-profile";
-
+import type { Model } from "./base.model";
+import type { PriceCategory } from "./enum/price-category.enum";
 /**
  * Model of the Restaurant
  * @category Models
@@ -19,14 +14,11 @@ import { RestaurateurProfile } from "./restaurateur-profile";
  * @param {string} code_postal - postal code of the restaurant
  * @param {string} city - city of the restaurant
  * @param {string} email - email of the restaurant
- * @param {RestaurantFeature[]} features - features of the restaurant
- * @param {Favorite[]} favorites - favorites of the restaurant
  * @param {Reservation[]} reservations - reservations of the restaurant
  * @param {Date} createdAt - timestamp of the creation of the restaurant
  * @param {Date} updatedAt - timestamp of the last update of the restaurant
- * @param {RestaurateurProfile[]} restaurateur - profiles of the restaurateurs
  */
-export abstract class Restaurant implements Entity {
+abstract class Restaurant implements Model {
   id: string;
   name: string;
   address: string;
@@ -37,10 +29,10 @@ export abstract class Restaurant implements Entity {
   code_postal: string;
   city: string;
   email: string;
-  features: RestaurantFeature[];
-  favorites: Favorite[];
-  reservations: Reservation[];
   createdAt: Date;
   updatedAt: Date;
-  restaurateur: RestaurateurProfile[];
+  deletedAt?: Date;
 }
+
+export { Restaurant };
+
