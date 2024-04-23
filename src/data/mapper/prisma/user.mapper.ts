@@ -9,6 +9,7 @@ const UserMapper: Mapper<UserProfile, PrismaUserProfile> = class {
   static toEntity(userProfile: PrismaUserProfile): UserProfile {
     return {
       ...userProfile,
+      authId: userProfile.id,
     }
   }
 
@@ -17,6 +18,8 @@ const UserMapper: Mapper<UserProfile, PrismaUserProfile> = class {
       ...userProfile,
       avatar: userProfile.avatar,
       banner: userProfile.banner,
+      id: userProfile.authId,
+      phone: userProfile.phone,
     }
   }
 }

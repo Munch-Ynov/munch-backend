@@ -12,6 +12,9 @@ import type { Model } from "./base.model";
  */
 abstract class UserProfile implements Model {
   id: string;
+  authId: string;
+  name: string;
+  phone?: string;
   avatar?: string;
   banner?: string;
   createdAt: Date;
