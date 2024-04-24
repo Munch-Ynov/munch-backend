@@ -1,21 +1,21 @@
-import { Module } from '@nestjs/common';
-import { AuthRepository } from './auth.repository';
-import { AuthPrismaRepository } from './prisma/auth.prisma-repository';
-import { CategoryRepository } from './category.repository';
-import { CategoryPrismaRepository } from './prisma/category.prisma-repository';
-import { FavoriteRepository } from './favorite.repository';
-import { FavoritePrismaRepository } from './prisma/favorite.prisma-repository';
-import { ReservationRepository } from './reservation.repository';
-import { ReservationPrismaRepository } from './prisma/reservation.prisma-repository';
-import { RestaurantRepository } from './restaurant.repository';
-import { RestaurantPrismaRepository } from './prisma/restaurant.prisma-repository';
-import { RestaurantFeatureRepository } from './restaurant-feature.repository';
-import { RestaurantFeaturePrismaRepository } from './prisma/restaurant-feature.prisma-repository';
-import { RestaurateurRepository } from './restaurateur.repository';
-import { UserRepository } from './user.repository';
-import { UserPrismaRepository } from './prisma/user.prisma-repository';
-import { RestaurateurPrismaRepository } from './prisma/restaurateur.prisma-repository';
-import { PrismaService } from './prisma/prisma.service';
+import { Module } from "@nestjs/common";
+import { AuthRepository } from "./auth.repository";
+import { AuthPrismaRepository } from "./prisma/auth.prisma-repository";
+import { CategoryRepository } from "./category.repository";
+import { CategoryPrismaRepository } from "./prisma/category.prisma-repository";
+import { FavoriteRepository } from "./favorite.repository";
+import { FavoritePrismaRepository } from "./prisma/favorite.prisma-repository";
+import { ReservationRepository } from "./reservation.repository";
+import { ReservationPrismaRepository } from "./prisma/reservation.prisma-repository";
+import { RestaurantRepository } from "./restaurant.repository";
+import { RestaurantPrismaRepository } from "./prisma/restaurant.prisma-repository";
+import { RestaurantFeatureRepository } from "./restaurant-feature.repository";
+import { RestaurantFeaturePrismaRepository } from "./prisma/restaurant-feature.prisma-repository";
+import { RestaurateurRepository } from "./restaurateur.repository";
+import { UserRepository } from "./user.repository";
+import { UserPrismaRepository } from "./prisma/user.prisma-repository";
+import { RestaurateurPrismaRepository } from "./prisma/restaurateur.prisma-repository";
+import { PrismaService } from "./prisma/service/prisma.service";
 
 @Module({
   imports: [],
@@ -32,11 +32,11 @@ import { PrismaService } from './prisma/prisma.service';
     },
     {
       provide: FavoriteRepository,
-      useClass: FavoritePrismaRepository
+      useClass: FavoritePrismaRepository,
     },
     {
       provide: ReservationRepository,
-      useClass: ReservationPrismaRepository
+      useClass: ReservationPrismaRepository,
     },
     {
       provide: RestaurantRepository,
@@ -44,7 +44,7 @@ import { PrismaService } from './prisma/prisma.service';
     },
     {
       provide: RestaurantFeatureRepository,
-      useClass: RestaurantFeaturePrismaRepository
+      useClass: RestaurantFeaturePrismaRepository,
     },
     {
       provide: RestaurateurRepository,
@@ -53,7 +53,7 @@ import { PrismaService } from './prisma/prisma.service';
     {
       provide: UserRepository,
       useClass: UserPrismaRepository,
-    }
+    },
   ],
   exports: [
     AuthRepository,
@@ -63,8 +63,7 @@ import { PrismaService } from './prisma/prisma.service';
     RestaurantRepository,
     RestaurantFeatureRepository,
     RestaurateurRepository,
-    UserRepository
-  ]
+    UserRepository,
+  ],
 })
-export class RepositoryModule { }
-
+export class RepositoryModule {}

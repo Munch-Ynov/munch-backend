@@ -7,13 +7,23 @@ import {
 } from "./features.seeder";
 import { Role } from "src/data/models/enum";
 // biome-ignore lint/style/useImportType: <explanation>
-import { AuthRepository, UserRepository } from "../repository";
+import {
+  AuthRepository,
+  CategoryRepository,
+  RestaurantFeatureRepository,
+  RestaurateurRepository,
+  UserRepository,
+} from "../repository";
+import { RestaurantFeature } from "../models/restaurant-feature.model";
 
 @Injectable()
 export class SeederService {
   constructor(
     private readonly authRepository: AuthRepository,
-    private readonly userRepository: UserRepository
+    private readonly userRepository: UserRepository,
+    private readonly restaurateurRepository: RestaurateurRepository,
+    private readonly categoryRepository: CategoryRepository,
+    private readonly restaurantFeatureRepository: RestaurantFeatureRepository
   ) {}
 
   async seedAll() {
@@ -21,7 +31,7 @@ export class SeederService {
     await this.seedAdmin();
     await this.seedUsers();
     // await this.seedRestaurantProfiles();
-    // // await this.seedRestaurants();
+    // await this.seedRestaurants();
     // await this.seedCategories();
     // await this.seedRestaurantFeatures();
     // await this.seedReservations();
@@ -64,96 +74,100 @@ export class SeederService {
     await this.userRepository.createOne(createUserUser);
   }
 
-  // async seedRestaurantProfiles() {
-  //   // Seed restaurant profile
-  //   const restaurateurAuth = await this.db.createAuth(
-  //     restaurantSeeder.email,
-  //     restaurantSeeder.password,
-  //     Role.RESTAURATEUR
-  //   );
-  //   if (!restaurateurAuth) {
-  //     throw new Error("Failed to create restaurant");
-  //   }
+  async seedRestaurantProfiles() {
+    // Seed restaurant profile
+    const restaurateurAuth = {
+      email: restaurantSeeder.email,
+      password: restaurantSeeder.password,
+      role: Role.RESTAURATEUR,
+    };
 
-  //   const restaurateur = await this.db.createRestaurantProfile(
-  //     restaurateurAuth.id,
-  //     {
-  //       avatar: restaurantSeeder.avatar,
-  //       banner: restaurantSeeder.banner,
-  //     }
-  //   );
+    const restauAuth = await this.authRepository.createOne(restaurateurAuth);
 
-  //   if (restaurateur) {
-  //     return Promise.resolve();
-  //   } else {
-  //     throw new Error("Failed to create restaurant profile");
-  //   }
-  // }
+    if (!restaurateurAuth) {
+      throw new Error("Failed to create restaurant");
+    }
 
-  // async seedRestaurants() {
-  //   // Seed restaurants here
-  // }
+    const restaurateur = await this.restaurateurRepository.createOne({
+      authId: restauAuth.id,
+      name: restaurantSeeder.name,
+      avatar: restaurantSeeder.avatar,
+      restaurantId: restaurantSeeder.restaurantId,
+    });
 
-  // async seedCategories() {
-  //   // Seed categories here
-  //   const categories = await this.db.createCategoriesFeatures(
-  //     categoriesFeaturesSeeder
-  //   );
-  //   if (categories) {
-  //     return Promise.resolve();
-  //   } else {
-  //     throw new Error("Failed to create categories");
-  //   }
-  // }
+    if (restaurateur) {
+      return Promise.resolve();
+    } else {
+      throw new Error("Failed to create restaurant profile");
+    }
+  }
 
-  // async seedRestaurantFeatures() {
-  //   // Seed restaurant features here
-  //   const categories = await this.db.getCategories();
-  //   if (!categories) {
-  //     throw new Error("Failed to get categories");
-  //   }
+  async seedRestaurants() {
+    // Seed restaurants here
+  }
 
-  //   const regimeCategory = categories.find(
-  //     (category) => category.name === "Régime alimentaire"
-  //   );
-  //   const cuisineCategory = categories.find(
-  //     (category) => category.name === "Type de cuisine"
-  //   );
-  //   const etablissementCategory = categories.find(
-  //     (category) => category.name === "Type d'établissement"
-  //   );
+  async seedCategories() {
+    // Seed categories here
+    const categories = await this.categoryRepository.createMany(
+      categoriesFeaturesSeeder.map((name) => ({ name }))
+    );
+    if (categories) {
+      return Promise.resolve();
+    } else {
+      throw new Error("Failed to create categories");
+    }
+  }
 
-  //   if (!regimeCategory || !cuisineCategory || !etablissementCategory) {
-  //     throw new Error("Failed to get categories");
-  //   }
+  async seedRestaurantFeatures() {
+    // Seed restaurant features here
+    const categories = await this.categoryRepository.findMany({});
+    if (!categories) {
+      throw new Error("Failed to get categories");
+    }
 
-  //   const regimeFeatures = await this.db.createFeatures(
-  //     regimeSeeder,
-  //     regimeCategory.id
-  //   );
+    const regimeCategory = categories.content.find(
+      (category) => category.name === "Régime alimentaire"
+    );
 
-  //   const cuisineFeatures = await this.db.createFeatures(
-  //     cuisineSeeder.map((name) => ({ name })),
-  //     cuisineCategory.id
-  //   );
+    const cuisineCategory = categories.content.find(
+      (category) => category.name === "Type de cuisine"
+    );
 
-  //   const etablissementFeatures = await this.db.createFeatures(
-  //     establishmentSeeder.map((name) => ({ name })),
-  //     etablissementCategory.id
-  //   );
+    const etablissementCategory = categories.content.find(
+      (category) => category.name === "Type d'établissement"
+    );
 
-  //   if (regimeFeatures && cuisineFeatures && etablissementFeatures) {
-  //     return Promise.resolve();
-  //   } else {
-  //     throw new Error("Failed to create features");
-  //   }
-  // }
+    if (!regimeCategory || !cuisineCategory || !etablissementCategory) {
+      throw new Error("Failed to get categories");
+    }
 
-  // async seedReservations() {
-  //   // Seed reservations here
-  // }
+    const regimeFeatures = await this.restaurantFeatureRepository.createMany(
+      regimeSeeder.map((regime) => ({
+        name: regime.name,
+        categoryId: regimeCategory.id,
+      }))
+    );
 
-  // async seedFavorites() {
-  //   // Seed favorites here
-  // }
+    const cuisineFeatures = await this.restaurantFeatureRepository.createMany(
+      cuisineSeeder.map((cuisine) => ({
+        name: cuisine.name,
+        icon: cuisine.icon,
+        categoryId: cuisineCategory.id,
+      }))
+    );
+
+    if (regimeFeatures && cuisineFeatures) {
+      return;
+    } else {
+      throw new Error("Failed to create features");
+    }
+  }
+
+  async seedReservations() {
+    // Seed reservations here
+  }
+
+  async seedFavorites() {
+    // Seed favorites here
+  }
 }

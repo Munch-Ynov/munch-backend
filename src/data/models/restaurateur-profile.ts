@@ -17,7 +17,7 @@ abstract class RestaurateurProfile implements Model {
   avatar?: string;
   banner?: string;
   name: string;
-  restaurantId: string;
+  restaurantId?: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
