@@ -14,9 +14,6 @@ import {
     RestaurateurRepository,
     UserRepository,
 } from '../repository'
-import { RestaurantFeature } from '../models/restaurant-feature.model'
-import { UserProfile } from '../models/user-profile.model'
-import { v4 as uuid } from 'uuid'
 
 @Injectable()
 export class SeederService {
