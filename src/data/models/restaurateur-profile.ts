@@ -1,4 +1,4 @@
-import type { Model } from "./base.model";
+import type { Model } from './base.model'
 
 /**
  * Model of the RestaurateurProfile
@@ -12,15 +12,15 @@ import type { Model } from "./base.model";
  * @param {Date} updatedAt - timestamp of the last update of the restaurant profile
  */
 abstract class RestaurateurProfile implements Model {
-  id: string;
-  authId: string;
-  avatar?: string;
-  banner?: string;
-  name: string;
-  restaurantId?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt?: Date;
+    id: string
+    authId: string
+    avatar?: string
+    banner?: string
+    name: string
+    restaurantId: string
+    createdAt: Date
+    updatedAt: Date
+    deletedAt?: Date
 }
 
-export { RestaurateurProfile };
+export { RestaurateurProfile }

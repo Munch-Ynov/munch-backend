@@ -1,4 +1,4 @@
-import type { Model } from "./base.model";
+import type { Model } from './base.model'
 
 /**
  * Model of the Favorite
@@ -10,10 +10,10 @@ import type { Model } from "./base.model";
  * @param {Date} createdAt - timestamp of the creation of the favorite
  */
 abstract class Favorite implements Model {
-  id: string;
-  userId: string;
-  restaurantId: string;
-  createdAt: Date;
+    id: string
+    userId: string
+    restaurantId: string
+    createdAt: Date
 }
 
-export { Favorite };
+export { Favorite }

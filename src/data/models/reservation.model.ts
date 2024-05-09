@@ -1,5 +1,5 @@
-import type { Model } from "./base.model";
-import type { ReservationStatus } from "./enum";
+import type { Model } from './base.model'
+import type { ReservationStatus } from './enum'
 
 /**
  * Model of the Reservation
@@ -15,14 +15,13 @@ import type { ReservationStatus } from "./enum";
  * @param {Date} updatedAt - timestamp of the last update of the reservation
  */
 abstract class Reservation implements Model {
-  id: string;
-  date: Date;
-  nb_people: number;
-  status: ReservationStatus;
-  userId?: string;
-  restaurantId: string;
-  createdAt: Date;
-  updatedAt: Date;
+    id: string
+    date: Date
+    nb_people: number
+    status: ReservationStatus
+    userId?: string
+    restaurantId: string
+    createdAt: Date
+    updatedAt: Date
 }
-export { Reservation };
-
+export { Reservation }

@@ -1,5 +1,5 @@
 interface Model {
-  id: string;
+    id: string
 }
 
-export type { Model };
+export type { Model }

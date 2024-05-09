@@ -1,4 +1,4 @@
-import type { Model } from "./base.model";
+import type { Model } from './base.model'
 
 /**
  * Model of the UserProfile
@@ -11,15 +11,14 @@ import type { Model } from "./base.model";
  * @param {Date} updatedAt - timestamp of the last update of the user profile
  */
 abstract class UserProfile implements Model {
-  id: string;
-  authId: string;
-  name: string;
-  phone?: string;
-  avatar?: string;
-  banner?: string;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt?: Date;
+    id: string
+    name: string
+    phone?: string
+    avatar?: string
+    banner?: string
+    createdAt: Date
+    updatedAt: Date
+    deletedAt?: Date
 }
 
-export { UserProfile };
+export { UserProfile }

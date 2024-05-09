@@ -1,4 +1,4 @@
-import type { Path } from './path';
+import type { Path } from './path'
 
 // /**
 //  * used to sort an entity E when fetching from the database
@@ -9,28 +9,27 @@ import type { Path } from './path';
 //   [P in Path<E>]?: 'asc' | 'desc';
 // }
 
-
 class Sort<T> {
-  private sort: { [key: string]: 'asc' | 'desc' } = {};
+    private sort: { [key: string]: 'asc' | 'desc' } = {}
 
-  constructor(sort: string) {
-    const [field, order] = sort.split(',');
-    this.sort[field] = order as 'asc' | 'desc';
-  }
+    constructor(sort: string) {
+        const [field, order] = sort.split(',')
+        this.sort[field] = order as 'asc' | 'desc'
+    }
 
-  static of<T>(sort: string): Sort<T> {
-    return new Sort<T>(sort);
-  }
+    static of<T>(sort: string): Sort<T> {
+        return new Sort<T>(sort)
+    }
 
-  getSort(): { [key: string]: 'asc' | 'desc' } {
-    return this.sort;
-  }
+    getSort(): { [key: string]: 'asc' | 'desc' } {
+        return this.sort
+    }
 
-  toString(): string {
-    return Object.entries(this.sort)
-      .map(([key, value]) => `${key},${value}`)
-      .join(',');
-  }
+    toString(): string {
+        return Object.entries(this.sort)
+            .map(([key, value]) => `${key},${value}`)
+            .join(',')
+    }
 }
 
-export { Sort };
+export { Sort }

@@ -1,4 +1,4 @@
-import type { Model } from "./base.model";
+import type { Model } from './base.model'
 
 /**
  * Model of the Category
@@ -8,8 +8,8 @@ import type { Model } from "./base.model";
  * @param {string} name - name of the category
  */
 abstract class Category implements Model {
-  id: string;
-  name: string;
+    id: string
+    name: string
 }
 
-export { Category };
+export { Category }

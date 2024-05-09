@@ -1,4 +1,4 @@
-import type { Model } from "./base.model";
+import type { Model } from './base.model'
 
 /**
  * Model of the RestaurantFeature
@@ -11,11 +11,10 @@ import type { Model } from "./base.model";
  * @param {string} categoryId - id of the category : eg. abcdef123456
  */
 abstract class RestaurantFeature implements Model {
-  id: string;
-  name: string;
-  icon?: string;
-  categoryId: string;
+    id: string
+    name: string
+    icon?: string
+    categoryId: string
 }
 
-export { RestaurantFeature };
-
+export { RestaurantFeature }

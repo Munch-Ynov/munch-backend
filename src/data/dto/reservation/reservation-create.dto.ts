@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { type Reservation, ReservationStatus } from "src/data/models";
+import { ApiProperty } from '@nestjs/swagger'
+import { type Reservation, ReservationStatus } from 'src/data/models'
 
 /**
  * Reservation create dto
@@ -8,43 +8,43 @@ import { type Reservation, ReservationStatus } from "src/data/models";
  * Status will be set to PENDING
  */
 export class ReservationCreateDto {
-  @ApiProperty({
-    description: "Date of the reservation",
-    type: "string",
-    example: "2021-09-01T12:00:00.000Z",
-  })
-  date: Date;
+    @ApiProperty({
+        description: 'Date of the reservation',
+        type: 'string',
+        example: '2021-09-01T12:00:00.000Z',
+    })
+    date: Date
 
-  @ApiProperty({
-    description: "Number of people for the reservation",
-    type: "number",
-    example: 2,
-  })
-  nb_people: number;
+    @ApiProperty({
+        description: 'Number of people for the reservation',
+        type: 'number',
+        example: 2,
+    })
+    nb_people: number
 
-  @ApiProperty({
-    description: "User id",
-    type: "string",
-    example: "60f6e1a2a4e5f0001f000001",
-  })
-  userId: string;
+    @ApiProperty({
+        description: 'User id',
+        type: 'string',
+        example: '60f6e1a2a4e5f0001f000001',
+    })
+    userId: string
 
-  @ApiProperty({
-    description: "Restaurant id",
-    type: "string",
-    example: "60f6e1a2a4e5f0001f000001",
-  })
-  restaurantId: string;
+    @ApiProperty({
+        description: 'Restaurant id',
+        type: 'string',
+        example: '60f6e1a2a4e5f0001f000001',
+    })
+    restaurantId: string
 
-  toEntity(): Omit<Reservation, "id" | "createdAt" | "updatedAt"> {
-    return {
-      date: this.date,
-      nb_people: this.nb_people,
-      userId: this.userId,
-      restaurantId: this.restaurantId,
-      status: ReservationStatus.PENDING,
-    };
-  }
+    toEntity(): Omit<Reservation, 'id' | 'createdAt' | 'updatedAt'> {
+        return {
+            date: this.date,
+            nb_people: this.nb_people,
+            userId: this.userId,
+            restaurantId: this.restaurantId,
+            status: ReservationStatus.PENDING,
+        }
+    }
 }
 
 /**
@@ -53,33 +53,33 @@ export class ReservationCreateDto {
  * Status will be set to ACCEPTED
  */
 export class ExternalReservationCreateDto {
-  @ApiProperty({
-    description: "Date of the reservation",
-    type: "string",
-    example: "2021-09-01T12:00:00.000Z",
-  })
-  date: Date;
+    @ApiProperty({
+        description: 'Date of the reservation',
+        type: 'string',
+        example: '2021-09-01T12:00:00.000Z',
+    })
+    date: Date
 
-  @ApiProperty({
-    description: "Number of people for the reservation",
-    type: "number",
-    example: 2,
-  })
-  nb_people: number;
+    @ApiProperty({
+        description: 'Number of people for the reservation',
+        type: 'number',
+        example: 2,
+    })
+    nb_people: number
 
-  @ApiProperty({
-    description: "Restaurant id",
-    type: "string",
-    example: "60f6e1a2a4e5f0001f000001",
-  })
-  restaurantId: string;
+    @ApiProperty({
+        description: 'Restaurant id',
+        type: 'string',
+        example: '60f6e1a2a4e5f0001f000001',
+    })
+    restaurantId: string
 
-  toEntity(): Omit<Reservation, "id" | "createdAt" | "updatedAt"> {
-    return {
-      date: this.date,
-      nb_people: this.nb_people,
-      restaurantId: this.restaurantId,
-      status: ReservationStatus.ACCEPTED,
-    };
-  }
+    toEntity(): Omit<Reservation, 'id' | 'createdAt' | 'updatedAt'> {
+        return {
+            date: this.date,
+            nb_people: this.nb_people,
+            restaurantId: this.restaurantId,
+            status: ReservationStatus.ACCEPTED,
+        }
+    }
 }

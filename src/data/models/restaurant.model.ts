@@ -1,5 +1,5 @@
-import type { Model } from "./base.model";
-import type { PriceCategory } from "./enum/price-category.enum";
+import type { Model } from './base.model'
+import type { PriceCategory } from './enum/price-category.enum'
 /**
  * Model of the Restaurant
  * @category Models
@@ -19,20 +19,19 @@ import type { PriceCategory } from "./enum/price-category.enum";
  * @param {Date} updatedAt - timestamp of the last update of the restaurant
  */
 abstract class Restaurant implements Model {
-  id: string;
-  name: string;
-  address: string;
-  description: string;
-  price: PriceCategory;
-  n_siret: string;
-  phone: string;
-  code_postal: string;
-  city: string;
-  email: string;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt?: Date;
+    id: string
+    name: string
+    address: string
+    description: string
+    price: PriceCategory
+    n_siret: string
+    phone: string
+    code_postal: string
+    city: string
+    email: string
+    createdAt: Date
+    updatedAt: Date
+    deletedAt?: Date
 }
 
-export { Restaurant };
-
+export { Restaurant }
