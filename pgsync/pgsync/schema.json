@@ -1,0 +1,42 @@
+[
+  {
+    "database": "postgres",
+    "index": "restaurant",
+    "nodes": [
+      {
+        "table": "Restaurant",
+        "schema": "public",
+        "columns": [
+          "id",
+          "name",
+          "address",
+          "description",
+          "price",
+          "n_siret",
+          "phone",
+          "code_postal",
+          "city",
+          "email",
+          "createdAt",
+          "updatedAt"
+        ],
+        "children": [
+          {
+            "table": "RestaurantFeature",
+            "schema": "public",
+            "columns": [
+              "id",
+              "name",
+              "icon",
+              "categoryId"
+            ],
+            "relationship": {
+              "variant": "object",
+              "type": "one_to_many"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
