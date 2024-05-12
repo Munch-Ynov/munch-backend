@@ -1,24 +1,19 @@
 import type { RestaurateurProfile as PrismaRestaurateurProfile } from '@prisma/client'
 import type { RestaurateurProfile } from 'src/data/models'
-import type { Mapper } from '../base.mapper'
+import { Mapper } from '../base.mapper'
 
-// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
-const RestaurateurMapper: Mapper<
+class RestaurateurMapper extends Mapper<
     RestaurateurProfile,
     PrismaRestaurateurProfile
-> = class {
-    static toEntity(
-        restaurateurProfile: PrismaRestaurateurProfile
-    ): RestaurateurProfile {
+> {
+    $toEntity(restaurateurProfile) {
         return {
             ...restaurateurProfile,
             authId: restaurateurProfile.id,
         }
     }
 
-    static toData(
-        restaurateurProfile: RestaurateurProfile
-    ): PrismaRestaurateurProfile {
+    $toData(restaurateurProfile) {
         return {
             ...restaurateurProfile,
             id: restaurateurProfile.authId,

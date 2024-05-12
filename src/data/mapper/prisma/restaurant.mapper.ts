@@ -1,16 +1,15 @@
 import type { Restaurant as PrismaRestaurant } from '@prisma/client'
 import type { Restaurant } from 'src/data/models'
-import type { Mapper } from '../base.mapper'
+import { Mapper } from '../base.mapper'
 
-// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
-const RestaurantMapper: Mapper<Restaurant, PrismaRestaurant> = class {
-    static toEntity(restaurant: PrismaRestaurant): Restaurant {
+class RestaurantMapper extends Mapper<Restaurant, PrismaRestaurant> {
+    $toEntity(restaurant) {
         return {
             ...restaurant,
         }
     }
 
-    static toData(restaurant: Restaurant): PrismaRestaurant {
+    $toData(restaurant) {
         return {
             ...restaurant,
         }
