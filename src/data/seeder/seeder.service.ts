@@ -14,6 +14,7 @@ import {
     RestaurateurRepository,
     UserRepository,
 } from '../repository'
+import { UserProfile } from '../models/user-profile.model'
 
 @Injectable()
 export class SeederService {
@@ -38,6 +39,15 @@ export class SeederService {
     }
 
     async seedAdmin() {
+        const adminExists = await this.authRepository.findByEmail(
+            adminSeeder.email
+        )
+        console.log(adminExists)
+
+        // if (adminExists) {
+        //     return new Error('Admin already exists')
+        // }
+
         const createAdminAuth = {
             email: adminSeeder.email,
             password: adminSeeder.password,
@@ -46,8 +56,11 @@ export class SeederService {
 
         const adminAuth = await this.authRepository.createOne(createAdminAuth)
 
-        const createAdminUser = {
-            id: adminAuth.id,
+        const createAdminUser: Omit<
+            UserProfile,
+            'id' | 'createdAt' | 'updatedAt' | 'deletedAt'
+        > = {
+            authId: adminAuth.id,
             name: adminSeeder.name,
             avatar: adminSeeder.avatar,
         }
@@ -56,21 +69,25 @@ export class SeederService {
     }
 
     async seedUsers() {
-        const createUserAuth = {
+        const userExists = await this.authRepository.findByEmail(
+            userSeeder.email
+        )
+
+        if (userExists) {
+            return
+        }
+
+        const userAuth = await this.authRepository.createOne({
             email: userSeeder.email,
             password: userSeeder.password,
             role: Role.USER,
-        }
+        })
 
-        const userAuth = await this.authRepository.createOne(createUserAuth)
-
-        const createUserUser = {
+        const createUserProfile = await this.userRepository.createOne({
             authId: userAuth.id,
             name: userSeeder.name,
             avatar: userSeeder.avatar,
-        }
-
-        await this.userRepository.createOne(createUserUser)
+        })
     }
 
     async seedRestaurantProfiles() {

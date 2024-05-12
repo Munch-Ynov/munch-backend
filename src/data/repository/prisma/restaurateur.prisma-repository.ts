@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import type { RestaurateurProfile as PrismaRestaurateurProfile } from '@prisma/client'
-import { RestaurateurMapper } from 'src/data/mapper/prisma'
+import { RestaurateurMapper } from 'src/data/mapper/prisma/restaurateur.mapper'
 import type { RestaurateurProfile } from 'src/data/models'
 import type { RestaurateurRepository } from '..'
 import { PrismaRepository } from './base.prisma-repository'
@@ -10,9 +10,8 @@ import { PrismaService } from './service/prisma.service'
 @Injectable()
 export class RestaurateurPrismaRepository
     extends PrismaRepository<RestaurateurProfile, PrismaRestaurateurProfile>
-    implements RestaurateurRepository
-{
+    implements RestaurateurRepository {
     constructor(private prisma: PrismaService) {
-        super(prisma.restaurateurProfile, RestaurateurMapper)
+        super(prisma.restaurateurProfile, new RestaurateurMapper())
     }
 }
