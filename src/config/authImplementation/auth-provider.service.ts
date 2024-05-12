@@ -3,7 +3,6 @@ import {
     NotFoundException,
     UnauthorizedException,
 } from '@nestjs/common'
-import { PrismaClient } from '@prisma/client'
 import {
     AuthProvider,
     Payload,

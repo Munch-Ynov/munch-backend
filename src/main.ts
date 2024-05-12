@@ -10,9 +10,10 @@ async function bootstrap() {
 
     const swagger_config = new DocumentBuilder()
         .setTitle('munchAPI')
-        .setDescription('The munch API description')
+        .setDescription('munchAPI est une API pour permettre la gestion des reservations de restaurants.')
         .setVersion('1.0')
         .addTag('API')
+        .addBearerAuth()
         .build()
     const document = SwaggerModule.createDocument(app, swagger_config)
     SwaggerModule.setup('api', app, document)

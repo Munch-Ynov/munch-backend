@@ -21,7 +21,7 @@ import { RolesGuard } from './roles.guard'
 import { HasRole } from './has-role.decorator'
 
 @Controller('auth')
-@ApiTags('auth')
+@ApiTags('auth','API')
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
