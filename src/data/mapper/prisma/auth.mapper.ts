@@ -5,14 +5,16 @@ import { Mapper } from '../base.mapper'
 class AuthMapper extends Mapper<Auth, PrismaAuth> {
 
     $toEntity(data) {
+        const { ...entity } = data
         return {
-            ...data,
+            ...entity,
         }
     }
 
     $toData(entity) {
+        const { ...data } = entity
         return {
-            ...entity,
+            ...data,
         }
     }
 }

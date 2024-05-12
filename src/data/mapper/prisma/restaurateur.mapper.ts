@@ -6,20 +6,20 @@ class RestaurateurMapper extends Mapper<
     RestaurateurProfile,
     PrismaRestaurateurProfile
 > {
-    $toEntity(restaurateurProfile) {
+    $toEntity(data) {
+        const { ...entity } = data
         return {
-            ...restaurateurProfile,
-            authId: restaurateurProfile.id,
+            ...entity,
+            authId: entity.id,
         }
     }
 
-    $toData(restaurateurProfile) {
+    $toData(entity) {
+        const { authId, ...data } = entity
         return {
-            ...restaurateurProfile,
-            id: restaurateurProfile.authId,
-            avatar: restaurateurProfile.avatar,
-            banner: restaurateurProfile.banner,
-            deletedAt: null,
+            ...data,
+            avatar: data.avatar,
+            banner: data.banner,
         }
     }
 }

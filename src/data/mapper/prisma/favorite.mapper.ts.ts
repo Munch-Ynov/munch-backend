@@ -3,15 +3,17 @@ import type { Favorite } from 'src/data/models'
 import { Mapper } from '../base.mapper'
 
 class FavoriteMapper extends Mapper<Favorite, PrismaFavorite> {
-    $toEntity(favorite) {
+    $toEntity(data) {
+        const { ...entity } = data
         return {
-            ...favorite,
+            ...entity,
         }
     }
 
-    $toData(favorite) {
+    $toData(entity) {
+        const { ...data } = entity
         return {
-            ...favorite,
+            ...data,
         }
     }
 }

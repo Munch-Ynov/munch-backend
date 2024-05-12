@@ -3,19 +3,21 @@ import type { UserProfile } from 'src/data/models'
 import { Mapper } from '../base.mapper'
 
 class UserMapper extends Mapper<UserProfile, PrismaUserProfile> {
-    $toEntity(userProfile) {
+    $toEntity(data) {
+        const { ...entity } = data
         return {
-            ...userProfile,
+            ...entity,
+            authId: entity.id,
         }
     }
 
-    $toData(userProfile) {
+    $toData(entity) {
+        const { authId, ...data } = entity
         return {
-            ...userProfile,
-            id: userProfile.id,
-            avatar: userProfile.avatar,
-            banner: userProfile.banner,
-            phone: userProfile.phone,
+            ...data,
+            avatar: data.avatar,
+            banner: data.banner,
+            phone: data.phone,
         }
     }
 }

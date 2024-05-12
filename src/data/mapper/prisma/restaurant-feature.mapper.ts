@@ -6,16 +6,18 @@ class RestaurantFeatureMapper extends Mapper<
     RestaurantFeature,
     PrismaRestaurantFeature
 > {
-    $toEntity(restaurantFeature) {
+    $toEntity(data) {
+        const { ...entity } = data
         return {
-            ...restaurantFeature,
+            ...entity,
         }
     }
 
-    $toData(restaurantFeature) {
+    $toData(entity) {
+        const { ...data } = entity
         return {
-            ...restaurantFeature,
-            icon: restaurantFeature.icon,
+            ...data,
+            icon: data.icon,
         }
     }
 }

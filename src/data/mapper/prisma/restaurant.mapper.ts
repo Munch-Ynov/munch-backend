@@ -3,15 +3,17 @@ import type { Restaurant } from 'src/data/models'
 import { Mapper } from '../base.mapper'
 
 class RestaurantMapper extends Mapper<Restaurant, PrismaRestaurant> {
-    $toEntity(restaurant) {
+    $toEntity(data) {
+        const { ...entity } = data
         return {
-            ...restaurant,
+            ...entity,
         }
     }
 
-    $toData(restaurant) {
+    $toData(entity) {
+        const { ...data } = entity
         return {
-            ...restaurant,
+            ...data,
         }
     }
 }

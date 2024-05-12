@@ -3,16 +3,18 @@ import type { Reservation } from 'src/data/models'
 import { Mapper } from '../base.mapper'
 
 class ReservationMapper extends Mapper<Reservation, PrismaReservation> {
-    $toEntity(reservation) {
+    $toEntity(data) {
+        const { ...entity } = data
         return {
-            ...reservation,
+            ...entity,
         }
     }
 
-    $toData(reservation) {
+    $toData(entity) {
+        const { ...data } = entity
         return {
-            ...reservation,
-            userId: reservation.userId,
+            ...data,
+            userId: data.userId,
         }
     }
 }

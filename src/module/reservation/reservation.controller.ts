@@ -22,7 +22,7 @@ import { RolesGuard } from 'src/auth/roles.guard'
 @Controller('reservation')
 @ApiTags('reservation','API')
 export class ReservationController {
-    constructor(private readonly reservationService: ReservationService) {}
+    constructor(private readonly reservationService: ReservationService) { }
 
     /**
      * Get reservation by id

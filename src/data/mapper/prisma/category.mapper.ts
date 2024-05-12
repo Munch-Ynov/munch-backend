@@ -3,15 +3,17 @@ import type { Category } from 'src/data/models'
 import { Mapper } from '../base.mapper'
 
 class CategoryMapper extends Mapper<Category, PrismaCategory> {
-    $toEntity(category) {
+    $toEntity(data) {
+        const { ...entity } = data
         return {
-            ...category,
+            ...entity,
         }
     }
 
-    $toData(category) {
+    $toData(entity) {
+        const { ...data } = entity
         return {
-            ...category,
+            ...data,
         }
     }
 }
