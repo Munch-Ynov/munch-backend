@@ -4,12 +4,14 @@ import { HelmetMiddleware } from '@nest-middlewares/helmet'
 import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser'
 import { ErrorHandlerMiddleware } from '@nest-middlewares/errorhandler'
 import { RateLimiterGuard, RateLimiterModule } from 'nestjs-rate-limiter'
-import { APP_GUARD } from '@nestjs/core'
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { HealthModule } from './module/health/health.module'
 import { AuthModule } from './auth/auth.module'
 import { ReservationModule } from './module/reservation/reservation.module'
 import { RepositoryModule } from './data/repository'
 import { SeederService } from './data/seeder/seeder.service'
+import { UniformErrorFilter } from './config/errorsImplementations/uniform-error.filter'
+import { Null404Interceptor } from './config/errorsImplementations/null-404.interceptor'
 
 @Module({
     imports: [
@@ -28,6 +30,14 @@ import { SeederService } from './data/seeder/seeder.service'
         {
             provide: APP_GUARD,
             useClass: RateLimiterGuard,
+        },
+        {
+            provide: APP_INTERCEPTOR,
+            useClass: Null404Interceptor,
+        },
+        {
+            provide: APP_FILTER,
+            useClass: UniformErrorFilter,
         },
         SeederService,
     ],
