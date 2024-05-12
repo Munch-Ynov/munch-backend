@@ -5,29 +5,28 @@ import type { Filter, PaginationRequest } from 'src/data/util'
 import { Pageable } from 'src/data/util'
 
 export abstract class PrismaRepository<M extends Model, D>
-    implements Repository<M>
-{
+    implements Repository<M> {
     private $prisma
-    private $mapper: Mapper<M, D>
+    protected $mapper: Mapper<M, D>
 
-    constructor(prisma, mapper) {
+    constructor(prisma, mapper: Mapper<M, D>) {
         this.$prisma = prisma
         this.$mapper = mapper
     }
 
     async createOne(entity: M): Promise<M> {
         const r: D = await this.$prisma.create({ data: entity })
-        return this.$mapper.toEntity(r)
+        return this.$mapper.toEntity(r) as M
     }
 
     async createMany(entities: M[]): Promise<M[]> {
         const r: Array<D> = await this.$prisma.createMany({ data: entities })
-        return r.map((d) => this.$mapper.toEntity(d))
+        return r.map((d) => this.$mapper.toEntity(d)) as M[]
     }
 
     async findOne(id: string): Promise<M> {
         const r: D = await this.$prisma.findFirst({ where: { id } })
-        return this.$mapper.toEntity(r)
+        return this.$mapper.toEntity(r) as M
     }
     async findMany({
         filter,
@@ -55,7 +54,7 @@ export abstract class PrismaRepository<M extends Model, D>
             where: { id },
             data: this.$mapper.toData(entity),
         })
-        return this.$mapper.toEntity(r)
+        return this.$mapper.toEntity(r) as M
     }
 
     async updateMany(filter: Filter<M>, entity: Partial<M>): Promise<M[]> {
@@ -63,7 +62,7 @@ export abstract class PrismaRepository<M extends Model, D>
             where: filter,
             data: this.$mapper.toData(entity),
         })
-        return r.map((d) => this.$mapper.toEntity(d))
+        return r.map((d) => this.$mapper.toEntity(d)) as M[]
     }
 
     async deleteOne(id: string): Promise<void> {

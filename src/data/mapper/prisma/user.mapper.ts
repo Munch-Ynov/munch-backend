@@ -1,16 +1,15 @@
 import type { UserProfile as PrismaUserProfile } from '@prisma/client'
 import type { UserProfile } from 'src/data/models'
-import type { Mapper } from '../base.mapper'
+import { Mapper } from '../base.mapper'
 
-// biome-ignore lint/complexity/noStaticOnlyClass: <explanation>
-const UserMapper: Mapper<UserProfile, PrismaUserProfile> = class {
-    static toEntity(userProfile: PrismaUserProfile): UserProfile {
+class UserMapper extends Mapper<UserProfile, PrismaUserProfile> {
+    $toEntity(userProfile) {
         return {
             ...userProfile,
         }
     }
 
-    static toData(userProfile: UserProfile): PrismaUserProfile {
+    $toData(userProfile) {
         return {
             ...userProfile,
             id: userProfile.id,

@@ -3,21 +3,20 @@ import type { AuthRepository } from '../'
 import { PrismaRepository } from './base.prisma-repository'
 // biome-ignore lint/style/useImportType: <explanation>
 import { PrismaService } from './service/prisma.service'
-import { AuthMapper } from 'src/data/mapper/prisma'
 import type { Auth as PrismaAuth } from '@prisma/client'
 import { Injectable } from '@nestjs/common'
+import { AuthMapper } from 'src/data/mapper/prisma/auth.mapper'
 
 @Injectable()
 export class AuthPrismaRepository
     extends PrismaRepository<Auth, PrismaAuth>
-    implements AuthRepository
-{
+    implements AuthRepository {
     constructor(private prisma: PrismaService) {
-        super(prisma.auth, AuthMapper)
+        super(prisma.auth, new AuthMapper())
     }
 
     async findByEmail(email: string): Promise<Auth> {
         const auth = await this.prisma.auth.findFirst({ where: { email } })
-        return AuthMapper.toEntity(auth)
+        return this.$mapper.toEntity(auth)
     }
 }

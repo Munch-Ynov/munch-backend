@@ -1,4 +1,4 @@
-import { UserMapper } from 'src/data/mapper/prisma'
+import { UserMapper } from 'src/data/mapper/prisma/user.mapper'
 import type { UserRepository } from '..'
 import { PrismaRepository } from './base.prisma-repository'
 import { Injectable } from '@nestjs/common'
@@ -10,9 +10,8 @@ import { PrismaService } from './service/prisma.service'
 @Injectable()
 export class UserPrismaRepository
     extends PrismaRepository<UserProfile, PrismaUserProfile>
-    implements UserRepository
-{
+    implements UserRepository {
     constructor(private prisma: PrismaService) {
-        super(prisma.userProfile, UserMapper)
+        super(prisma.userProfile, new UserMapper())
     }
 }
