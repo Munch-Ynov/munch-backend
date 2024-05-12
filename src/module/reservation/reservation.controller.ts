@@ -1,4 +1,4 @@
-import { Controller, Logger } from '@nestjs/common'
+import { Controller, Logger, UseGuards } from '@nestjs/common'
 import {
     Body,
     Get,
@@ -14,11 +14,13 @@ import {
     ReservationCreateDto,
 } from 'src/data/dto/reservation/reservation-create.dto'
 import type { ReservationStatus } from 'src/data/models'
-import { ApiBody, ApiTags } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger'
 import { ReservationUpdateDto } from 'src/data/dto/reservation/reservation-update.dto'
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
+import { RolesGuard } from 'src/auth/roles.guard'
 
 @Controller('reservation')
-@ApiTags('reservation')
+@ApiTags('reservation','API')
 export class ReservationController {
     constructor(private readonly reservationService: ReservationService) {}
 
@@ -26,6 +28,8 @@ export class ReservationController {
      * Get reservation by id
      */
     @Get(':reservationId')
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard, RolesGuard)
     async getReservationById(@Param('reservationId') reservationId: string) {
         return this.reservationService.getReservationById(reservationId)
     }
@@ -35,6 +39,8 @@ export class ReservationController {
      */
     @Post()
     @ApiBody({ type: ReservationCreateDto })
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard, RolesGuard)
     async createReservation(@Body() reservation: ReservationCreateDto) {
         if (!reservation) {
             throw new Error('Reservation not provided')
@@ -50,6 +56,8 @@ export class ReservationController {
      * Create a new External reservation
      */
     @Post('external')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @ApiBearerAuth()
     @ApiBody({ type: ExternalReservationCreateDto })
     async createExternalReservation(
         @Body() reservation: ExternalReservationCreateDto
@@ -61,6 +69,8 @@ export class ReservationController {
      * Update a reservation status
      */
     @Patch(':reservationId/status')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @ApiBearerAuth()
     async updateReservationStatus(
         @Param('reservationId') reservationId: string,
         @Body('status') status: ReservationStatus
@@ -76,6 +86,8 @@ export class ReservationController {
      * Status must be PENDING
      */
     @Patch(':reservationId')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @ApiBearerAuth()
     @ApiBody({ type: ReservationUpdateDto })
     async updateReservation(
         @Param('reservationId') reservationId: string,

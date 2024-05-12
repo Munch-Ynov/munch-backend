@@ -20,7 +20,6 @@ import { HashService } from 'src/util/hash/hash.service'
         {
             provide: AuthProvider,
             useClass: AuthProviderService,
-            // useExisting for singleton
         },
         JwtStrategy,
         HashService,
