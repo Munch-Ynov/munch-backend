@@ -1,17 +1,25 @@
 import { Role } from '@/models'
 import { ApiProperty } from '@nestjs/swagger'
 import {
+    IsEmail,
     IsEnum,
     IsNotEmpty,
     IsOptional,
     IsString,
+    IsStrongPassword,
+    Matches,
     MinLength,
 } from 'class-validator'
 // }
 export class CreateAuthUserDto {
     @IsString()
     @IsNotEmpty()
-    @ApiProperty()
+    @ApiProperty({
+        description: "Email of the user",
+        example: "john.doe@example.com",
+        type: "string",
+    })
+    @IsEmail()
     email: string
 
     @IsOptional()
@@ -24,7 +32,19 @@ export class CreateAuthUserDto {
 
     @IsString()
     @IsNotEmpty()
-    @MinLength(6)
+    @MinLength(8)
+    @ApiProperty({
+        description: "Password of the user",
+        example: "!Password123",
+        type: "string",
+    })
+    @IsStrongPassword({
+        minLength: 8,
+        minLowercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+        minUppercase: 1
+    })
     @ApiProperty()
     password: string
 }
