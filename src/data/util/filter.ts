@@ -29,3 +29,4 @@ export type FilterValue<T> = {
     notEndsWith?: T
     isNull?: boolean
 }
+
