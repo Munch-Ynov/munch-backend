@@ -4,10 +4,12 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { ValidationPipe } from '@nestjs/common'
 import { SanitizerGuard } from './util/sanitizer.guard'
 import helmet from 'helmet'
+import cookieParser from 'cookie-parser'
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
     app.enableCors({ origin: '*' })
+    app.use(cookieParser());
     app.useGlobalPipes(new ValidationPipe({ transform: true }))
     app.useGlobalGuards(new SanitizerGuard());
 

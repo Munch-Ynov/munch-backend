@@ -26,7 +26,7 @@ export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
     @Post('login')
-    @ApiOkResponse({ description: 'Login success' })
+    @ApiOkResponse({type: AuthEntity})
     async login(
         @Res({ passthrough: true }) res: Response,
         @Body() { email, password }: LoginDto
@@ -76,8 +76,8 @@ export class AuthController {
 
     @Post('refresh')
     @ApiOkResponse({ type: AuthEntity})
-    async refresh(@Res({ passthrough: true }) res: Response) {
-        const refreshToken = res.cookie['refreshToken']
+    async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response){
+        const refreshToken = req.cookies['refreshToken']
 
         if (!refreshToken) {
             throw new BadRequestException('Refresh token not found')
@@ -99,6 +99,7 @@ export class AuthController {
     }
 
     @Post('profile')
+    // @HasRole(Role.ADMIN)
     @UseGuards(JwtAuthGuard, RolesGuard)
     @ApiBearerAuth()
     async getProfile(@Req() req: Request) {
