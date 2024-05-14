@@ -11,9 +11,9 @@ jobs:
     - name: Deploy to digital Ocean
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST }} ## Ip address of the server
+        host: ${{ secrets.SSH_HOST }} ## Ip address of the server
         key: ${{ secrets.SSH_KEY }} ## public or private key of the server
-        username: ${{ secrets.USERNAME }} ## username of the server
+        username: ${{ secrets.SSH_USERNAME }} ## username of the server
 
         script: |
           mkdir test
