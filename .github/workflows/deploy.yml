@@ -8,15 +8,15 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy to digital Ocean
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }} ## Ip address of the server
-        key: ${{ secrets.SSH_KEY }} ## public or private key of the server
-        username: ${{ secrets.SSH_USERNAME }} ## username of the server
+      - name: Deploy to digital Ocean
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }} ## Ip address of the server
+          key: ${{ secrets.SSH_KEY }} ## public or private key of the server
+          username: ${{ secrets.SSH_USERNAME }} ## username of the server
 
-        script: |
-          mkdir test
-          cd test
-          git clone git@github.com:Munch-Ynov/munch-backend.git
+          script: |
+            mkdir test
+            cd test
+            git clone git@github.com:Munch-Ynov/munch-backend.git
     
