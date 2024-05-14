@@ -1,15 +1,15 @@
-import { Injectable, Response } from '@nestjs/common'
+import { Injectable } from '@nestjs/common';
+import type { Role } from "../model/role-enum";
 import {
     AuthProvider,
     Payload,
     accessToken,
     refreshToken,
-} from './interface/auth-provider.interface'
-import { Role } from '@/models'
+} from './interface/auth-provider.interface';
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly authProvider: AuthProvider) {}
+    constructor(private readonly authProvider: AuthProvider) { }
 
     async login(
         email: string,

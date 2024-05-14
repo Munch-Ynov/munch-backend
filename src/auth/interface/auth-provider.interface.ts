@@ -1,5 +1,6 @@
-import { Role } from '@/models'
-import { Auth } from 'src/data/models/auth.model'
+import type { Auth } from "../model/auth.model"
+import type { Role } from "../model/role-enum"
+
 export interface Payload {
     authId: string
     role: Role

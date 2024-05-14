@@ -3,17 +3,18 @@ import {
     NotFoundException,
     UnauthorizedException,
 } from '@nestjs/common'
+import { JwtService } from '@nestjs/jwt'
+import cuid2 from '@paralleldrive/cuid2'
 import {
     AuthProvider,
     Payload,
     accessToken,
     refreshToken,
 } from 'src/auth/interface/auth-provider.interface'
-import { HashService } from 'src/util/hash/hash.service'
-import { JwtService } from '@nestjs/jwt'
-import { Auth, Role } from '@/models'
 import { AuthRepository } from 'src/data/repository'
-import cuid2 from '@paralleldrive/cuid2'
+import { HashService } from 'src/util/hash/hash.service'
+import type { Auth } from "../model/auth.model"
+import type { Role } from "../model/role-enum"
 
 @Injectable()
 export class AuthProviderService implements AuthProvider {
@@ -21,7 +22,7 @@ export class AuthProviderService implements AuthProvider {
         private readonly authRepository: AuthRepository,
         private readonly hashService: HashService,
         private readonly jwtService: JwtService
-    ) {}
+    ) { }
 
     async login(
         email: string,

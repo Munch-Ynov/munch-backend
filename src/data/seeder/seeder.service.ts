@@ -6,15 +6,13 @@ import {
     regimeSeeder,
 } from './features.seeder'
 import { Role } from 'src/data/models/enum'
-// biome-ignore lint/style/useImportType: <explanation>
-import {
-    AuthRepository,
-    CategoryRepository,
-    RestaurantFeatureRepository,
-    RestaurateurRepository,
-    UserRepository,
-} from '../repository'
+
 import { UserProfile } from '../models/user-profile.model'
+import { AuthRepository } from '../repository/auth.repository'
+import { CategoryRepository } from '../repository/category.repository'
+import { RestaurantFeatureRepository } from '../repository/restaurant-feature.repository'
+import { RestaurateurRepository } from '../repository/restaurateur.repository'
+import { UserRepository } from '../repository/user.repository'
 
 @Injectable()
 export class SeederService {
@@ -24,7 +22,7 @@ export class SeederService {
         private readonly restaurateurRepository: RestaurateurRepository,
         private readonly categoryRepository: CategoryRepository,
         private readonly restaurantFeatureRepository: RestaurantFeatureRepository
-    ) {}
+    ) { }
 
     async seedAll() {
         // Seed data here

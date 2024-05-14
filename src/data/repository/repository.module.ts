@@ -5,8 +5,6 @@ import { CategoryRepository } from './category.repository'
 import { CategoryPrismaRepository } from './prisma/category.prisma-repository'
 import { FavoriteRepository } from './favorite.repository'
 import { FavoritePrismaRepository } from './prisma/favorite.prisma-repository'
-import { ReservationRepository } from './reservation.repository'
-import { ReservationPrismaRepository } from './prisma/reservation.prisma-repository'
 import { RestaurantRepository } from './restaurant.repository'
 import { RestaurantPrismaRepository } from './prisma/restaurant.prisma-repository'
 import { RestaurantFeatureRepository } from './restaurant-feature.repository'
@@ -34,10 +32,7 @@ import { PrismaService } from './prisma/service/prisma.service'
             provide: FavoriteRepository,
             useClass: FavoritePrismaRepository,
         },
-        {
-            provide: ReservationRepository,
-            useClass: ReservationPrismaRepository,
-        },
+
         {
             provide: RestaurantRepository,
             useClass: RestaurantPrismaRepository,
@@ -59,11 +54,10 @@ import { PrismaService } from './prisma/service/prisma.service'
         AuthRepository,
         CategoryRepository,
         FavoriteRepository,
-        ReservationRepository,
         RestaurantRepository,
         RestaurantFeatureRepository,
         RestaurateurRepository,
         UserRepository,
     ],
 })
-export class RepositoryModule {}
+export class RepositoryModule { }

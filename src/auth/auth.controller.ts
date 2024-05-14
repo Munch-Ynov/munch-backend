@@ -9,24 +9,22 @@ import {
     Res,
     UseGuards,
 } from '@nestjs/common'
-import { AuthService } from './auth.service'
-import { Role } from '@/models'
-import { CreateAuthUserDto } from './dto/create-auth-user.dto'
-import { Request, Response } from 'express'
 import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import { Request, Response } from 'express'
+import { AuthService } from './auth.service'
+import { CreateAuthUserDto } from './dto/create-auth-user.dto'
 import { LoginDto } from './dto/login-auth.dto'
 import { AuthEntity } from './entity/auth.entity'
 import { JwtAuthGuard } from './jwt-auth.guard'
 import { RolesGuard } from './roles.guard'
-import { HasRole } from './has-role.decorator'
 
 @Controller('auth')
-@ApiTags('auth','API')
+@ApiTags('auth', 'API')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService) { }
 
     @Post('login')
-    @ApiOkResponse({type: AuthEntity})
+    @ApiOkResponse({ type: AuthEntity })
     async login(
         @Res({ passthrough: true }) res: Response,
         @Body() { email, password }: LoginDto
@@ -59,7 +57,7 @@ export class AuthController {
     }
 
     @Post('register')
-    @ApiCreatedResponse({ type: CreateAuthUserDto})
+    @ApiCreatedResponse({ type: CreateAuthUserDto })
     async register(@Body() createAuthUserDto: CreateAuthUserDto) {
         return await this.authService.register(
             createAuthUserDto.email,
@@ -75,8 +73,8 @@ export class AuthController {
     }
 
     @Post('refresh')
-    @ApiOkResponse({ type: AuthEntity})
-    async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response){
+    @ApiOkResponse({ type: AuthEntity })
+    async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
         const refreshToken = req.cookies['refreshToken']
 
         if (!refreshToken) {

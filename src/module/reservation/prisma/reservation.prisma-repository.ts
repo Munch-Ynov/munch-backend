@@ -1,9 +1,9 @@
 import type { Reservation } from 'src/data/models'
-import type { ReservationRepository } from '..'
-import { PrismaRepository } from './base.prisma-repository'
+import type { ReservationRepository } from '../../../data/repository'
+import { PrismaRepository } from '../../../data/repository/prisma/base.prisma-repository'
 // biome-ignore lint/style/useImportType: <explanation>
-import { PrismaService } from './service/prisma.service'
-import { ReservationMapper } from 'src/data/mapper/prisma/reservation.mapper'
+import { PrismaService } from '../../../data/repository/prisma/service/prisma.service'
+import { ReservationMapper } from 'src/module/reservation/prisma/reservation.mapper'
 import type { Reservation as PrismaReservation } from '@prisma/client'
 import { Injectable } from '@nestjs/common'
 

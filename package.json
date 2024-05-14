@@ -48,6 +48,7 @@
         "xss": "^1.0.15"
     },
     "devDependencies": {
+        "@biomejs/biome": "^1.7.3",
         "@compodoc/compodoc": "^1.1.24",
         "@nestjs/cli": "^10.3.2",
         "@nestjs/schematics": "^10.1.1",

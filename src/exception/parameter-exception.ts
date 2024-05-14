@@ -1,7 +1,7 @@
 
-class ParameterException {
+class ParameterException extends Error {
   constructor(message: string) {
-    this.message = message;
+    super(message)
+    this.name = 'ParameterException'
   }
-  message: string;
 }

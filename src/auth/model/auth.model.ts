@@ -1,5 +1,6 @@
-import type { Model } from './base.model'
-import type { Role } from './enum'
+import type { Model } from "src/data/models/base.model"
+import type { Role } from "src/data/models/enum"
+
 
 /**
  * Model of the Auth

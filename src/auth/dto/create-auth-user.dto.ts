@@ -1,4 +1,3 @@
-import { Role } from '@/models'
 import { ApiProperty } from '@nestjs/swagger'
 import {
     IsEmail,
@@ -7,9 +6,9 @@ import {
     IsOptional,
     IsString,
     IsStrongPassword,
-    Matches,
-    MinLength,
+    MinLength
 } from 'class-validator'
+import type { Role } from "../model/role-enum"
 // }
 export class CreateAuthUserDto {
     @IsString()
