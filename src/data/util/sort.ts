@@ -1,4 +1,4 @@
-import type { Path } from './path'
+import { Path } from './path'
 
 // /**
 //  * used to sort an entity E when fetching from the database

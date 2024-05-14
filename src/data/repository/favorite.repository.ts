@@ -1,4 +1,4 @@
-import type { Favorite } from 'src/data/models'
+import { Favorite } from 'src/data/models/favorite.model'
 import { Repository } from './base.repository'
 
 abstract class FavoriteRepository extends Repository<Favorite> {

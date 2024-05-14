@@ -9,14 +9,19 @@ import {
     Res,
     UseGuards,
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import {
+    ApiBearerAuth,
+    ApiCreatedResponse,
+    ApiOkResponse,
+    ApiTags,
+} from '@nestjs/swagger'
 import { Request, Response } from 'express'
-import { AuthService } from './auth.service'
 import { CreateAuthUserDto } from './dto/create-auth-user.dto'
 import { LoginDto } from './dto/login-auth.dto'
-import { AuthEntity } from './entity/auth.entity'
-import { JwtAuthGuard } from './jwt-auth.guard'
-import { RolesGuard } from './roles.guard'
+import { TokenDto } from './dto/token.dto'
+import { JwtAuthGuard } from '../../guard/jwt-auth.guard'
+import { RolesGuard } from '../../guard/roles.guard'
+import { AuthService } from './auth.service'
 
 @Controller('auth')
 @ApiTags('auth', 'API')
@@ -24,7 +29,7 @@ export class AuthController {
     constructor(private readonly authService: AuthService) { }
 
     @Post('login')
-    @ApiOkResponse({ type: AuthEntity })
+    @ApiOkResponse({ type: TokenDto })
     async login(
         @Res({ passthrough: true }) res: Response,
         @Body() { email, password }: LoginDto
@@ -73,9 +78,12 @@ export class AuthController {
     }
 
     @Post('refresh')
-    @ApiOkResponse({ type: AuthEntity })
-    async refresh(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
-        const refreshToken = req.cookies['refreshToken']
+    @ApiOkResponse({ type: TokenDto })
+    async refresh(
+        @Req() req: Request,
+        @Res({ passthrough: true }) res: Response
+    ) {
+        const refreshToken = req.cookies.refreshToken
 
         if (!refreshToken) {
             throw new BadRequestException('Refresh token not found')
@@ -103,5 +111,4 @@ export class AuthController {
     async getProfile(@Req() req: Request) {
         return req.user
     }
-
 }

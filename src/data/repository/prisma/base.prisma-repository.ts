@@ -1,7 +1,7 @@
-import type { Repository } from '../base.repository'
-import type { Model } from 'src/data/models'
-import type { Mapper } from 'src/data/mapper/base.mapper'
-import type { Filter, PaginationRequest } from 'src/data/util'
+import { Repository } from '../base.repository'
+import { Model } from 'src/data/models/base.model'
+import { Mapper } from 'src/data/mapper/base.mapper'
+import { Filter, PaginationRequest } from 'src/data/util'
 import { Pageable } from 'src/data/util'
 
 export abstract class PrismaRepository<M extends Model, D>

@@ -1,11 +1,11 @@
-import type { RestaurantFeature } from 'src/data/models'
-import type { RestaurantFeatureRepository } from '..'
+import { RestaurantFeature } from 'src/data/models/restaurant-feature.model'
 import { PrismaRepository } from './base.prisma-repository'
-import type { RestaurantFeature as PrismaRestaurantFeature } from '@prisma/client'
+import { RestaurantFeature as PrismaRestaurantFeature } from '@prisma/client'
 import { RestaurantFeatureMapper } from 'src/data/mapper/prisma/restaurant-feature.mapper'
 // biome-ignore lint/style/useImportType: <explanation>
 import { PrismaService } from './service/prisma.service'
 import { Injectable } from '@nestjs/common'
+import { RestaurantFeatureRepository } from '../restaurant-feature.repository'
 
 @Injectable()
 export class RestaurantFeaturePrismaRepository

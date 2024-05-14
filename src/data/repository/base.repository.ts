@@ -1,6 +1,6 @@
-import type { Model } from 'src/data/models'
-import type { Filter } from 'src/data/util/filter'
-import type { Pageable, PaginationRequest } from 'src/data/util/pageable'
+import { Model } from 'src/data/models/base.model'
+import { Filter } from 'src/data/util/filter'
+import { Pageable, PaginationRequest } from 'src/data/util/pageable'
 
 abstract class Repository<T extends Model> {
     abstract createOne(

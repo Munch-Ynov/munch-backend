@@ -1,4 +1,4 @@
-import type { Path, PathValue } from './path'
+import { Path, PathValue } from './path'
 
 /**
  * used to filter an entity E when fetching from the database
@@ -29,4 +29,3 @@ export type FilterValue<T> = {
     notEndsWith?: T
     isNull?: boolean
 }
-

@@ -1,4 +1,4 @@
-import type { Model } from './base.model'
+import { Model } from './base.model'
 
 /**
  * Model of the RestaurateurProfile

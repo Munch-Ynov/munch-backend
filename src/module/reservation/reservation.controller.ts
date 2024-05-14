@@ -12,15 +12,15 @@ import { ReservationService } from './reservation.service'
 import {
     ExternalReservationCreateDto,
     ReservationCreateDto,
-} from 'src/data/dto/reservation/reservation-create.dto'
-import type { ReservationStatus } from 'src/data/models'
+} from 'src/module/reservation/dto/reservation-create.dto'
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger'
-import { ReservationUpdateDto } from 'src/data/dto/reservation/reservation-update.dto'
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard'
-import { RolesGuard } from 'src/auth/roles.guard'
+import { JwtAuthGuard } from 'src/guard/jwt-auth.guard'
+import { RolesGuard } from 'src/guard/roles.guard'
+import { ReservationUpdateDto } from './dto/reservation-update.dto'
+import { ReservationStatus } from './model/reservation-status.enum'
 
 @Controller('reservation')
-@ApiTags('reservation','API')
+@ApiTags('reservation', 'API')
 export class ReservationController {
     constructor(private readonly reservationService: ReservationService) { }
 

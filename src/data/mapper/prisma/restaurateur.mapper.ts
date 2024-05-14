@@ -1,6 +1,6 @@
-import type { RestaurateurProfile as PrismaRestaurateurProfile } from '@prisma/client'
-import type { RestaurateurProfile } from 'src/data/models'
+import { RestaurateurProfile as PrismaRestaurateurProfile } from '@prisma/client'
 import { Mapper } from '../base.mapper'
+import { RestaurateurProfile } from 'src/data/models/restaurateur-profile'
 
 class RestaurateurMapper extends Mapper<
     RestaurateurProfile,

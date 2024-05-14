@@ -3,8 +3,6 @@ import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class HashService {
-    constructor() {}
-
     private saltOrRounds = 10
 
     async hashPassword(password: string): Promise<string> {

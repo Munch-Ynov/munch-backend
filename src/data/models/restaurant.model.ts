@@ -1,5 +1,5 @@
-import type { Model } from './base.model'
-import type { PriceCategory } from './enum/price-category.enum'
+import { Model } from './base.model'
+import { PriceCategory } from './enum/price-category.enum'
 /**
  * Model of the Restaurant
  * @category Models

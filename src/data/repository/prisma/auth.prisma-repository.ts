@@ -1,11 +1,11 @@
-import type { Auth } from 'src/data/models'
-import type { AuthRepository } from '../'
 import { PrismaRepository } from './base.prisma-repository'
 // biome-ignore lint/style/useImportType: <explanation>
 import { PrismaService } from './service/prisma.service'
-import type { Auth as PrismaAuth } from '@prisma/client'
+import { Auth as PrismaAuth } from '@prisma/client'
 import { Injectable } from '@nestjs/common'
 import { AuthMapper } from 'src/data/mapper/prisma/auth.mapper'
+import { Auth } from 'src/module/auth/model/auth.model'
+import { AuthRepository } from 'src/module/auth/auth.repository'
 
 @Injectable()
 export class AuthPrismaRepository

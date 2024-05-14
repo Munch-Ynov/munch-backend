@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { type Reservation, ReservationStatus } from 'src/data/models'
+import { Reservation } from '../model/reservation.model';
+import { ReservationStatus } from '../model/reservation-status.enum';
 
 /**
  * Reservation create dto

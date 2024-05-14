@@ -1,6 +1,6 @@
-import type { RestaurantFeature } from 'src/data/models'
+import { RestaurantFeature } from 'src/data/models/restaurant-feature.model'
 import { Repository } from './base.repository'
 
-abstract class RestaurantFeatureRepository extends Repository<RestaurantFeature> {}
+abstract class RestaurantFeatureRepository extends Repository<RestaurantFeature> { }
 
 export { RestaurantFeatureRepository }

@@ -5,19 +5,18 @@ import {
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import cuid2 from '@paralleldrive/cuid2'
+import { type Auth, Role } from '@prisma/client'
+import { AuthRepository } from 'src/module/auth/auth.repository'
 import {
-    AuthProvider,
+    AccessToken,
+    AuthService,
     Payload,
-    accessToken,
-    refreshToken,
-} from 'src/auth/interface/auth-provider.interface'
-import { AuthRepository } from 'src/data/repository'
+    RefreshToken,
+} from 'src/module/auth/auth.service'
 import { HashService } from 'src/util/hash/hash.service'
-import type { Auth } from "../model/auth.model"
-import type { Role } from "../model/role-enum"
 
 @Injectable()
-export class AuthProviderService implements AuthProvider {
+export class AuthProviderService implements AuthService {
     constructor(
         private readonly authRepository: AuthRepository,
         private readonly hashService: HashService,
@@ -27,7 +26,10 @@ export class AuthProviderService implements AuthProvider {
     async login(
         email: string,
         password: string
-    ): Promise<{ accessToken: accessToken; refreshToken: refreshToken }> {
+    ): Promise<{
+        accessToken: AccessToken
+        refreshToken: RefreshToken
+    }> {
         // throw new Error("Method not implemented.");
         const authUser = await this.authRepository.findByEmail(email)
 
@@ -50,9 +52,10 @@ export class AuthProviderService implements AuthProvider {
         return { accessToken, refreshToken }
     }
 
-    async refresh(
-        refreshToken: refreshToken
-    ): Promise<{ accessToken: accessToken; refreshToken: refreshToken }> {
+    async refresh(refreshToken: RefreshToken): Promise<{
+        accessToken: AccessToken
+        refreshToken: RefreshToken
+    }> {
         if (!refreshToken) {
             throw new UnauthorizedException('Invalid refresh token')
         }
@@ -101,7 +104,7 @@ export class AuthProviderService implements AuthProvider {
         return authUser
     }
 
-    private async validateRefreshToken(refreshToken: refreshToken) {
+    private async validateRefreshToken(refreshToken: RefreshToken) {
         const payload = this.jwtService.verify(refreshToken) as Payload
         return this.validate(payload)
     }

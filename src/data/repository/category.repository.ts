@@ -1,4 +1,4 @@
-import type { Category } from 'src/data/models'
+import { Category } from 'src/data/models/category.model'
 import { Repository } from './base.repository'
 
 abstract class CategoryRepository extends Repository<Category> {

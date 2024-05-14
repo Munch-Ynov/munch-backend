@@ -1,11 +1,11 @@
-import type { Category } from 'src/data/models'
-import type { CategoryRepository } from '..'
+import { Category } from 'src/data/models/category.model'
 import { PrismaRepository } from './base.prisma-repository'
 // biome-ignore lint/style/useImportType: <explanation>
 import { PrismaService } from './service/prisma.service'
 import { CategoryMapper } from 'src/data/mapper/prisma/category.mapper'
-import type { Category as PrismaCategory } from '@prisma/client'
+import { Category as PrismaCategory } from '@prisma/client'
 import { Injectable } from '@nestjs/common'
+import { CategoryRepository } from '../category.repository'
 
 @Injectable()
 export class CategoryPrismaRepository

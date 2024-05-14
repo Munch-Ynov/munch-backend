@@ -1,5 +1,5 @@
-import type { Model } from '../../../data/models/base.model'
-import type { ReservationStatus } from '../../../data/models/enum'
+import { Model } from '../../../data/models/base.model'
+import { ReservationStatus } from './reservation-status.enum'
 
 /**
  * Model of the Reservation

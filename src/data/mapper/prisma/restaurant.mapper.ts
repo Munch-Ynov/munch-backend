@@ -1,5 +1,5 @@
-import type { Restaurant as PrismaRestaurant } from '@prisma/client'
-import type { Restaurant } from 'src/data/models'
+import { Restaurant as PrismaRestaurant } from '@prisma/client'
+import { Restaurant } from 'src/data/models/restaurant.model'
 import { Mapper } from '../base.mapper'
 
 class RestaurantMapper extends Mapper<Restaurant, PrismaRestaurant> {

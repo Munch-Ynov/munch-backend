@@ -1,11 +1,11 @@
-import type { Favorite as PrismaFavorite } from '@prisma/client'
+import { Favorite as PrismaFavorite } from '@prisma/client'
 import { FavoriteMapper } from 'src/data/mapper/prisma/favorite.mapper.ts'
-import type { Favorite } from 'src/data/models'
-import type { FavoriteRepository } from '..'
+import { Favorite } from 'src/data/models/favorite.model'
 import { PrismaRepository } from './base.prisma-repository'
 // biome-ignore lint/style/useImportType: <explanation>
 import { PrismaService } from './service/prisma.service'
 import { Injectable } from '@nestjs/common'
+import { FavoriteRepository } from '../favorite.repository'
 
 @Injectable()
 export class FavoritePrismaRepository

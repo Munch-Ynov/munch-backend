@@ -9,15 +9,17 @@ import cookieParser from 'cookie-parser'
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
     app.enableCors({ origin: '*' })
-    app.use(cookieParser());
+    app.use(cookieParser())
     app.useGlobalPipes(new ValidationPipe({ transform: true }))
-    app.useGlobalGuards(new SanitizerGuard());
+    app.useGlobalGuards(new SanitizerGuard())
 
-    app.use(helmet());
+    app.use(helmet())
 
     const swagger_config = new DocumentBuilder()
         .setTitle('munchAPI')
-        .setDescription('munchAPI est une API pour permettre la gestion des reservations de restaurants.')
+        .setDescription(
+            'munchAPI est une API pour permettre la gestion des reservations de restaurants.'
+        )
         .setVersion('1.0')
         .addTag('API')
         .addBearerAuth()

@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common'
-import type { ExternalReservationCreateDto } from 'src/data/dto/reservation/reservation-create.dto'
-import { type Reservation, ReservationStatus } from 'src/data/models'
+import { ExternalReservationCreateDto } from 'src/module/reservation/dto/reservation-create.dto'
 
-// biome-ignore lint/style/useImportType: <explanation>
-import { ReservationRepository } from 'src/data/repository'
-import type { Filter, Pageable, PaginationRequest } from 'src/data/util'
-import type { ReservationService } from './reservation.service'
+import { Filter, Pageable, PaginationRequest } from 'src/data/util'
+import { ReservationStatus } from './model/reservation-status.enum'
+import { Reservation } from './model/reservation.model'
+import { ReservationRepository } from './reservation.repository'
+import { ReservationService } from './reservation.service'
 
 @Injectable()
 export class ReservationServiceImpl implements ReservationService {
     constructor(
         private readonly reservationRepository: ReservationRepository
-    ) {}
+    ) { }
 
     async getReservationById(reservationId: string): Promise<Reservation> {
         return this.reservationRepository.findOne(reservationId)
@@ -59,9 +59,8 @@ export class ReservationServiceImpl implements ReservationService {
         reservationId: string,
         status: ReservationStatus
     ): Promise<Reservation> {
-        const reservation = await this.reservationRepository.findOne(
-            reservationId
-        )
+        const reservation =
+            await this.reservationRepository.findOne(reservationId)
         if (!reservation) throw new Error('Reservation not found')
         if (reservation.status !== ReservationStatus.PENDING)
             throw new Error('Reservation status cannot be updated')

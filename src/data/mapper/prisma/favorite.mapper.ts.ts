@@ -1,5 +1,5 @@
-import type { Favorite as PrismaFavorite } from '@prisma/client'
-import type { Favorite } from 'src/data/models'
+import { Favorite as PrismaFavorite } from '@prisma/client'
+import { Favorite } from 'src/data/models/favorite.model'
 import { Mapper } from '../base.mapper'
 
 class FavoriteMapper extends Mapper<Favorite, PrismaFavorite> {

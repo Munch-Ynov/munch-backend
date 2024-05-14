@@ -1,4 +1,6 @@
-import type { Auth, RestaurateurProfile, UserProfile } from 'src/data/models'
+import { Auth } from "src/module/auth/model/auth.model"
+import { UserProfile } from "../models/user-profile.model"
+import { RestaurateurProfile } from "../models/restaurateur-profile"
 
 export const adminSeeder: Partial<Auth> & Partial<UserProfile> = {
     email: 'admin@munch.com',

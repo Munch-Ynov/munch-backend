@@ -1,4 +1,4 @@
-import type { RestaurantFeature } from 'src/data/models'
+import { RestaurantFeature } from 'src/data/models/restaurant-feature.model'
 export const categoriesFeaturesSeeder = [
     'Régime alimentaire',
     'Type de cuisine',
@@ -9,31 +9,31 @@ export const regimeSeeder: Omit<
     RestaurantFeature,
     'id' | 'icon' | 'category' | 'restaurant' | 'categoryId'
 >[] = [
-    {
-        name: 'Végétarien',
-    },
-    {
-        name: 'Vegan',
-    },
-    {
-        name: 'Sans gluten',
-    },
-    {
-        name: 'Halal',
-    },
-    {
-        name: 'Cacherout',
-    },
-]
+        {
+            name: 'Végétarien',
+        },
+        {
+            name: 'Vegan',
+        },
+        {
+            name: 'Sans gluten',
+        },
+        {
+            name: 'Halal',
+        },
+        {
+            name: 'Cacherout',
+        },
+    ]
 
 export const cuisineSeeder: Omit<
     RestaurantFeature,
     'id' | 'category' | 'restaurant' | 'categoryId'
 >[] = [
-    { name: 'Moyen-Orient', icon: 'chicken-leg' },
-    { name: 'Asiatique', icon: 'asia-gate' },
-    { name: 'Européenne', icon: 'french-fries' },
-    { name: 'Américaine', icon: 'hamburger' },
-    { name: 'Africaine', icon: 'barbeque' },
-    { name: 'Latine', icon: 'taco' },
-]
+        { name: 'Moyen-Orient', icon: 'chicken-leg' },
+        { name: 'Asiatique', icon: 'asia-gate' },
+        { name: 'Européenne', icon: 'french-fries' },
+        { name: 'Américaine', icon: 'hamburger' },
+        { name: 'Africaine', icon: 'barbeque' },
+        { name: 'Latine', icon: 'taco' },
+    ]

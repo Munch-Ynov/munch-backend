@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
-import type { RestaurateurProfile as PrismaRestaurateurProfile } from '@prisma/client'
+import { RestaurateurProfile as PrismaRestaurateurProfile } from '@prisma/client'
 import { RestaurateurMapper } from 'src/data/mapper/prisma/restaurateur.mapper'
-import type { RestaurateurProfile } from 'src/data/models'
-import type { RestaurateurRepository } from '..'
+import { RestaurateurProfile } from 'src/data/models/restaurateur-profile'
 import { PrismaRepository } from './base.prisma-repository'
 // biome-ignore lint/style/useImportType: <explanation>
 import { PrismaService } from './service/prisma.service'
+import { RestaurateurRepository } from '../restaurateur.repository'
 
 @Injectable()
 export class RestaurateurPrismaRepository

@@ -1,11 +1,11 @@
 import { UserMapper } from 'src/data/mapper/prisma/user.mapper'
-import type { UserRepository } from '..'
 import { PrismaRepository } from './base.prisma-repository'
 import { Injectable } from '@nestjs/common'
-import type { UserProfile as PrismaUserProfile } from '@prisma/client'
-import type { UserProfile } from 'src/data/models'
+import { UserProfile as PrismaUserProfile } from '@prisma/client'
 // biome-ignore lint/style/useImportType: <explanation>
 import { PrismaService } from './service/prisma.service'
+import { UserRepository } from '../user.repository'
+import { UserProfile } from 'src/data/models/user-profile.model'
 
 @Injectable()
 export class UserPrismaRepository

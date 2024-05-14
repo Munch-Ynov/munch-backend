@@ -1,17 +1,15 @@
-import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
-import { HelmetMiddleware } from '@nest-middlewares/helmet'
 import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser'
 import { ErrorHandlerMiddleware } from '@nest-middlewares/errorhandler'
-import { RateLimiterGuard, RateLimiterModule } from 'nestjs-rate-limiter'
+import { HelmetMiddleware } from '@nest-middlewares/helmet'
+import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
+import { RateLimiterGuard, RateLimiterModule } from 'nestjs-rate-limiter'
+import { TransformInterceptor } from './exception/exception.interceptior'
+import { UniformErrorFilter } from './exception/uniform-error.filter'
+import { AuthModule } from './module/auth/auth.module'
 import { HealthModule } from './module/health/health.module'
-import { AuthModule } from './auth/auth.module'
 import { ReservationModule } from './module/reservation/reservation.module'
-import { RepositoryModule } from './data/repository'
-import { SeederService } from './data/seeder/seeder.service'
-import { UniformErrorFilter } from './config/errorsImplementations/uniform-error.filter'
-import { Null404Interceptor } from './config/errorsImplementations/null-404.interceptor'
 
 @Module({
     imports: [
@@ -20,10 +18,6 @@ import { Null404Interceptor } from './config/errorsImplementations/null-404.inte
         HealthModule,
         AuthModule,
         ReservationModule,
-        {
-            global: true,
-            module: RepositoryModule,
-        },
     ],
     controllers: [],
     providers: [
@@ -33,13 +27,12 @@ import { Null404Interceptor } from './config/errorsImplementations/null-404.inte
         },
         {
             provide: APP_INTERCEPTOR,
-            useClass: Null404Interceptor,
+            useClass: TransformInterceptor,
         },
-        {
-            provide: APP_FILTER,
-            useClass: UniformErrorFilter,
-        },
-        SeederService,
+        // {
+        //     provide: APP_FILTER,
+        //     useClass: UniformErrorFilter,
+        // },
     ],
 })
 export class AppModule {
