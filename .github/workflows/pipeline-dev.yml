@@ -68,19 +68,22 @@ jobs:
               echo "EXPIRATION_JWT_REFRESH_TOKEN=${{ vars.EXPIRATION_JWT_REFRESH_TOKEN }}" >> .env
               echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
               echo "NODE_ENV=${{ vars.NODE_ENV }}" >> .env
+          - name: Verify .env file
+            run: cat .env
           - name: copy .env and docker-compose.yml
             uses: appleboy/scp-action@v0.1.7
             with:
               host: ${{ secrets.SSH_HOST }}
               username: ${{ secrets.SSH_USERNAME }}
-
               key: ${{ secrets.SSH_KEY }}
               source: "docker-compose.yml,.env"
-              target: "/home/test/"
+              target: "/home/${{ secrets.SSH_USERNAME }}/"
           - name: executing remote ssh commands
             uses: appleboy/ssh-action@master
             with:
               host: ${{ secrets.SSH_HOST }}
               username: ${{ secrets.SSH_USERNAME }}
               key: ${{ secrets.SSH_KEY }}
-              script: docker-compose up -d
+              script: |
+                docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+                docker-compose up -d
