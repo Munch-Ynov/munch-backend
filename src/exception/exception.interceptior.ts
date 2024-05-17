@@ -8,8 +8,9 @@ import {
     NestInterceptor,
 } from '@nestjs/common'
 // biome-ignore lint/style/useImportType: <explanation>
-import { Observable, throwError } from 'rxjs'
+import { Observable } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
+import { ParameterException } from './parameter-exception'
 
 @Injectable()
 export class TransformInterceptor implements NestInterceptor {

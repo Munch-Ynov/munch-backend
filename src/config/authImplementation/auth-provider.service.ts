@@ -4,7 +4,7 @@ import {
     UnauthorizedException,
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import cuid2 from '@paralleldrive/cuid2'
+import cuid2  from '@paralleldrive/cuid2'
 import { type Auth, Role } from '@prisma/client'
 import { AuthRepository } from 'src/module/auth/auth.repository'
 import {
