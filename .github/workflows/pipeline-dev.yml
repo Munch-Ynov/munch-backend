@@ -53,33 +53,33 @@ jobs:
         needs: build-and-push-image
         runs-on: ubuntu-latest
         permissions:
-            contents: read
-            packages: read
+          contents: read
+          packages: read
         steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-            - name: Creation du fichier .env file
-              run: |
-                touch .env
-                echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
-                echo "DIRECT_URL=${{ secrets.DIRECT_URL }}" >> .env
-                echo "PORT=${{ secrets.PORT }}" >> .env
-                echo "EXPIRATION_JWT_ACCESS_TOKEN=${{ secrets.EXPIRATION_JWT_ACCESS_TOKEN }}" >> .env
-                echo "EXPIRATION_JWT_REFRESH_TOKEN=${{ secrets.EXPIRATION_JWT_REFRESH_TOKEN }}" >> .env
-                echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
-                echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
-            - name: copy .env and docker-compose.yml
-              uses: actions/checkout@v4
-              with:
-                host: ${{ secrets.SSH_HOST }}
-                username: ${{ secrets.SSH_USERNAME }}
-                key: ${{ secrets.SSH_KEY }}
-                source: "docker-compose.yml,.env"
-                target: "/home/${{ secrets.SSH_USERNAME }}/"
-            - name: executing remote ssh commands
-              uses: appleboy/ssh-action@master
-              with:
-                host: ${{ secrets.SSH_HOST }}
-                username: ${{ secrets.SSH_USERNAME }}
-                key: ${{ secrets.SSH_KEY }}
-                script: docker-compose up -d
+          - name: Checkout repository
+            uses: actions/checkout@v4
+          - name: Creation du fichier .env file
+            run: |
+              touch .env
+              echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+              echo "DIRECT_URL=${{ secrets.DIRECT_URL }}" >> .env
+              echo "PORT=${{ secrets.PORT }}" >> .env
+              echo "EXPIRATION_JWT_ACCESS_TOKEN=${{ secrets.EXPIRATION_JWT_ACCESS_TOKEN }}" >> .env
+              echo "EXPIRATION_JWT_REFRESH_TOKEN=${{ secrets.EXPIRATION_JWT_REFRESH_TOKEN }}" >> .env
+              echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
+              echo "NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
+          - name: copy .env and docker-compose.yml
+            uses: appleboy/scp-action@v0.1.7
+            with:
+              host: ${{ secrets.SSH_HOST }}
+              username: ${{ secrets.SSH_USERNAME }}
+              key: ${{ secrets.SSH_KEY }}
+              source: "docker-compose.yml,.env"
+              target: "/home/${{ secrets.SSH_USERNAME }}/"
+          - name: executing remote ssh commands
+            uses: appleboy/ssh-action@master
+            with:
+              host: ${{ secrets.SSH_HOST }}
+              username: ${{ secrets.SSH_USERNAME }}
+              key: ${{ secrets.SSH_KEY }}
+              script: docker-compose up -d
