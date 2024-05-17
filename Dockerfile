@@ -22,7 +22,7 @@ COPY --chown=node:node . .
 RUN npx prisma generate
 
 # Generate the production build. The build script runs "nest build" to compile the application.
-RUN npm run build
+RUN ["npm","run", "build"]
 
 # Install only the production dependencies and clean cache to optimize image size.
 RUN npm i --only=production && npm cache clean --force
