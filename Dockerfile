@@ -44,6 +44,7 @@ ENV TZ=Europe/Paris
 # Copy only the necessary files
 COPY --chown=node:node --from=build-stage /app/dist dist
 COPY --chown=node:node --from=build-stage /app/node_modules node_modules
+COPY --chown=node:node --from=build-stage /app/package.json /app
 # Copy the prisma folder (schema + migrations)
 COPY --chown=node:node --from=build-stage /app/prisma prisma
 
