@@ -86,5 +86,6 @@ jobs:
               username: ${{ secrets.SSH_USERNAME }}
               key: ${{ secrets.SSH_KEY }}
               script: |
-                docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} --password-stdin
+                cd /home/${{ secrets.SSH_USERNAME }}
+                echo docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} --password-stdin
                 docker-compose up -d
