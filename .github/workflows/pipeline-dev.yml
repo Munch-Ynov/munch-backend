@@ -73,9 +73,10 @@ jobs:
             with:
               host: ${{ secrets.SSH_HOST }}
               username: ${{ secrets.SSH_USERNAME }}
+
               key: ${{ secrets.SSH_KEY }}
               source: "docker-compose.yml,.env"
-              target: "/home/${{ secrets.SSH_USERNAME }}/"
+              target: "/home/test/"
           - name: executing remote ssh commands
             uses: appleboy/ssh-action@master
             with:
