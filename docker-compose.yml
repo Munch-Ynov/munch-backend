@@ -1,7 +1,7 @@
 # docker compose for a postgres database
 
 services:
-    munch-backend:
+    api:
         container_name: munch-backend
         image: ghcr.io/munch-ynov/munch-backend:docker-production
         # build: .
