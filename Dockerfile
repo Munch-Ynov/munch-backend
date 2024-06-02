@@ -48,6 +48,8 @@ COPY --chown=node:node --from=build-stage /app/package.json /app
 # Copy the prisma folder (schema + migrations)
 COPY --chown=node:node --from=build-stage /app/prisma prisma
 
+RUN mkdir -p /app/logs && chmod 777 /app/logs
+
 # Expose the port
 EXPOSE 3000
 

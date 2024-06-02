@@ -14,7 +14,7 @@ async function bootstrap() {
             transports: [
                 // let's log errors into its own file
                    new transports.File({
-                     filename: `app/logs/error.log`,
+                     filename: `logs/error.log`,
                      level: 'error',
                      format: format.combine(format.timestamp(), format.json()),
                    }),
