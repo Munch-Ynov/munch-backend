@@ -41,10 +41,12 @@
         "class-validator": "^0.14.1",
         "cookie-parser": "^1.4.6",
         "helmet": "^7.1.0",
+        "nest-winston": "^1.10.0",
         "nestjs-rate-limiter": "^3.1.0",
         "passport-jwt": "^4.0.1",
         "reflect-metadata": "^0.1.14",
         "rxjs": "^7.8.1",
+        "winston": "^3.13.0",
         "xss": "^1.0.15"
     },
     "devDependencies": {
@@ -76,13 +78,19 @@
         "typescript": "^5.4.2"
     },
     "jest": {
-        "moduleFileExtensions": ["js", "json", "ts"],
+        "moduleFileExtensions": [
+            "js",
+            "json",
+            "ts"
+        ],
         "rootDir": "src",
         "testRegex": ".*\\.spec\\.ts$",
         "transform": {
             "^.+\\.(t|j)s$": "ts-jest"
         },
-        "collectCoverageFrom": ["**/*.(t|j)s"],
+        "collectCoverageFrom": [
+            "**/*.(t|j)s"
+        ],
         "coverageDirectory": "../coverage",
         "testEnvironment": "node"
     }

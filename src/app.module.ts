@@ -1,7 +1,7 @@
 import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser'
 import { ErrorHandlerMiddleware } from '@nest-middlewares/errorhandler'
 import { HelmetMiddleware } from '@nest-middlewares/helmet'
-import { Module } from '@nestjs/common'
+import { Logger, Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { RateLimiterGuard, RateLimiterModule } from 'nestjs-rate-limiter'
@@ -29,6 +29,7 @@ import { ReservationModule } from './module/reservation/reservation.module'
             provide: APP_INTERCEPTOR,
             useClass: TransformInterceptor,
         },
+        Logger,
         // {
         //     provide: APP_FILTER,
         //     useClass: UniformErrorFilter,

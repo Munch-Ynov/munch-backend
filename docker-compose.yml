@@ -21,7 +21,12 @@ services:
             - .env
         networks:
             - default
+        volumes:
+          - logs:/app/logs
 networks:
   default:
     name: munch-network
+
+volumes:
+  logs:
 
