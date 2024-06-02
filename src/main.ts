@@ -18,6 +18,7 @@ async function bootstrap() {
                      level: 'error',
                      format: format.combine(format.timestamp(), format.json()),
                    }),
+                   
                    // logging all level
                    new transports.File({
                      filename: `logs/combined.log`,
