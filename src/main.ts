@@ -19,6 +19,7 @@ async function bootstrap() {
                      format: format.combine(format.timestamp(), format.json()),
                    }),
 
+                   
                    new transports.File({
                         filename: `logs/warn.log`,
                         level: 'warn',
@@ -32,7 +33,7 @@ async function bootstrap() {
                           format: format.combine(format.timestamp(), format.json()),
                         }),
 
-                        
+
 
                    // logging all level
                    new transports.File({
