@@ -88,5 +88,4 @@ jobs:
               script: |
                 cd ~/${{ secrets.SSH_USERNAME }}
                 echo ${{ secrets.REGISTRY_KEY }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-                docker pull ghcr.io/munch-ynov/munch-backend:docker-production
-                docker-compose up -d --force-recreate
+                docker-compose up -d --pull --force-recreate
