@@ -88,4 +88,4 @@ jobs:
               script: |
                 cd ~/${{ secrets.SSH_USERNAME }}
                 echo ${{ secrets.REGISTRY_KEY }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-                docker-compose up -d --pull --force-recreate --remove-orphans
+                docker-compose -p ${{ env.IMAGE_NAME }} up -d --pull --force-recreate --remove-orphans
