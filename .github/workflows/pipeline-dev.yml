@@ -89,4 +89,4 @@ jobs:
               script: |
                 cd ~/${{ secrets.SSH_USERNAME }}
                 echo ${{ secrets.REGISTRY_KEY }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-                docker-compose up -d --force-recreate
+                docker-compose up -d
