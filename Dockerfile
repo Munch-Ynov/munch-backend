@@ -14,7 +14,6 @@ ENV NODE_ENV production
 # Set the Timezone
 ENV TZ=Europe/Paris
 
-
 # Copy source code
 COPY --chown=node:node . .
 
