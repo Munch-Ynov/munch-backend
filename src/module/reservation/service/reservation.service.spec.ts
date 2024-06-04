@@ -29,9 +29,6 @@ const $reservations: Array<Reservation> = [];
 
 describe('ReservationService', () => {
   let service: ReservationService;
-  let mockReservationRepository: jest.Mocked<ReservationRepository>;
-
-
 
   beforeEach(async () => {
     // remove all reservations from the array
@@ -153,7 +150,6 @@ describe('ReservationService', () => {
     }).compile()
 
     service = module.get<ReservationService>(ReservationService)
-    mockReservationRepository = module.get(ReservationRepository)
   })
 
   it('should be defined', () => {

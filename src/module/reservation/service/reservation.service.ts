@@ -2,6 +2,7 @@ import { ExternalReservationCreateDto, ReservationCreateDto } from '@/module/res
 import { Filter, Pageable, PaginationRequest } from '@/data/util'
 import { Reservation } from '../model/reservation.model'
 import { ReservationStatus } from '../model/reservation-status.enum'
+import { throwError } from 'rxjs';
 abstract class ReservationService {
     /**
      * Get reservation by id
@@ -19,7 +20,7 @@ abstract class ReservationService {
             pagination: PaginationRequest<Reservation>
             filter: Filter<Reservation>
         }
-    ): Promise<Pageable<Reservation>>
+    ): Promise<Pageable<Reservation>>;
 
     /**
      * Get reservation by restaurant id
