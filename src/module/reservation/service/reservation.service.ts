@@ -1,7 +1,7 @@
-import { ExternalReservationCreateDto } from 'src/module/reservation/dto/reservation-create.dto'
-import { Filter, Pageable, PaginationRequest } from 'src/data/util'
-import { Reservation } from './model/reservation.model'
-import { ReservationStatus } from './model/reservation-status.enum'
+import { ExternalReservationCreateDto } from '@/module/reservation/dto/reservation-create.dto'
+import { Filter, Pageable, PaginationRequest } from '@/data/util'
+import { Reservation } from '../model/reservation.model'
+import { ReservationStatus } from '../model/reservation-status.enum'
 abstract class ReservationService {
     /**
      * Get reservation by id

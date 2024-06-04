@@ -8,16 +8,17 @@ import {
     Param,
 } from '@nestjs/common/decorators/http'
 // biome-ignore lint/style/useImportType: <explanation>
-import { ReservationService } from './reservation.service'
 import {
     ExternalReservationCreateDto,
     ReservationCreateDto,
-} from 'src/module/reservation/dto/reservation-create.dto'
+} from '@/module/reservation/dto/reservation-create.dto'
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger'
-import { JwtAuthGuard } from 'src/guard/jwt-auth.guard'
-import { RolesGuard } from 'src/guard/roles.guard'
-import { ReservationUpdateDto } from './dto/reservation-update.dto'
-import { ReservationStatus } from './model/reservation-status.enum'
+import { JwtAuthGuard } from '@/guard/jwt-auth.guard'
+import { RolesGuard } from '@/guard/roles.guard'
+import { ReservationService } from '../service/reservation.service'
+import { ReservationStatus } from '../model/reservation-status.enum'
+import { ReservationUpdateDto } from '../dto/reservation-update.dto'
+
 
 @Controller('reservation')
 @ApiTags('reservation', 'API')

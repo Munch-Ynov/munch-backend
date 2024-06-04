@@ -1,4 +1,4 @@
-import { Model } from 'src/data/models/base.model'
+import { Model } from '@/data/models/base.model'
 import { Role } from './role-enum'
 
 /**

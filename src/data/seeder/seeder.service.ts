@@ -5,7 +5,7 @@
 //     cuisineSeeder,
 //     regimeSeeder,
 // } from './features.seeder'
-// import { Role } from 'src/data/models/enum'
+// import { Role } from '@/data/models/enum'
 
 // import { UserProfile } from '../models/user-profile.model'
 // import { AuthRepository } from '../repository/auth.repository'

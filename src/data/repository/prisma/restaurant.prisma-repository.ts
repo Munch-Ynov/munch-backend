@@ -1,8 +1,8 @@
-import { Restaurant } from 'src/data/models/restaurant.model'
+import { Restaurant } from '@/data/models/restaurant.model'
 import { PrismaRepository } from './base.prisma-repository'
 import { Injectable } from '@nestjs/common'
 import { Restaurant as PrismaRestaurant } from '@prisma/client'
-import { RestaurantMapper } from 'src/data/mapper/prisma/restaurant.mapper'
+import { RestaurantMapper } from '@/data/mapper/prisma/restaurant.mapper'
 // biome-ignore lint/style/useImportType: <explanation>
 import { PrismaService } from './service/prisma.service'
 import { RestaurantRepository } from '../restaurant.repository'

@@ -1,8 +1,8 @@
 import { Repository } from '../base.repository'
-import { Model } from 'src/data/models/base.model'
-import { Mapper } from 'src/data/mapper/base.mapper'
-import { Filter, PaginationRequest } from 'src/data/util'
-import { Pageable } from 'src/data/util'
+import { Model } from '@/data/models/base.model'
+import { Mapper } from '@/data/mapper/base.mapper'
+import { Filter, PaginationRequest } from '@/data/util'
+import { Pageable } from '@/data/util'
 
 export abstract class PrismaRepository<M extends Model, D>
     implements Repository<M> {

@@ -1,4 +1,4 @@
-import { RestaurantFeature } from 'src/data/models/restaurant-feature.model'
+import { RestaurantFeature } from '@/data/models/restaurant-feature.model'
 export const categoriesFeaturesSeeder = [
     'Régime alimentaire',
     'Type de cuisine',

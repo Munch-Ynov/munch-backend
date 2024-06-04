@@ -1,5 +1,5 @@
 import { RestaurantFeature as PrismaRestaurantFeature } from '@prisma/client'
-import { RestaurantFeature } from 'src/data/models/restaurant-feature.model'
+import { RestaurantFeature } from '@/data/models/restaurant-feature.model'
 import { Mapper } from '../base.mapper'
 
 class RestaurantFeatureMapper extends Mapper<

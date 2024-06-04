@@ -6,14 +6,14 @@ import {
 import { JwtService } from '@nestjs/jwt'
 import cuid2 from '@paralleldrive/cuid2'
 import { type Auth, Role } from '@prisma/client'
-import { AuthRepository } from 'src/module/auth/auth.repository'
+import { AuthRepository } from '@/module/auth/auth.repository'
 import {
     AccessToken,
     AuthService,
     Payload,
     RefreshToken,
-} from 'src/module/auth/auth.service'
-import { HashService } from 'src/util/hash/hash.service'
+} from '@/module/auth/auth.service'
+import { HashService } from '@/util/hash/hash.service'
 
 @Injectable()
 export class AuthProviderService implements AuthService {

@@ -1,5 +1,5 @@
 import { UserProfile as PrismaUserProfile } from '@prisma/client'
-import { UserProfile } from 'src/data/models/user-profile.model'
+import { UserProfile } from '@/data/models/user-profile.model'
 import { Mapper } from '../base.mapper'
 
 class UserMapper extends Mapper<UserProfile, PrismaUserProfile> {

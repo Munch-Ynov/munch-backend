@@ -3,9 +3,9 @@ import { PrismaRepository } from './base.prisma-repository'
 import { PrismaService } from './service/prisma.service'
 import { Auth as PrismaAuth } from '@prisma/client'
 import { Injectable } from '@nestjs/common'
-import { AuthMapper } from 'src/data/mapper/prisma/auth.mapper'
-import { Auth } from 'src/module/auth/model/auth.model'
-import { AuthRepository } from 'src/module/auth/auth.repository'
+import { AuthMapper } from '@/data/mapper/prisma/auth.mapper'
+import { Auth } from '@/module/auth/model/auth.model'
+import { AuthRepository } from '@/module/auth/auth.repository'
 
 @Injectable()
 export class AuthPrismaRepository

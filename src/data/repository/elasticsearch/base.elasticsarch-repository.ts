@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { Client } from '@elastic/elasticsearch'
-import { Model } from 'src/data/models/base.model'
-import { Mapper } from 'src/data/mapper/base.mapper'
-import { Filter, FilterValue, PaginationRequest } from 'src/data/util'
-import { Pageable } from 'src/data/util'
+import { Model } from '@/data/models/base.model'
+import { Mapper } from '@/data/mapper/base.mapper'
+import { Filter, FilterValue, PaginationRequest } from '@/data/util'
+import { Pageable } from '@/data/util'
 
 interface ElasticSearchModel {
     id: string

@@ -1,4 +1,4 @@
-import { Auth } from "src/module/auth/model/auth.model"
+import { Auth } from "@/module/auth/model/auth.model"
 import { UserProfile } from "../models/user-profile.model"
 import { RestaurateurProfile } from "../models/restaurateur-profile"
 

@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common'
-import { ExternalReservationCreateDto } from 'src/module/reservation/dto/reservation-create.dto'
+import { ExternalReservationCreateDto } from '@/module/reservation/dto/reservation-create.dto'
 
-import { Filter, Pageable, PaginationRequest } from 'src/data/util'
-import { ReservationStatus } from './model/reservation-status.enum'
-import { Reservation } from './model/reservation.model'
-import { ReservationRepository } from './reservation.repository'
-import { ReservationService } from './reservation.service'
+import { Filter, Pageable, PaginationRequest } from '@/data/util'
+import { ReservationService } from '@/module/reservation/service/reservation.service'
+import { Reservation } from '@/module/reservation/model/reservation.model'
+import { ReservationStatus } from '@/module/reservation/model/reservation-status.enum'
+import { ReservationRepository } from '@/module/reservation/repository/reservation.repository'
+
 
 @Injectable()
 export class ReservationServiceImpl implements ReservationService {

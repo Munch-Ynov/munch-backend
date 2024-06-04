@@ -1,6 +1,6 @@
 import { Favorite as PrismaFavorite } from '@prisma/client'
-import { FavoriteMapper } from 'src/data/mapper/prisma/favorite.mapper.ts'
-import { Favorite } from 'src/data/models/favorite.model'
+import { FavoriteMapper } from '@/data/mapper/prisma/favorite.mapper.ts'
+import { Favorite } from '@/data/models/favorite.model'
 import { PrismaRepository } from './base.prisma-repository'
 // biome-ignore lint/style/useImportType: <explanation>
 import { PrismaService } from './service/prisma.service'

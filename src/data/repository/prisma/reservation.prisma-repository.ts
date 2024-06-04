@@ -1,10 +1,11 @@
 import { Injectable } from "@nestjs/common"
 import { PrismaRepository } from "./base.prisma-repository"
-import { ReservationRepository } from "src/module/reservation/reservation.repository"
+
 import { Reservation as PrismaReservation } from "@prisma/client"
-import { Reservation } from "src/module/reservation/model/reservation.model"
+import { Reservation } from "@/module/reservation/model/reservation.model"
 import { PrismaService } from "./service/prisma.service"
-import { ReservationMapper } from "src/data/mapper/prisma/reservation.mapper"
+import { ReservationMapper } from "@/data/mapper/prisma/reservation.mapper"
+import { ReservationRepository } from "@/module/reservation/repository/reservation.repository"
 
 @Injectable()
 export class ReservationPrismaRepository
