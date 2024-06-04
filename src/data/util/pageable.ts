@@ -1,9 +1,9 @@
 import { Sort } from './sort'
 
 export interface PaginationRequest<T> {
-    page: number
-    size: number
-    sort: Sort<T>
+    page: number;
+    size: number;
+    sort: Sort<T>;
 }
 
 export class Pageable<T> {
@@ -42,6 +42,10 @@ export class Pageable<T> {
         this.empty = empty
     }
 
+    static fromArray<T>(content: T[], request: PaginationRequest<T>) {
+        return Pageable.of({ content, totalElements: content.length, request })
+    }
+
     static of<T>({
         content = [],
         totalElements = 0,
@@ -69,5 +73,9 @@ export class Pageable<T> {
             numberOfElements,
             empty,
         })
+    }
+
+    static defaultRequest<T>(): PaginationRequest<T> {
+        return { page: 0, size: 20, sort: Sort.of('id,asc') }
     }
 }

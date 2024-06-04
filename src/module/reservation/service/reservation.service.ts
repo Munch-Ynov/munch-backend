@@ -1,4 +1,4 @@
-import { ExternalReservationCreateDto } from '@/module/reservation/dto/reservation-create.dto'
+import { ExternalReservationCreateDto, ReservationCreateDto } from '@/module/reservation/dto/reservation-create.dto'
 import { Filter, Pageable, PaginationRequest } from '@/data/util'
 import { Reservation } from '../model/reservation.model'
 import { ReservationStatus } from '../model/reservation-status.enum'
@@ -38,7 +38,7 @@ abstract class ReservationService {
      * Create a new reservation for a user
      */
     abstract createReservation(
-        reservation: ExternalReservationCreateDto
+        reservation: ReservationCreateDto
     ): Promise<Reservation>
 
     /**

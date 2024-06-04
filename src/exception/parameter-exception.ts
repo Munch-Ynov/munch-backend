@@ -1,6 +1,11 @@
 class ParameterException extends Error {
-    constructor(message: string) {
+    param: string
+
+    constructor(param: string, message: string) {
         super(message)
+        this.param = param
         this.name = 'ParameterException'
     }
 }
+
+export { ParameterException }
