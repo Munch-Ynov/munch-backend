@@ -37,13 +37,13 @@ describe('HashService', () => {
             },
         ]
 
-        testCases.forEach(({ password, description }) => {
+        for (const { password, description } of testCases) {
             it(description, async () => {
                 const hashedPassword = await service.hashPassword(password)
                 expect(hashedPassword).not.toBe(password)
                 expect(hashedPassword).toMatch(/^[a-zA-Z0-9.\/$]{60}$/)
             })
-        })
+        }
     })
 
     describe('comparePassword', () => {
@@ -67,7 +67,7 @@ describe('HashService', () => {
             },
         ]
 
-        testCases.forEach(({ password, description }) => {
+        for (const { password, description } of testCases) {
             it(description, async () => {
                 const hashedPassword = await service.hashPassword(
                     password.toString()
@@ -78,6 +78,6 @@ describe('HashService', () => {
                 )
                 expect(isMatch).toBe(true)
             })
-        })
+        }
     })
 })
