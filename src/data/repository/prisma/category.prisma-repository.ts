@@ -19,6 +19,6 @@ export class CategoryPrismaRepository
         const category = await this.prisma.category.findFirst({
             where: { name },
         })
-        return this.$mapper.toEntity(category)
+        return this.$mapper.toDomain(category)
     }
 }

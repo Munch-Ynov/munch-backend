@@ -14,10 +14,12 @@ export class ReservationPrismaRepository
     constructor(private prisma: PrismaService) {
         super(prisma.reservation, new ReservationMapper())
     }
-    async findByUserId(userId: string): Promise<Reservation> {
-        const reservation = await this.prisma.reservation.findFirst({
+    async findByUserId(userId: string): Promise<Array<Reservation>> {
+        const reservation = await this.prisma.reservation.findMany({
             where: { userId },
         })
-        return this.$mapper.toEntity(reservation)
+        return reservation.map((r) => this.$mapper.toDomain(r))
     }
+
+
 }

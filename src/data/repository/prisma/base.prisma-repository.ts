@@ -16,17 +16,17 @@ export abstract class PrismaRepository<M extends Model, D>
 
     async createOne(entity: M): Promise<M> {
         const r: D = await this.$prisma.create({ data: entity })
-        return this.$mapper.toEntity(r) as M
+        return this.$mapper.toDomain(r) as M
     }
 
     async createMany(entities: M[]): Promise<M[]> {
         const r: Array<D> = await this.$prisma.createMany({ data: entities })
-        return r.map((d) => this.$mapper.toEntity(d)) as M[]
+        return r.map((d) => this.$mapper.toDomain(d)) as M[]
     }
 
     async findOne(id: string): Promise<M> {
         const r: D = await this.$prisma.findFirst({ where: { id } })
-        return this.$mapper.toEntity(r) as M
+        return this.$mapper.toDomain(r) as M
     }
     async findMany({
         filter,
@@ -43,7 +43,7 @@ export abstract class PrismaRepository<M extends Model, D>
             take: size,
         })
         return Pageable.of({
-            content: content.map(this.$mapper.toEntity),
+            content: content.map(this.$mapper.toDomain),
             totalElements,
             request: { page, size, sort },
         })
@@ -52,17 +52,17 @@ export abstract class PrismaRepository<M extends Model, D>
     async updateOne(id: string, entity: Partial<M>): Promise<M> {
         const r: D = await this.$prisma.update({
             where: { id },
-            data: this.$mapper.toData(entity),
+            data: this.$mapper.toPersistence(entity),
         })
-        return this.$mapper.toEntity(r) as M
+        return this.$mapper.toDomain(r) as M
     }
 
     async updateMany(filter: Filter<M>, entity: Partial<M>): Promise<M[]> {
         const r: Array<D> = await this.$prisma.updateMany({
             where: filter,
-            data: this.$mapper.toData(entity),
+            data: this.$mapper.toPersistence(entity),
         })
-        return r.map((d) => this.$mapper.toEntity(d)) as M[]
+        return r.map((d) => this.$mapper.toDomain(d)) as M[]
     }
 
     async deleteOne(id: string): Promise<void> {
