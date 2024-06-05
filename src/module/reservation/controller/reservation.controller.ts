@@ -7,7 +7,6 @@ import {
     Delete,
     Param,
 } from '@nestjs/common/decorators/http'
-// biome-ignore lint/style/useImportType: <explanation>
 import {
     ExternalReservationCreateDto,
     ReservationCreateDto,

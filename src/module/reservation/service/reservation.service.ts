@@ -1,7 +1,8 @@
-import { ExternalReservationCreateDto } from '@/module/reservation/dto/reservation-create.dto'
+import { ExternalReservationCreateDto, ReservationCreateDto } from '@/module/reservation/dto/reservation-create.dto'
 import { Filter, Pageable, PaginationRequest } from '@/data/util'
 import { Reservation } from '../model/reservation.model'
 import { ReservationStatus } from '../model/reservation-status.enum'
+import { throwError } from 'rxjs';
 abstract class ReservationService {
     /**
      * Get reservation by id
@@ -19,7 +20,7 @@ abstract class ReservationService {
             pagination: PaginationRequest<Reservation>
             filter: Filter<Reservation>
         }
-    ): Promise<Pageable<Reservation>>
+    ): Promise<Pageable<Reservation>>;
 
     /**
      * Get reservation by restaurant id
@@ -38,7 +39,7 @@ abstract class ReservationService {
      * Create a new reservation for a user
      */
     abstract createReservation(
-        reservation: ExternalReservationCreateDto
+        reservation: ReservationCreateDto
     ): Promise<Reservation>
 
     /**

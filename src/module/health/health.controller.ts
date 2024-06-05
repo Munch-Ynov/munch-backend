@@ -1,5 +1,4 @@
 import { Controller, Get } from '@nestjs/common'
-// biome-ignore lint/style/useImportType: <explanation>
 import {
     HealthCheckService,
     HttpHealthIndicator,
@@ -11,7 +10,7 @@ export class HealthController {
     constructor(
         private readonly health: HealthCheckService,
         private readonly http: HttpHealthIndicator
-    ) {}
+    ) { }
 
     @Get()
     @HealthCheck()

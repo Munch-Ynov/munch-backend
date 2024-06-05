@@ -46,6 +46,32 @@ export class ReservationCreateDto {
             status: ReservationStatus.PENDING,
         }
     }
+
+    constructor(
+        date: Date,
+        nb_people: number,
+        userId: string,
+        restaurantId: string
+    ) {
+        this.date = date
+        this.nb_people = nb_people
+        this.userId = userId
+        this.restaurantId = restaurantId
+    }
+
+    static from({
+        date,
+        nb_people,
+        userId,
+        restaurantId,
+    }: {
+        date: Date
+        nb_people: number
+        userId: string
+        restaurantId: string
+    }): ReservationCreateDto {
+        return new ReservationCreateDto(date, nb_people, userId, restaurantId)
+    }
 }
 
 /**
@@ -82,5 +108,23 @@ export class ExternalReservationCreateDto {
             restaurantId: this.restaurantId,
             status: ReservationStatus.ACCEPTED,
         }
+    }
+
+    constructor(date: Date, nb_people: number, restaurantId: string) {
+        this.date = date
+        this.nb_people = nb_people
+        this.restaurantId = restaurantId
+    }
+
+    static from({
+        date,
+        nb_people,
+        restaurantId,
+    }: {
+        date: Date
+        nb_people: number
+        restaurantId: string
+    }): ExternalReservationCreateDto {
+        return new ExternalReservationCreateDto(date, nb_people, restaurantId)
     }
 }

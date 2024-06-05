@@ -17,6 +17,6 @@ export class AuthPrismaRepository
 
     async findByEmail(email: string): Promise<Auth> {
         const auth = await this.prisma.auth.findFirst({ where: { email } })
-        return this.$mapper.toEntity(auth)
+        return this.$mapper.toDomain(auth)
     }
 }

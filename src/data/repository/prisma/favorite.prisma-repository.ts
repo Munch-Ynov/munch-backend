@@ -19,6 +19,6 @@ export class FavoritePrismaRepository
         const favorite = await this.prisma.favorite.findFirst({
             where: { userId },
         })
-        return this.$mapper.toEntity(favorite)
+        return this.$mapper.toDomain(favorite)
     }
 }

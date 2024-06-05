@@ -106,7 +106,7 @@ export class BaseElasticsearchRepository<
         })
 
         const items = response.hits.hits.map(
-            (hit) => this.mapper.toEntity(hit._source as D) as E
+            (hit) => this.mapper.toDomain(hit._source as D) as E
         )
         return Pageable.of<E>({
             content: items,

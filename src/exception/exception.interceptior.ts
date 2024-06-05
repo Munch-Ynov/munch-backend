@@ -1,4 +1,3 @@
-// biome-ignore lint/style/useImportType: <explanation>
 import {
     CallHandler,
     ExecutionContext,
@@ -7,9 +6,9 @@ import {
     Injectable,
     NestInterceptor,
 } from '@nestjs/common'
-// biome-ignore lint/style/useImportType: <explanation>
-import { Observable, throwError } from 'rxjs'
+import { Observable } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
+import { ParameterException } from './parameter-exception'
 
 @Injectable()
 export class TransformInterceptor implements NestInterceptor {
@@ -29,6 +28,8 @@ export class TransformInterceptor implements NestInterceptor {
                 if (err instanceof ParameterException) {
                     throw new HttpException(err.message, HttpStatus.BAD_REQUEST)
                 }
+
+
                 if (err instanceof HttpException) {
                     throw err
                 }

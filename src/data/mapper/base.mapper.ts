@@ -1,7 +1,7 @@
 import { Model } from '../models/base.model'
 
 abstract class Mapper<E extends Model, D> {
-    toEntity<T extends D | Partial<D> | null>(
+    toDomain<T extends D | Partial<D> | null>(
         data: T
     ): T extends D ? E : T extends Partial<D> ? Partial<E> : null {
         if (!data) {
@@ -14,7 +14,7 @@ abstract class Mapper<E extends Model, D> {
             : null
     }
 
-    toData<T extends E | Partial<E> | null>(
+    toPersistence<T extends E | Partial<E> | null>(
         entity: T
     ): T extends E ? D : T extends Partial<E> ? Partial<D> : null {
         if (!entity) {
