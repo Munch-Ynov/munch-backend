@@ -85,9 +85,8 @@ export class AuthProviderService implements AuthService {
     }
 
     private async createRefreshToken(authUser: Auth) {
-        const tokenId = cuid2.createId()
         return this.jwtService.sign(
-            { authId: authUser.id, tokenId: tokenId, role: authUser.role },
+            { authId: authUser.id, role: authUser.role },
             { expiresIn: process.env.EXPIRATION_JWT_REFRESH_TOKEN || '7d' }
         )
     }
