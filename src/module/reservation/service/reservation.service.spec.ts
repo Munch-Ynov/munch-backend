@@ -7,10 +7,10 @@ import { Reservation } from "../model/reservation.model";
 import { ReservationRepository } from "../repository/reservation.repository";
 import { ReservationService } from "./reservation.service";
 import { ExternalReservationCreateDto, ReservationCreateDto } from "../dto/reservation-create.dto";
-import { RestaurantRepository } from "@/data/repository/restaurant.repository";
-import { UserRepository } from "@/data/repository/user.repository";
 import { ParameterException } from "@/exception/parameter-exception";
 import { NotFoundException } from "@nestjs/common";
+import { UserRepository } from "@/module/user/repository/user.repository";
+import { RestaurantRepository } from "@/module/restaurant/repository/restaurant.repository";
 
 
 const $restaurants = [

@@ -1,5 +1,5 @@
 import { UserProfile } from '@/data/models/user-profile.model'
-import { Repository } from './base.repository'
+import { Repository } from '../../../data/repository/base.repository'
 
 abstract class UserRepository extends Repository<UserProfile> { }
 

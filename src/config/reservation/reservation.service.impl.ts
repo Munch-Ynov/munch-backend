@@ -6,9 +6,9 @@ import { ReservationStatus } from '@/module/reservation/model/reservation-status
 import { Reservation } from '@/module/reservation/model/reservation.model'
 import { ReservationRepository } from '@/module/reservation/repository/reservation.repository'
 import { ReservationService } from '@/module/reservation/service/reservation.service'
-import { RestaurantRepository } from '@/data/repository/restaurant.repository'
-import { UserRepository } from '@/data/repository/user.repository'
 import { ParameterException } from '@/exception/parameter-exception'
+import { RestaurantRepository } from '@/module/restaurant/repository/restaurant.repository'
+import { UserRepository } from '@/module/user/repository/user.repository'
 
 
 @Injectable()
