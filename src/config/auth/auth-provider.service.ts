@@ -1,5 +1,7 @@
 import {
+    ConflictException,
     Injectable,
+    Logger,
     NotFoundException,
     UnauthorizedException,
 } from '@nestjs/common'
@@ -21,7 +23,7 @@ export class AuthProviderService implements AuthService {
         private readonly authRepository: AuthRepository,
         private readonly hashService: HashService,
         private readonly jwtService: JwtService
-    ) {}
+    ) { }
 
     async login(
         email: string,
@@ -69,12 +71,27 @@ export class AuthProviderService implements AuthService {
     }
 
     async register(email: string, password: string, role: Role = Role.USER) {
-        const encryptedPassword = await this.hashService.hashPassword(password)
-        return this.authRepository.createOne({
-            email,
-            password: encryptedPassword,
-            role,
-        })
+        try {
+
+            Logger.log(`Registering user with email: ${email}`)
+            const encryptedPassword = await this.hashService.hashPassword(password)
+
+            // check if email already exists
+            const existingUser = await this.authRepository.findByEmail(email);
+            if (existingUser) {
+                Logger.error(`Email already exists: ${email}`);
+                throw new ConflictException("Email already exists");
+            }
+
+            return this.authRepository.createOne({
+                email,
+                password: encryptedPassword,
+                role,
+            });
+        }
+        finally {
+            Logger.log(`User registered with email: ${email}`)
+        }
     }
 
     private async createAccessToken(authUser: Auth) {
