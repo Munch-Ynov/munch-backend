@@ -13,7 +13,7 @@ import {
     Payload,
     RefreshToken,
 } from '@/module/auth/auth.service'
-import { HashService } from '@/util/hash/hash.service'
+import { HashService } from '@/util/hash/service/hash.service'
 
 @Injectable()
 export class AuthProviderService implements AuthService {
@@ -21,7 +21,7 @@ export class AuthProviderService implements AuthService {
         private readonly authRepository: AuthRepository,
         private readonly hashService: HashService,
         private readonly jwtService: JwtService
-    ) { }
+    ) {}
 
     async login(
         email: string,
