@@ -3,7 +3,7 @@ import { JwtModule } from '@nestjs/jwt'
 import { AuthProviderService as AuthProviderImpl } from '@/config/auth/auth-provider.service'
 import { AuthPrismaRepository } from '@/data/repository/prisma/auth.prisma-repository'
 import { PrismaModule } from '@/data/repository/prisma/service/prisma.module'
-import { HashService } from '@/util/hash//service/hash.service'
+import { HashService } from '@/util/hash/service/hash.service'
 import { AuthController } from './auth.controller'
 import { AuthRepository } from './auth.repository'
 import { AuthService } from './auth.service'
@@ -15,7 +15,7 @@ import { JwtStrategy } from './strategy/jwt.strategy'
             secret: process.env.JWT_SECRET,
             signOptions: { expiresIn: '15m' },
         }),
-        PrismaModule
+        PrismaModule,
     ],
     controllers: [AuthController],
     providers: [
@@ -32,4 +32,4 @@ import { JwtStrategy } from './strategy/jwt.strategy'
     ],
     exports: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}

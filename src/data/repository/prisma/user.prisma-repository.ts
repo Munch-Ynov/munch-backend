@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common'
 import { UserProfile as PrismaUserProfile } from '@prisma/client'
 // biome-ignore lint/style/useImportType: <explanation>
 import { PrismaService } from './service/prisma.service'
-import { UserRepository } from '../user.repository'
+import { UserRepository } from '../../../module/user/repository/user.repository'
 import { UserProfile } from '@/data/models/user-profile.model'
 
 @Injectable()

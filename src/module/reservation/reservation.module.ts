@@ -5,11 +5,15 @@ import { ReservationController } from './controller/reservation.controller'
 import { ReservationRepository } from './repository/reservation.repository'
 import { ReservationService } from './service/reservation.service'
 import { ReservationServiceImpl } from '@/config/reservation/reservation.service.impl'
+import { UserModule } from '../user/user.module'
+import { RestaurantModule } from '../restaurant/restaurant.module'
 
 
 @Module({
     imports: [
-        PrismaModule
+        PrismaModule,
+        RestaurantModule,
+        UserModule
     ],
     controllers: [ReservationController],
     providers: [

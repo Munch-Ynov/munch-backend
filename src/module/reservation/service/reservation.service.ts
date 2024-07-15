@@ -2,7 +2,6 @@ import { ExternalReservationCreateDto, ReservationCreateDto } from '@/module/res
 import { Filter, Pageable, PaginationRequest } from '@/data/util'
 import { Reservation } from '../model/reservation.model'
 import { ReservationStatus } from '../model/reservation-status.enum'
-import { throwError } from 'rxjs';
 abstract class ReservationService {
     /**
      * Get reservation by id

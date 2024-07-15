@@ -43,7 +43,7 @@ export class AuthController {
             const tokens = await this.authService.login(email, password)
             // console.log(tokens)
             if (!tokens.accessToken || !tokens.refreshToken) {
-                // http error not authentification
+                // http error not authentication
                 throw new ForbiddenException('Invalid credentials')
             }
 

@@ -3,9 +3,8 @@ import { PrismaRepository } from './base.prisma-repository'
 import { Injectable } from '@nestjs/common'
 import { Restaurant as PrismaRestaurant } from '@prisma/client'
 import { RestaurantMapper } from '@/data/mapper/prisma/restaurant.mapper'
-// biome-ignore lint/style/useImportType: <explanation>
 import { PrismaService } from './service/prisma.service'
-import { RestaurantRepository } from '../restaurant.repository'
+import { RestaurantRepository } from '@/module/restaurant/repository/restaurant.repository'
 
 @Injectable()
 export class RestaurantPrismaRepository
