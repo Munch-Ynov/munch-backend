@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import cuid2 from '@paralleldrive/cuid2'
-import { type Auth, Role } from '@prisma/client'
+import {  Role } from '@prisma/client'
 import { hash } from 'bcrypt'
 import {
     AccessToken,
@@ -14,7 +14,7 @@ import {
     Payload,
     RefreshToken,
 } from '../../module/auth/auth.service'
-import { HashService } from '../../util/hash/hash.service'
+import { HashService } from '../../util/hash/service/hash.service'
 import { Test, TestingModule } from '@nestjs/testing'
 import { AuthRepository } from '../../module/auth/auth.repository'
 import { AuthProviderService } from './auth-provider.service'
@@ -82,7 +82,7 @@ const mockHashServiceFile = {
 }
 
 //mock import HashService
-jest.mock('./../../util/hash/hash.service', () => {
+jest.mock('./../../util/hash/service/hash.service', () => {
     return {
         HashService: jest.fn().mockImplementation(() => {
             return mockHashServiceFile;
@@ -207,7 +207,19 @@ describe("AuthProviderService", () => {
 
             // to have ty
             expect(authProviderService.register("newemailcreate@gmail.com", "nimportequoi",Role.USER)).resolves.toBeDefined();
+        });
 
+        it("should throw an error", async ()=>{
+            mockHashServiceFile.hashPassword = jest.fn().mockImplementation().mockResolvedValue("nimportequoi");
+
+           try{
+                const test = await authProviderService.register("newemailcreate@gmail.com", "nimportequoi",Role.USER).then((res)=>{
+                    console.log(res);
+                });
+                console.log(test);
+           }catch(e){
+            //    console.log(e);
+           }
         });
     });
 
