@@ -27,6 +27,17 @@ const $users = [
 const $reservations: Array<Reservation> = [];
 
 
+
+/**
+ * Tests on the Reservation Service
+ * mock the repositories and test the service methods
+ * why mock the repositories ?
+ * - because we don't want to test the repositories here, we want to test the service methods
+ * - to avoid any impact on the database
+ * - to avoid storing data between the tests (the array $reservations is reset before each test)
+ * - because the service should work no matter the repository it is connected to (dependency inversion principle)
+ *
+ */
 describe('ReservationService', () => {
   let service: ReservationService;
 
