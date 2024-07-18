@@ -32,6 +32,12 @@
 $ npm install
 ```
 
+Pour la générations des types prisma
+
+```bash
+$ npx prisma gerate
+```
+
 ## Running the app
 
 ```bash

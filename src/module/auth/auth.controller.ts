@@ -56,8 +56,8 @@ export class AuthController {
             return { accessToken: tokens.accessToken }
         } catch (e) {
             // http error
-            console.error(e)
-            throw new ForbiddenException('Invalid credentials')
+            // console.error(e)
+            throw new ForbiddenException('Error with tokens')
         }
     }
 
@@ -99,7 +99,7 @@ export class AuthController {
 
             return { accessToken: tokens.accessToken }
         } catch (e) {
-            console.error(e)
+            // console.error(e)
             throw new ForbiddenException('Invalid refresh token')
         }
     }

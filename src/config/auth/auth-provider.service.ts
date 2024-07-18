@@ -94,14 +94,14 @@ export class AuthProviderService implements AuthService {
         }
     }
 
-    private async createAccessToken(authUser: Auth) {
+    public async createAccessToken(authUser: Auth) {
         return this.jwtService.sign(
             { authId: authUser.id, role: authUser.role },
             { expiresIn: process.env.EXPIRATION_JWT_ACCESS_TOKEN || '15m' }
         )
     }
 
-    private async createRefreshToken(authUser: Auth) {
+    public async createRefreshToken(authUser: Auth) {
         return this.jwtService.sign(
             { authId: authUser.id, role: authUser.role },
             { expiresIn: process.env.EXPIRATION_JWT_REFRESH_TOKEN || '7d' }
