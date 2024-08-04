@@ -26,7 +26,7 @@ import { AuthService } from './auth.service'
 @Controller('auth')
 @ApiTags('auth', 'API')
 export class AuthController {
-    constructor(private readonly authService: AuthService) { }
+    constructor(private readonly authService: AuthService) {}
 
     @Post('login')
     @ApiOkResponse({ type: TokenDto })

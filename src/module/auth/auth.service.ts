@@ -1,3 +1,4 @@
+import { createMock } from '@golevelup/ts-jest'
 import { Auth } from './model/auth.model'
 import { Role } from './model/role-enum'
 
@@ -19,4 +20,6 @@ export abstract class AuthService {
     ) => Promise<{ accessToken: AccessToken; refreshToken: RefreshToken }>
     validate: (payload: Payload) => Promise<Auth>
     register: (email: string, password: string, role: Role) => Promise<Auth>
+    createAccessToken: (auth: Auth) => Promise<string>
+    createRefreshToken: (auth: Auth) => Promise<string>
 }
