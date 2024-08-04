@@ -10,6 +10,7 @@ import { UniformErrorFilter } from './exception/uniform-error.filter'
 import { AuthModule } from './module/auth/auth.module'
 import { HealthModule } from './module/health/health.module'
 import { ReservationModule } from './module/reservation/reservation.module'
+import { PrismaService } from './prisma.service'
 
 @Module({
     imports: [
@@ -21,6 +22,7 @@ import { ReservationModule } from './module/reservation/reservation.module'
     ],
     controllers: [],
     providers: [
+        PrismaService,
         {
             provide: APP_GUARD,
             useClass: RateLimiterGuard,

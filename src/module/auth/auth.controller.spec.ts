@@ -6,10 +6,10 @@ import {
     ForbiddenException,
     HttpException,
 } from '@nestjs/common'
-import { LoginDto } from './dto/login-auth.dto'
+import { LoginDto } from './dto/login.dto'
 import { mock } from 'node:test'
 import { clear } from 'node:console'
-import { CreateAuthUserDto } from './dto/create-auth-user.dto'
+import { CreateAuthUserDto } from './dto/register.dto'
 import { Role } from '@prisma/client'
 
 const mockAuthService = {

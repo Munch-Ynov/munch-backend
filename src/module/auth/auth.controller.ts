@@ -16,17 +16,23 @@ import {
     ApiTags,
 } from '@nestjs/swagger'
 import { Request, Response } from 'express'
-import { CreateAuthUserDto } from './dto/create-auth-user.dto'
-import { LoginDto } from './dto/login-auth.dto'
+import { RegisterDto } from './dto/register.dto'
+import { LoginDto } from './dto/login.dto'
 import { TokenDto } from './dto/token.dto'
 import { JwtAuthGuard } from '../../guard/jwt-auth.guard'
 import { RolesGuard } from '../../guard/roles.guard'
 import { AuthService } from './auth.service'
+import { ProfileService } from './roles/profile.service'
+import { HasRole } from '@/decorator/has-role.decorator'
+import { Role } from '@prisma/client'
 
 @Controller('auth')
 @ApiTags('auth', 'API')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
+    constructor(
+        private readonly authService: AuthService,
+        private readonly profileService: ProfileService,
+    ) {}
 
     @Post('login')
     @ApiOkResponse({ type: TokenDto })
@@ -62,13 +68,16 @@ export class AuthController {
     }
 
     @Post('register')
-    @ApiCreatedResponse({ type: CreateAuthUserDto })
-    async register(@Body() createAuthUserDto: CreateAuthUserDto) {
-        return await this.authService.register(
-            createAuthUserDto.email,
-            createAuthUserDto.password,
-            createAuthUserDto.role
-        )
+    @ApiCreatedResponse({ type: RegisterDto })
+    async register(@Body() dto: RegisterDto) {
+        const auth = await this.authService.register(
+            dto.email,
+            dto.password,
+            dto.role,
+        );
+        if(dto.profile != null) {
+            await this.profileService.createProfile({userId: auth.id, role: auth.role, data: dto.profile});
+        }
     }
 
     @Post('logout')
@@ -105,7 +114,7 @@ export class AuthController {
     }
 
     @Post('profile')
-    // @HasRole(Role.ADMIN)
+    @HasRole(Role.ADMIN)
     @UseGuards(JwtAuthGuard, RolesGuard)
     @ApiBearerAuth()
     async getProfile(@Req() req: Request) {

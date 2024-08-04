@@ -1,0 +1,17 @@
+
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+
+export class CreateProfileDto {
+    @IsString()
+    @IsNotEmpty()
+    name: string;
+
+
+    @IsString()
+    @IsOptional()
+    avatar: string | null;
+
+    @IsString()
+    @IsOptional()
+    banner: string | null;
+}

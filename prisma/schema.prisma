@@ -26,7 +26,8 @@ model Restaurant {
   reservations Reservation[]
   createdAt    DateTime              @default(now())
   updatedAt    DateTime?             @updatedAt
-  restaurateur RestaurateurProfile[]
+  restaurateur RestaurateurProfile  @relation(fields: [restaurateurId], references: [id])
+  restaurateurId String
 }
 
 model Favorite {
@@ -100,8 +101,7 @@ model RestaurateurProfile {
   banner String?
   name   String
 
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
-  restaurantId String
+  restaurants Restaurant[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

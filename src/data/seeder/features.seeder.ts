@@ -1,4 +1,5 @@
-import { RestaurantFeature } from '@/data/models/restaurant-feature.model'
+import { RestaurantFeature } from "@prisma/client"
+
 export const categoriesFeaturesSeeder = [
     'Régime alimentaire',
     'Type de cuisine',

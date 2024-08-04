@@ -15,8 +15,8 @@ import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger'
 import { JwtAuthGuard } from '@/guard/jwt-auth.guard'
 import { RolesGuard } from '@/guard/roles.guard'
 import { ReservationService } from '../service/reservation.service'
-import { ReservationStatus } from '../model/reservation-status.enum'
 import { ReservationUpdateDto } from '../dto/reservation-update.dto'
+import { ReservationStatus } from '@prisma/client'
 
 
 @Controller('reservation')

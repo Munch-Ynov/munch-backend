@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { Reservation } from '../model/reservation.model'
-import { ReservationStatus } from '../model/reservation-status.enum'
+import { Reservation, ReservationStatus } from '@prisma/client'
+
 
 /**
  * Reservation create dto
@@ -101,7 +101,7 @@ export class ExternalReservationCreateDto {
     })
     restaurantId: string
 
-    toEntity(): Omit<Reservation, 'id' | 'createdAt' | 'updatedAt'> {
+    toEntity(): Omit<Reservation, 'id' | 'createdAt' | 'updatedAt' | 'userId' > {
         return {
             date: this.date,
             nb_people: this.nb_people,

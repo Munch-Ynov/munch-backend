@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { Reservation } from '../model/reservation.model';
-import { ReservationStatus } from '../model/reservation-status.enum';
+import { Reservation, ReservationStatus } from '@prisma/client';
+
 
 /**
  * Reservation create dto

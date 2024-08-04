@@ -1,6 +1,4 @@
-import { createMock } from '@golevelup/ts-jest'
-import { Auth } from './model/auth.model'
-import { Role } from './model/role-enum'
+import { Auth, Role } from '@prisma/client'
 
 export interface Payload {
     authId: string
