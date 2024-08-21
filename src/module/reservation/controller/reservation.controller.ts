@@ -18,11 +18,10 @@ import { ReservationService } from '../service/reservation.service'
 import { ReservationUpdateDto } from '../dto/reservation-update.dto'
 import { ReservationStatus } from '@prisma/client'
 
-
 @Controller('reservation')
 @ApiTags('reservation', 'API')
 export class ReservationController {
-    constructor(private readonly reservationService: ReservationService) { }
+    constructor(private readonly reservationService: ReservationService) {}
 
     /**
      * Get reservation by id
@@ -52,18 +51,18 @@ export class ReservationController {
         return this.reservationService.createReservation(reservation)
     }
 
-    /**
-     * Create a new External reservation
-     */
-    @Post('external')
-    @UseGuards(JwtAuthGuard, RolesGuard)
-    @ApiBearerAuth()
-    @ApiBody({ type: ExternalReservationCreateDto })
-    async createExternalReservation(
-        @Body() reservation: ExternalReservationCreateDto
-    ) {
-        return this.reservationService.createExternalReservation(reservation)
-    }
+    // /**
+    //  * Create a new External reservation
+    //  */
+    // @Post('external')
+    // @UseGuards(JwtAuthGuard, RolesGuard)
+    // @ApiBearerAuth()
+    // @ApiBody({ type: ExternalReservationCreateDto })
+    // async createExternalReservation(
+    //     @Body() reservation: ExternalReservationCreateDto
+    // ) {
+    //     return this.reservationService.createExternalReservation(reservation)
+    // }
 
     /**
      * Update a reservation status

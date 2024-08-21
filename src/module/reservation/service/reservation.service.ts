@@ -1,5 +1,8 @@
 import { Filter, Pageable, PaginationRequest } from '@/data/util'
-import { ExternalReservationCreateDto, ReservationCreateDto } from '@/module/reservation/dto/reservation-create.dto'
+import {
+    ExternalReservationCreateDto,
+    ReservationCreateDto,
+} from '@/module/reservation/dto/reservation-create.dto'
 import { Reservation, ReservationStatus } from '@prisma/client'
 
 abstract class ReservationService {
@@ -13,13 +16,7 @@ abstract class ReservationService {
      * @param userId
      * @param option
      */
-    abstract getReservationByUserId(
-        userId: string,
-        option: {
-            pagination: PaginationRequest<Reservation>
-            filter: Filter<Reservation>
-        }
-    ): Promise<Pageable<Reservation>>;
+    abstract getReservationByUserId(userId: string): Promise<Reservation[]>
 
     /**
      * Get reservation by restaurant id
@@ -27,12 +24,8 @@ abstract class ReservationService {
      * @param option
      */
     abstract getReservationByRestaurantId(
-        restaurantId: string,
-        option: {
-            pagination: PaginationRequest<Reservation>
-            filter: Filter<Reservation>
-        }
-    ): Promise<Pageable<Reservation>>
+        restaurantId: string
+    ): Promise<Reservation[]>
 
     /**
      * Create a new reservation for a user
@@ -44,9 +37,9 @@ abstract class ReservationService {
     /**
      * Create a new External reservation
      */
-    abstract createExternalReservation(
-        reservation: ExternalReservationCreateDto
-    ): Promise<Reservation>
+    // abstract createExternalReservation(
+    //     reservation: ExternalReservationCreateDto
+    // ): Promise<Reservation>
 
     /**
      * Update a reservation status

@@ -8,7 +8,6 @@ import cookieParser from 'cookie-parser'
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
-    app.enableCors({ origin: '*' })
     app.use(cookieParser())
     app.useGlobalPipes(new ValidationPipe({ transform: true }))
     app.useGlobalGuards(new SanitizerGuard())
@@ -26,6 +25,7 @@ async function bootstrap() {
         .build()
     const document = SwaggerModule.createDocument(app, swagger_config)
     SwaggerModule.setup('api', app, document)
+    app.enableCors({ origin: '*' })
 
     app.useGlobalPipes(
         new ValidationPipe({

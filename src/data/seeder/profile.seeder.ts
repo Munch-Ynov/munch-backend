@@ -1,6 +1,4 @@
-import { Auth } from "@/module/auth/model/auth.model"
-import { RestaurateurProfile, UserProfile } from "@prisma/client"
-
+import { Auth, RestaurateurProfile, UserProfile } from '@prisma/client'
 
 export const adminSeeder: Partial<Auth> & Partial<UserProfile> = {
     email: 'admin@munch.com',

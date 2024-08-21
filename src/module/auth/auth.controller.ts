@@ -31,7 +31,7 @@ import { Role } from '@prisma/client'
 export class AuthController {
     constructor(
         private readonly authService: AuthService,
-        private readonly profileService: ProfileService,
+        private readonly profileService: ProfileService
     ) {}
 
     @Post('login')
@@ -73,10 +73,14 @@ export class AuthController {
         const auth = await this.authService.register(
             dto.email,
             dto.password,
-            dto.role,
-        );
-        if(dto.profile != null) {
-            await this.profileService.createProfile({userId: auth.id, role: auth.role, data: dto.profile});
+            dto.role
+        )
+        if (dto.profile != null) {
+            await this.profileService.createProfile({
+                userId: auth.id,
+                role: auth.role,
+                data: dto.profile,
+            })
         }
     }
 

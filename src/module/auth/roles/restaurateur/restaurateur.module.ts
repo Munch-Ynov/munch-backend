@@ -1,7 +1,7 @@
-
-import { RestaurateurServiceImpl } from '@/config/auth/roles/restaurateur/restaurateur.service.impl';
-import { Module } from '@nestjs/common';
-import { RestaurateurService } from './restaurateur.service';
+import { RestaurateurServiceImpl } from '@/config/auth/roles/restaurateur/restaurateur.service.impl'
+import { Module } from '@nestjs/common'
+import { RestaurateurService } from './restaurateur.service'
+import { PrismaService } from '@/prisma.service'
 
 @Module({
     imports: [],
@@ -10,9 +10,8 @@ import { RestaurateurService } from './restaurateur.service';
             provide: RestaurateurService,
             useClass: RestaurateurServiceImpl,
         },
+        PrismaService,
     ],
     exports: [RestaurateurService],
 })
 export class RestaurateurModule {}
-
-

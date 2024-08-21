@@ -1,4 +1,4 @@
-import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser'
+// import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser'
 import { ErrorHandlerMiddleware } from '@nest-middlewares/errorhandler'
 import { HelmetMiddleware } from '@nest-middlewares/helmet'
 import { Module } from '@nestjs/common'
@@ -45,8 +45,8 @@ export class AppModule {
         // consumer.apply(ErrorHandlerMiddleware).forRoutes("*");
         HelmetMiddleware.configure({})
         consumer.apply(HelmetMiddleware).forRoutes('*')
-        CookieParserMiddleware.configure('MySecret')
-        consumer.apply(CookieParserMiddleware).forRoutes('*')
+        // CookieParserMiddleware.configure('MySecret')
+        // consumer.apply(CookieParserMiddleware).forRoutes('*')
         // ErrorHandlerMiddleware.configure({
         //   log: false,
         // });

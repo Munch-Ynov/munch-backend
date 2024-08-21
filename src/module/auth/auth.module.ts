@@ -6,6 +6,7 @@ import { AuthController } from './auth.controller'
 import { AuthService } from './auth.service'
 import { JwtStrategy } from './strategy/jwt.strategy'
 import { ProfileModule } from './roles/profile.module'
+import { PrismaService } from '@/prisma.service'
 
 @Module({
     imports: [
@@ -23,6 +24,7 @@ import { ProfileModule } from './roles/profile.module'
         },
         JwtStrategy,
         HashService,
+        PrismaService,
     ],
     exports: [AuthService],
 })
