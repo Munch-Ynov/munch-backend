@@ -44,37 +44,26 @@ export class AuthController {
             throw new HttpException('Email and password are required', 400)
         }
 
-        try {
-            const { accessToken, refreshToken, authUser } =
-                await this.authService.login(email, password)
-            // console.log(tokens)
-            if (!accessToken || !refreshToken) {
-                // http error not authentication
-                throw new ForbiddenException('Invalid credentials')
-            }
+        const { accessToken, refreshToken, authUser } =
+            await this.authService.login(email, password)
 
-            res.cookie('refreshToken', refreshToken, {
-                httpOnly: true,
-                secure: true,
-                sameSite: 'strict',
-            })
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict',
+        })
 
-            const user = await this.profileService.getProfile({
-                userId: authUser.id,
-                role: authUser.role,
-            })
+        const user = await this.profileService.getProfile({
+            userId: authUser.id,
+            role: authUser.role,
+        })
 
-            return {
-                accessToken: accessToken,
-                user: {
-                    ...authUser,
-                    ...user,
-                },
-            }
-        } catch (e) {
-            // http error
-            // console.error(e)
-            throw new ForbiddenException('Error with tokens')
+        return {
+            accessToken: accessToken,
+            user: {
+                ...authUser,
+                ...user,
+            },
         }
     }
 

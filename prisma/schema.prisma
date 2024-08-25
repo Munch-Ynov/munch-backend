@@ -21,6 +21,8 @@ model Restaurant {
   code_postal           String
   city                  String
   email                 String
+  coordinates           String
+  opening_hours         String
   features              RestaurantFeature[]
   favorites             Favorite[]
   reservations          Reservation[]
