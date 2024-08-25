@@ -3,6 +3,7 @@ import {
     Body,
     Controller,
     ForbiddenException,
+    Get,
     HttpException,
     Post,
     Req,
@@ -21,10 +22,8 @@ import { LoginDto } from './dto/login.dto'
 import { TokenDto } from './dto/token.dto'
 import { JwtAuthGuard } from '../../guard/jwt-auth.guard'
 import { RolesGuard } from '../../guard/roles.guard'
-import { AuthService } from './auth.service'
+import { AuthService, Payload } from './auth.service'
 import { ProfileService } from './roles/profile.service'
-import { HasRole } from '@/decorator/has-role.decorator'
-import { Role } from '@prisma/client'
 
 @Controller('auth')
 @ApiTags('auth', 'API')
@@ -46,20 +45,32 @@ export class AuthController {
         }
 
         try {
-            const tokens = await this.authService.login(email, password)
+            const { accessToken, refreshToken, authUser } =
+                await this.authService.login(email, password)
             // console.log(tokens)
-            if (!tokens.accessToken || !tokens.refreshToken) {
+            if (!accessToken || !refreshToken) {
                 // http error not authentication
                 throw new ForbiddenException('Invalid credentials')
             }
 
-            res.cookie('refreshToken', tokens.refreshToken, {
+            res.cookie('refreshToken', refreshToken, {
                 httpOnly: true,
                 secure: true,
                 sameSite: 'strict',
             })
 
-            return { accessToken: tokens.accessToken }
+            const user = await this.profileService.getProfile({
+                userId: authUser.id,
+                role: authUser.role,
+            })
+
+            return {
+                accessToken: accessToken,
+                user: {
+                    ...authUser,
+                    ...user,
+                },
+            }
         } catch (e) {
             // http error
             // console.error(e)
@@ -69,24 +80,43 @@ export class AuthController {
 
     @Post('register')
     @ApiCreatedResponse({ type: RegisterDto })
-    async register(@Body() dto: RegisterDto) {
-        const auth = await this.authService.register(
-            dto.email,
-            dto.password,
-            dto.role
-        )
+    async register(
+        @Res({ passthrough: true }) res: Response,
+        @Body() dto: RegisterDto
+    ) {
+        const { accessToken, refreshToken, authUser } =
+            await this.authService.register(dto.email, dto.password, dto.role)
+
         if (dto.profile != null) {
-            await this.profileService.createProfile({
-                userId: auth.id,
-                role: auth.role,
+            const profile = await this.profileService.createProfile({
+                userId: authUser.id,
+                role: authUser.role,
                 data: dto.profile,
             })
+
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'strict',
+            })
+
+            return {
+                accessToken: accessToken,
+                user: {
+                    ...authUser,
+                    ...profile,
+                },
+            }
         }
     }
 
     @Post('logout')
     async logout(res: Response) {
-        res.clearCookie('refreshToken')
+        try {
+            res.clearCookie('refreshToken')
+        } catch (e) {
+            // Handle the error here
+        }
         return { message: 'Logout success' }
     }
 
@@ -117,11 +147,15 @@ export class AuthController {
         }
     }
 
-    @Post('profile')
-    @HasRole(Role.ADMIN)
+    @Get('profile')
     @UseGuards(JwtAuthGuard, RolesGuard)
     @ApiBearerAuth()
     async getProfile(@Req() req: Request) {
-        return req.user
+        const user = await this.profileService.getProfile({
+            userId: (req.user as Payload).authId,
+            role: (req.user as Payload).role,
+        })
+
+        return user
     }
 }

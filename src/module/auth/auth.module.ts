@@ -12,7 +12,7 @@ import { PrismaService } from '@/prisma.service'
     imports: [
         JwtModule.register({
             secret: process.env.JWT_SECRET,
-            signOptions: { expiresIn: '15m' },
+            signOptions: { expiresIn: '1j' },
         }),
         ProfileModule,
     ],

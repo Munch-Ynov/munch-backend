@@ -1,8 +1,7 @@
-
-import { UserService } from '@/module/auth/roles/user/user.service';
-import { PrismaService } from '@/prisma.service';
-import { Injectable } from '@nestjs/common';
-import { UserProfile } from '@prisma/client';
+import { UserService } from '@/module/auth/roles/user/user.service'
+import { PrismaService } from '@/prisma.service'
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { UserProfile } from '@prisma/client'
 
 @Injectable()
 export class UserServiceImpl implements UserService {
@@ -11,10 +10,9 @@ export class UserServiceImpl implements UserService {
     async getProfile(id: string): Promise<UserProfile> {
         const profile = await this.prisma.userProfile.findUnique({
             where: { id },
-        });
-        return profile || null;
+        })
+        return profile || null
     }
-
 
     async createProfile(id: string, data: UserProfile): Promise<UserProfile> {
         const createdProfile = await this.prisma.userProfile.create({
@@ -22,24 +20,38 @@ export class UserServiceImpl implements UserService {
                 id,
                 ...data,
             },
-        });
-        return createdProfile;
+        })
+        return createdProfile
     }
 
     async updateProfile(id: string, data: UserProfile): Promise<UserProfile> {
+        // check if the profile exists
+        const profile = await this.prisma.userProfile.findUnique({
+            where: { id },
+        })
+        if (!profile) {
+            throw new NotFoundException('Profile not found')
+        }
+
         const updatedProfile = await this.prisma.userProfile.update({
             where: { id },
             data,
-        });
-        return updatedProfile;
+        })
+        return updatedProfile
     }
 
     async deleteProfile(id: string): Promise<UserProfile> {
+        // check if the profile exists
+        const profile = await this.prisma.userProfile.findUnique({
+            where: { id },
+        })
+        if (!profile) {
+            throw new NotFoundException('Profile not found')
+        }
+
         const deletedProfile = await this.prisma.userProfile.delete({
             where: { id },
-        });
-        return deletedProfile;
+        })
+        return deletedProfile
     }
-
-
 }

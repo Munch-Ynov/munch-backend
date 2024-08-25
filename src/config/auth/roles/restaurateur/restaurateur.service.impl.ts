@@ -1,8 +1,7 @@
-
-import { RestaurateurService } from '@/module/auth/roles/restaurateur/restaurateur.service';
-import { PrismaService } from '@/prisma.service';
-import { Injectable } from '@nestjs/common';
-import { RestaurateurProfile } from '@prisma/client';
+import { RestaurateurService } from '@/module/auth/roles/restaurateur/restaurateur.service'
+import { PrismaService } from '@/prisma.service'
+import { Injectable } from '@nestjs/common'
+import { RestaurateurProfile } from '@prisma/client'
 
 @Injectable()
 export class RestaurateurServiceImpl implements RestaurateurService {
@@ -11,8 +10,8 @@ export class RestaurateurServiceImpl implements RestaurateurService {
     async getProfile(id: string): Promise<RestaurateurProfile> {
         const profile = await this.prisma.restaurateurProfile.findUnique({
             where: { id },
-        });
-        return profile || null;
+        })
+        return profile || null
     }
 
     async createProfile(
@@ -24,8 +23,8 @@ export class RestaurateurServiceImpl implements RestaurateurService {
                 id,
                 ...data,
             },
-        });
-        return profile;
+        })
+        return profile
     }
 
     async updateProfile(
@@ -35,15 +34,14 @@ export class RestaurateurServiceImpl implements RestaurateurService {
         const profile = await this.prisma.restaurateurProfile.update({
             where: { id },
             data,
-        });
-        return profile;
+        })
+        return profile
     }
 
     async deleteProfile(id: string): Promise<RestaurateurProfile> {
         const profile = await this.prisma.restaurateurProfile.delete({
             where: { id },
-        });
-        return profile;
+        })
+        return profile
     }
-
 }

@@ -12,12 +12,24 @@ export abstract class AuthService {
     login: (
         email: string,
         password: string
-    ) => Promise<{ accessToken: AccessToken; refreshToken: RefreshToken }>
+    ) => Promise<{
+        accessToken: AccessToken
+        refreshToken: RefreshToken
+        authUser: Omit<Auth, 'password'>
+    }>
     refresh: (
         refreshToken: string
     ) => Promise<{ accessToken: AccessToken; refreshToken: RefreshToken }>
     validate: (payload: Payload) => Promise<Auth>
-    register: (email: string, password: string, role: Role) => Promise<Auth>
+    register: (
+        email: string,
+        password: string,
+        role: Role
+    ) => Promise<{
+        accessToken: AccessToken
+        refreshToken: RefreshToken
+        authUser: Omit<Auth, 'password'>
+    }>
     createAccessToken: (auth: Auth) => Promise<string>
     createRefreshToken: (auth: Auth) => Promise<string>
 }

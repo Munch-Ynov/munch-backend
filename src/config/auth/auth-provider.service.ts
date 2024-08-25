@@ -19,26 +19,20 @@ import { PrismaService } from '@/prisma.service'
 @Injectable()
 export class AuthProviderService implements AuthService {
     constructor(
-        // private readonly authRepository: AuthRepository,
         private readonly prisma: PrismaService,
         private readonly hashService: HashService,
         private readonly jwtService: JwtService
     ) {}
 
-    async login(
-        email: string,
-        password: string
-    ): Promise<{
-        accessToken: AccessToken
-        refreshToken: RefreshToken
-    }> {
-        // throw new Error("Method not implemented.");
-        // const authUser = await this.authRepository.findByEmail(email)
+    async login(email: string, password: string) {
         const authUser = await this.prisma.auth.findUnique({
             where: {
                 email: email,
             },
         })
+
+        // return authCreated withouth password
+        const { password: _, ...auth } = authUser
 
         if (!authUser) {
             throw new NotFoundException(`No authUser found for email: ${email}`)
@@ -56,7 +50,7 @@ export class AuthProviderService implements AuthService {
         const accessToken = await this.createAccessToken(authUser)
         const refreshToken = await this.createRefreshToken(authUser)
 
-        return { accessToken, refreshToken }
+        return { accessToken, refreshToken, authUser: auth }
     }
 
     async refresh(refreshToken: RefreshToken): Promise<{
@@ -82,7 +76,6 @@ export class AuthProviderService implements AuthService {
                 await this.hashService.hashPassword(password)
 
             // check if email already exists
-            // const existingUser = await this.authRepository.findByEmail(email)
             const existingUser = await this.prisma.auth.findUnique({
                 where: {
                     email: email,
@@ -92,19 +85,24 @@ export class AuthProviderService implements AuthService {
                 Logger.error(`Email already exists: ${email}`)
                 throw new ConflictException('Email already exists')
             }
-
-            // return this.authRepository.createOne({
-            //     email,
-            //     password: encryptedPassword,
-            //     role,
-            // })
-            return this.prisma.auth.create({
+            const authCreated = await this.prisma.auth.create({
                 data: {
                     email,
                     password: encryptedPassword,
                     role,
                 },
             })
+            // return authCreated withouth password
+            const { password: _, ...auth } = authCreated
+
+            const accessToken = await this.createAccessToken(authCreated)
+            const refreshToken = await this.createRefreshToken(authCreated)
+
+            return {
+                accessToken,
+                refreshToken,
+                authUser: auth,
+            }
         } finally {
             Logger.log(`User registered with email: ${email}`)
         }
@@ -125,7 +123,6 @@ export class AuthProviderService implements AuthService {
     }
 
     async validate(payload: Payload) {
-        // const authUser = await this.authRepository.findOne(payload.authId)
         const authUser = await this.prisma.auth.findUnique({
             where: {
                 id: payload.authId,

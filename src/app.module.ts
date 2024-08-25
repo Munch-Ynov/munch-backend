@@ -3,14 +3,15 @@ import { ErrorHandlerMiddleware } from '@nest-middlewares/errorhandler'
 import { HelmetMiddleware } from '@nest-middlewares/helmet'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core'
 import { RateLimiterGuard, RateLimiterModule } from 'nestjs-rate-limiter'
 import { TransformInterceptor } from './exception/exception.interceptior'
-import { UniformErrorFilter } from './exception/uniform-error.filter'
 import { AuthModule } from './module/auth/auth.module'
 import { HealthModule } from './module/health/health.module'
 import { ReservationModule } from './module/reservation/reservation.module'
 import { PrismaService } from './prisma.service'
+import { ProfileModule } from './module/auth/roles/profile.module'
+import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser'
 
 @Module({
     imports: [
@@ -19,6 +20,7 @@ import { PrismaService } from './prisma.service'
         HealthModule,
         AuthModule,
         ReservationModule,
+        ProfileModule,
     ],
     controllers: [],
     providers: [
@@ -31,10 +33,6 @@ import { PrismaService } from './prisma.service'
             provide: APP_INTERCEPTOR,
             useClass: TransformInterceptor,
         },
-        // {
-        //     provide: APP_FILTER,
-        //     useClass: UniformErrorFilter,
-        // },
     ],
 })
 export class AppModule {
@@ -42,14 +40,14 @@ export class AppModule {
         ErrorHandlerMiddleware.configure({
             log: false,
         })
-        // consumer.apply(ErrorHandlerMiddleware).forRoutes("*");
+        // consumer.apply(ErrorHandlerMiddleware).forRoutes('*')
         HelmetMiddleware.configure({})
         consumer.apply(HelmetMiddleware).forRoutes('*')
-        // CookieParserMiddleware.configure('MySecret')
-        // consumer.apply(CookieParserMiddleware).forRoutes('*')
+        CookieParserMiddleware.configure('MySecret')
+        consumer.apply(CookieParserMiddleware).forRoutes('*')
         // ErrorHandlerMiddleware.configure({
-        //   log: false,
-        // });
-        // consumer.apply(ErrorHandlerMiddleware).forRoutes("*");
+        //     log: false,
+        // })
+        // consumer.apply(ErrorHandlerMiddleware).forRoutes('*')
     }
 }

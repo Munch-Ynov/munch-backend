@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "@elastic/elasticsearch": "^8.13.1",
+        "@nest-middlewares/cookie-parser": "^10.0.0",
         "@nest-middlewares/errorhandler": "^10.0.0",
         "@nest-middlewares/helmet": "^10.0.0",
         "@nestjs/axios": "^3.0.2",
