@@ -1,4 +1,4 @@
-import { RestaurateurProfile, Role, UserProfile } from '@prisma/client'
+import { Auth, RestaurateurProfile, Role, UserProfile } from '@prisma/client'
 import { Injectable } from '@nestjs/common'
 import { RestaurateurService } from './restaurateur/restaurateur.service'
 import { UserService } from './user/user.service'
@@ -42,6 +42,13 @@ export class ProfileService {
             default:
                 throw new Error('Invalid role')
         }
+    }
+
+    async getProfiles(): Promise<Profile[]> {
+        const userProfiles = await this.userService.getProfiles()
+        const restaurateurProfiles =
+            await this.restaurateurService.getProfiles()
+        return [...userProfiles, ...restaurateurProfiles]
     }
 
     async createProfile({
@@ -132,6 +139,43 @@ export class ProfileService {
                 return this.userService.deleteProfile(userId)
             case Role.RESTAURATEUR:
                 return this.restaurateurService.deleteProfile(userId)
+            default:
+                throw new Error('Invalid role')
+        }
+    }
+
+    async getProfilesByRole({
+        role,
+    }: {
+        role: Role
+    }): Promise<Omit<Profile[], 'password'> | Omit<Auth[], 'password'>> {
+        const allAuth = await this.prisma.auth.findMany({
+            where: { role },
+            select: {
+                id: true,
+                role: true,
+                email: true,
+                createdAt: true,
+                updatedAt: true,
+            },
+        })
+
+        switch (role) {
+            case Role.USER:
+                const users = await this.userService.getProfiles()
+                return users.map((user) => {
+                    const auth = allAuth.find((a) => a.id === user.id)
+                    return { ...user, ...auth }
+                })
+            case Role.RESTAURATEUR:
+                const restaurateurs =
+                    await this.restaurateurService.getProfiles()
+                return restaurateurs.map((restaurateur) => {
+                    const auth = allAuth.find((a) => a.id === restaurateur.id)
+                    return { ...restaurateur, ...auth }
+                })
+            case Role.ADMIN:
+                return allAuth as Omit<Auth[], 'password'>
             default:
                 throw new Error('Invalid role')
         }

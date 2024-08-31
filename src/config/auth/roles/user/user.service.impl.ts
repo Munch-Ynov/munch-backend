@@ -14,6 +14,11 @@ export class UserServiceImpl implements UserService {
         return profile || null
     }
 
+    async getProfiles(): Promise<UserProfile[]> {
+        const profiles = await this.prisma.userProfile.findMany()
+        return profiles
+    }
+
     async createProfile(id: string, data: UserProfile): Promise<UserProfile> {
         const createdProfile = await this.prisma.userProfile.create({
             data: {

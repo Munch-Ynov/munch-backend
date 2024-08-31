@@ -14,6 +14,20 @@ export class RestaurateurServiceImpl implements RestaurateurService {
         return profile || null
     }
 
+    async getProfiles(): Promise<RestaurateurProfile[]> {
+        const profiles = await this.prisma.restaurateurProfile.findMany({
+            include: {
+                restaurants: {
+                    select: {
+                        id: true,
+                        name: true,
+                    },
+                },
+            },
+        })
+        return profiles
+    }
+
     async createProfile(
         id: string,
         data: RestaurateurProfile

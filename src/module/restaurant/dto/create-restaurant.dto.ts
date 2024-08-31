@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { PriceCategory } from '@prisma/client'
 import {
+    IsArray,
     IsEmail,
     IsEnum,
     IsNotEmpty,
@@ -49,6 +50,14 @@ export class CreateRestaurantDto {
     @IsString()
     @IsEmail()
     email: string
+
+    @ApiProperty()
+    @IsString()
+    coordinates: string
+
+    @ApiProperty()
+    @IsString()
+    opening_hours: string
 
     @ApiProperty()
     features: string[]
