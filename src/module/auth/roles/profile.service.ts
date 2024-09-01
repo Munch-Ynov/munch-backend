@@ -67,7 +67,6 @@ export class ProfileService {
             })
             $role = auth.role
         }
-        console.log('role', $role)
 
         switch ($role) {
             // TODO : Check type matching

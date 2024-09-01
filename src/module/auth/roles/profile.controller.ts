@@ -1,7 +1,15 @@
 import { JwtAuthGuard } from '@/guard/jwt-auth.guard'
 import { RolesGuard } from '@/guard/roles.guard'
 //controller for profile , (get (1 or many), or update (self or admin (patch)) (create and delete are done on register / account deletion))
-import { Body, Controller, Get, Param, Patch, UseGuards } from '@nestjs/common'
+import {
+    Body,
+    Controller,
+    Get,
+    Param,
+    Patch,
+    Post,
+    UseGuards,
+} from '@nestjs/common'
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { ProfileDto } from './dto/profile.dto'
 import { ProfileService } from './profile.service'
@@ -31,11 +39,10 @@ export class ProfileController {
         return this.profileService.updateProfile({ userId, data })
     }
 
-    @Get('/role/:role')
+    @Post('role')
     @UseGuards(JwtAuthGuard, RolesGuard)
     @ApiBearerAuth()
-    @ApiOkResponse({ type: [ProfileDto] })
-    async getProfilesByRole(@Param('role') role: Role) {
+    async getProfilesByRole(@Body() role: Role) {
         return this.profileService.getProfilesByRole({ role })
     }
 }
