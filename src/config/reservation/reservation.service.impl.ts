@@ -11,7 +11,7 @@ import { Reservation, ReservationStatus } from '@prisma/client'
 
 @Injectable()
 export class ReservationServiceImpl implements ReservationService {
-    constructor(private readonly prisma: PrismaService) {}
+    constructor(private readonly prisma: PrismaService) { }
 
     async getReservationById(reservationId: string): Promise<Reservation> {
         const reservation = await this.prisma.reservation.findUnique({
@@ -182,5 +182,21 @@ export class ReservationServiceImpl implements ReservationService {
         await this.prisma.reservation.delete({
             where: { id: reservationId },
         })
+    }
+
+    async getUserReservations(userId: string): Promise<Reservation[]> {
+        return this.prisma.reservation.findMany({
+            where: { userId: userId },
+        })
+    }
+
+    async getRestaurantReservations(restaurantId: string): Promise<Reservation[]> {
+        return this.prisma.reservation.findMany({
+            where: { restaurantId: restaurantId },
+        })
+    }
+
+    async getReservations(): Promise<Reservation[]> {
+        return this.prisma.reservation.findMany()
     }
 }

@@ -6,7 +6,9 @@ import {
 import { CreateRestaurantDto } from './dto/create-restaurant.dto'
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto'
 import { PrismaService } from '@/prisma.service'
-import { PriceCategory } from '@prisma/client'
+import { PriceCategory, Prisma, Restaurant } from '@prisma/client'
+import { Pageable } from '@/data/util'
+import { PaginationRequest } from '../../data/util/pageable';
 
 @Injectable()
 export class RestaurantService {
@@ -45,12 +47,20 @@ export class RestaurantService {
                     ),
                 },
                 price: createRestaurantDto.price as PriceCategory,
-            },
+                // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+            } as any,
         })
     }
 
-    async findAll() {
-        return this.prisma.restaurant.findMany()
+    async findAll(request?: PaginationRequest<Restaurant, Prisma.RestaurantWhereInput>): Promise<Pageable<Restaurant>> {
+        return this.prisma.restaurant.findMany({
+            skip: request?.page * request?.size,
+            take: request?.size,
+            orderBy: request?.sort.getSort(),
+            where: request?.filter,
+        }).then((restaurants) => {
+            return Pageable.fromArray(restaurants, request)
+        })
     }
 
     async findOne(id: string) {

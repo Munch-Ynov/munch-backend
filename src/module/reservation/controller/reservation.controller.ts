@@ -21,7 +21,7 @@ import { ReservationStatus } from '@prisma/client'
 @Controller('reservation')
 @ApiTags('reservation', 'API')
 export class ReservationController {
-    constructor(private readonly reservationService: ReservationService) {}
+    constructor(private readonly reservationService: ReservationService) { }
 
     /**
      * Get reservation by id
@@ -44,10 +44,7 @@ export class ReservationController {
         if (!reservation) {
             throw new Error('Reservation not provided')
         }
-        Logger.log('Creating reservation', reservation)
-        // log the type of reservation
-        Logger.log('Type of reservation', typeof reservation)
-
+        Logger.log(`Creating reservation : ${JSON.stringify(reservation)}`)
         return this.reservationService.createReservation(reservation)
     }
 
@@ -97,4 +94,22 @@ export class ReservationController {
             id: reservationId,
         })
     }
+
+
+    // get all reservation for a given user
+    @Get('user/:userId')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @ApiBearerAuth()
+    async getUserReservations(@Param('userId') userId: string) {
+        return this.reservationService.getUserReservations(userId)
+    }
+
+    // get all reservations for a given restaurant
+    @Get('restaurant/:restaurantId')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @ApiBearerAuth()
+    async getRestaurantReservations(@Param('restaurantId') restaurantId: string) {
+        return this.reservationService.getRestaurantReservations(restaurantId)
+    }
+
 }

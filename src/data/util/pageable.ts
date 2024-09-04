@@ -1,9 +1,10 @@
 import { Sort } from './sort'
 
-export interface PaginationRequest<T> {
+export interface PaginationRequest<T, F> {
     page: number;
     size: number;
     sort: Sort<T>;
+    filter?: F;
 }
 
 export class Pageable<T> {
@@ -42,18 +43,19 @@ export class Pageable<T> {
         this.empty = empty
     }
 
-    static fromArray<T>(content: T[], request: PaginationRequest<T>) {
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    static fromArray<T>(content: T[], request: PaginationRequest<T, any>) {
         return Pageable.of({ content, totalElements: content.length, request })
     }
 
-    static of<T>({
+    static of<T, F>({
         content = [],
         totalElements = 0,
         request = { page: 0, size: 20, sort: Sort.of('id,asc') },
     }: {
         content: T[]
         totalElements: number
-        request: PaginationRequest<T>
+        request: PaginationRequest<T, F>
     }) {
         const { page, size, sort } = request
         const totalPages = Math.ceil(totalElements / size)
@@ -75,7 +77,9 @@ export class Pageable<T> {
         })
     }
 
-    static defaultRequest<T>(): PaginationRequest<T> {
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    static defaultRequest<T>(): PaginationRequest<T, any> {
         return { page: 0, size: 20, sort: Sort.of('id,asc') }
     }
 }
+

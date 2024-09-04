@@ -6,6 +6,12 @@ import {
 import { Reservation, ReservationStatus } from '@prisma/client'
 
 abstract class ReservationService {
+    getRestaurantReservations(restaurantId: string) {
+        throw new Error('Method not implemented.')
+    }
+    getUserReservations(userId: string) {
+        throw new Error('Method not implemented.')
+    }
     /**
      * Get reservation by id
      */
