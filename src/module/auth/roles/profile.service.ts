@@ -7,7 +7,7 @@ import { CreateUserDto } from './user/dto/create-user.dto'
 import { CreateRestaurateurDto } from './restaurateur/dto/create-restaurateur.dto'
 import { PrismaService } from '@/prisma.service'
 
-export type Profile = UserProfile | RestaurateurProfile
+export type Profile = (UserProfile & Auth) | (RestaurateurProfile & Auth)
 
 @Injectable()
 export class ProfileService {
@@ -23,7 +23,7 @@ export class ProfileService {
     }: {
         userId: string
         role?: Role
-    }): Promise<Profile> {
+    }): Promise<UserProfile | RestaurateurProfile> {
         let $role = role
         if (!$role) {
             const auth = await this.prisma.auth.findUnique({
@@ -44,7 +44,7 @@ export class ProfileService {
         }
     }
 
-    async getProfiles(): Promise<Profile[]> {
+    async getProfiles() {
         const userProfiles = await this.userService.getProfiles()
         const restaurateurProfiles =
             await this.restaurateurService.getProfiles()
@@ -59,7 +59,7 @@ export class ProfileService {
         userId: string
         role?: Role
         data: CreateProfileDto
-    }): Promise<Profile> {
+    }): Promise<UserProfile | RestaurateurProfile> {
         let $role = role
         if (!$role) {
             const auth = await this.prisma.auth.findUnique({
@@ -93,7 +93,7 @@ export class ProfileService {
         userId: string
         role?: Role
         data: Partial<Profile>
-    }): Promise<Profile> {
+    }) {
         let $role = role
         if (!$role) {
             const auth = await this.prisma.auth.findUnique({
@@ -101,20 +101,37 @@ export class ProfileService {
             })
             $role = auth.role
         }
+
+        const updateAuth = await this.prisma.auth.update({
+            where: { id: userId },
+            data: { email: data.email, password: data.password },
+            select: {
+                role: true,
+                email: true,
+                createdAt: true,
+                updatedAt: true,
+            },
+        })
+
+        const { email, password, ...rest } = data
         switch ($role) {
             // TODO : Check type matching
             case Role.USER:
-                return this.userService.updateProfile(
+                const updatedUser = await this.userService.updateProfile(
                     userId,
-                    data as Partial<UserProfile>
+                    rest as Partial<UserProfile>
                 )
+                return { ...updatedUser, ...updateAuth }
             case Role.RESTAURATEUR:
-                return this.restaurateurService.updateProfile(
-                    userId,
-                    data as Partial<RestaurateurProfile>
-                )
+                const updatedRest =
+                    await this.restaurateurService.updateProfile(
+                        userId,
+                        rest as Partial<RestaurateurProfile>
+                    )
+                return { ...updatedRest, ...updateAuth }
             default:
-                throw new Error('Invalid role')
+                console.log('role', role)
+            // throw new Error('Invalid role')
         }
     }
 
@@ -124,7 +141,7 @@ export class ProfileService {
     }: {
         userId: string
         role?: Role
-    }): Promise<Profile> {
+    }): Promise<UserProfile | RestaurateurProfile> {
         let $role = role
         if (!$role) {
             const auth = await this.prisma.auth.findUnique({
@@ -143,11 +160,7 @@ export class ProfileService {
         }
     }
 
-    async getProfilesByRole({
-        role,
-    }: {
-        role: Role
-    }): Promise<Omit<Profile[], 'password'> | Omit<Auth[], 'password'>> {
+    async getProfilesByRole({ role }: { role: Role }) {
         const allAuth = await this.prisma.auth.findMany({
             where: { role },
             select: {
@@ -176,7 +189,7 @@ export class ProfileService {
             case Role.ADMIN:
                 return allAuth as Omit<Auth[], 'password'>
             default:
-                throw new Error('Invalid role')
+                console.log('role', role)
         }
     }
 }
