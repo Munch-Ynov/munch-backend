@@ -3,35 +3,27 @@ import {
     ExternalReservationCreateDto,
     ReservationCreateDto,
 } from '@/module/reservation/dto/reservation-create.dto'
-import { Reservation, ReservationStatus } from '@prisma/client'
+import { Prisma, Reservation, ReservationStatus } from '@prisma/client'
+
 
 abstract class ReservationService {
-    getRestaurantReservations(restaurantId: string) {
-        throw new Error('Method not implemented.')
-    }
-    getUserReservations(userId: string) {
-        throw new Error('Method not implemented.')
-    }
+    abstract getRestaurantReservations(
+        restaurantId: string,
+        pageable: PaginationRequest<Reservation, Prisma.ReservationWhereInput>,
+    ): Promise<Pageable<Reservation>>
+
+
+    abstract getUserReservations(
+        userId: string,
+        pageable: PaginationRequest<Reservation, Prisma.ReservationWhereInput>,
+    ): Promise<Pageable<Reservation>>
+
+
     /**
      * Get reservation by id
      */
     abstract getReservationById(reservationId: string): Promise<Reservation>
 
-    /**
-     * Get reservation by user id
-     * @param userId
-     * @param option
-     */
-    abstract getReservationByUserId(userId: string): Promise<Reservation[]>
-
-    /**
-     * Get reservation by restaurant id
-     * @param restaurantId
-     * @param option
-     */
-    abstract getReservationByRestaurantId(
-        restaurantId: string
-    ): Promise<Reservation[]>
 
     /**
      * Create a new reservation for a user

@@ -6,9 +6,11 @@ import {
     Controller,
     Delete,
     Get,
+    Logger,
     Param,
     Patch,
     Post,
+    Query,
     UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
@@ -30,12 +32,13 @@ export class RestaurantController {
 
     @Get()
     findAll(
-        @Param('page') page = 0,
-        @Param('size') size = 10,
-        @Param('sort') sort = 'id,asc',
-        @Param('name') name?,
-        @Param('features') features?
+        @Query('page') page = 0,
+        @Query('size') size = 10,
+        @Query('sort') sort = 'id,asc',
+        @Query('name') name?,
+        @Query('features') features?
     ) {
+        Logger.log(`Finding all restaurants with page: ${page}, size: ${size}, sort: ${sort}`)
         return this.restaurantService.findAll({
             page: page,
             size: size,

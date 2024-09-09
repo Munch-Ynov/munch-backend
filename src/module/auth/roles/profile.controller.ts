@@ -21,7 +21,7 @@ import { HasRole } from '@/decorator/has-role.decorator'
 @Controller('profile')
 @ApiTags('profile')
 export class ProfileController {
-    constructor(private readonly profileService: ProfileService) {}
+    constructor(private readonly profileService: ProfileService) { }
 
     @Get(':userId')
     @UseGuards(JwtAuthGuard, RolesGuard)
@@ -42,7 +42,6 @@ export class ProfileController {
                 userId: req.user.authId,
                 data,
             })
-            console.log('profile', profile)
             return profile
         } catch (e) {
             console.error(e)
