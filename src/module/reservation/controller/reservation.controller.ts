@@ -6,6 +6,7 @@ import {
     Patch,
     Delete,
     Param,
+    Query,
 } from '@nestjs/common/decorators/http'
 import {
     ExternalReservationCreateDto,
@@ -16,7 +17,8 @@ import { JwtAuthGuard } from '@/guard/jwt-auth.guard'
 import { RolesGuard } from '@/guard/roles.guard'
 import { ReservationService } from '../service/reservation.service'
 import { ReservationUpdateDto } from '../dto/reservation-update.dto'
-import { ReservationStatus } from '@prisma/client'
+import { Reservation, ReservationStatus } from '@prisma/client'
+import { Pageable, Sort } from '@/data/util'
 
 @Controller('reservation')
 @ApiTags('reservation', 'API')
@@ -100,16 +102,43 @@ export class ReservationController {
     @Get('user/:userId')
     @UseGuards(JwtAuthGuard, RolesGuard)
     @ApiBearerAuth()
-    async getUserReservations(@Param('userId') userId: string) {
-        return this.reservationService.getUserReservations(userId)
+    async getUserReservations(
+        @Param('userId') userId: string,
+        @Query('page') page = 0,
+        @Query('size') size = 10,
+        @Query('sort') sort = 'id,asc'
+    ): Promise<Pageable<Reservation>> {
+        return this.reservationService.getUserReservations(userId, {
+            page,
+            size,
+            sort: Sort.of(sort),
+        });
     }
 
     // get all reservations for a given restaurant
     @Get('restaurant/:restaurantId')
     @UseGuards(JwtAuthGuard, RolesGuard)
     @ApiBearerAuth()
-    async getRestaurantReservations(@Param('restaurantId') restaurantId: string) {
-        return this.reservationService.getRestaurantReservations(restaurantId)
+    async getRestaurantReservations(
+        @Param('restaurantId') restaurantId: string,
+        @Query('page') page = 0,
+        @Query('size') size = 10,
+        @Query('sort') sort = 'id,asc'
+    ): Promise<Pageable<Reservation>> {
+        return this.reservationService.getRestaurantReservations(restaurantId, {
+            page,
+            size,
+            sort: Sort.of(sort),
+        });
+    }
+
+
+    // delete a reservation
+    @Delete(':reservationId')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @ApiBearerAuth()
+    async deleteReservation(@Param('reservationId') reservationId: string) {
+        return this.reservationService.deleteReservation(reservationId);
     }
 
 }

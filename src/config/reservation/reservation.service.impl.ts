@@ -1,3 +1,4 @@
+import { Request } from 'express';
 import {
     ExternalReservationCreateDto,
     ReservationCreateDto,
@@ -7,7 +8,8 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { ReservationService } from '@/module/reservation/service/reservation.service'
 import { ParameterException } from '@/exception/parameter-exception'
 import { PrismaService } from '@/prisma.service'
-import { Reservation, ReservationStatus } from '@prisma/client'
+import { Prisma, Reservation, ReservationStatus } from '@prisma/client'
+import { Pageable, PaginationRequest } from '@/data/util'
 
 @Injectable()
 export class ReservationServiceImpl implements ReservationService {
@@ -19,20 +21,6 @@ export class ReservationServiceImpl implements ReservationService {
         })
         if (!reservation) return null
         return reservation
-    }
-
-    getReservationByUserId(userId: string): Promise<Reservation[]> {
-        return this.prisma.reservation.findMany({
-            where: { userId: userId },
-        })
-    }
-
-    async getReservationByRestaurantId(
-        restaurantId: string
-    ): Promise<Reservation[]> {
-        return this.prisma.reservation.findMany({
-            where: { restaurantId: restaurantId },
-        })
     }
 
     async #createReservation(
@@ -184,19 +172,55 @@ export class ReservationServiceImpl implements ReservationService {
         })
     }
 
-    async getUserReservations(userId: string): Promise<Reservation[]> {
-        return this.prisma.reservation.findMany({
-            where: { userId: userId },
+    async getUserReservations(
+        userId: string,
+        request: PaginationRequest<Reservation, Prisma.ReservationWhereInput>
+    ): Promise<Pageable<Reservation>> {
+
+        const count = await this.prisma.reservation.count({
+            where: {
+                userId: userId,
+            },
         })
+
+        return this.prisma.reservation.findMany({
+            skip: request.page * request.size,
+            take: request.size,
+            orderBy: request.sort.getSort(),
+            where: {
+                userId: userId,
+            },
+        }).then((reservations) => Pageable.of({
+            content: reservations,
+            totalElements: count,
+            request: request,
+        }));
     }
 
-    async getRestaurantReservations(restaurantId: string): Promise<Reservation[]> {
-        return this.prisma.reservation.findMany({
-            where: { restaurantId: restaurantId },
+
+    async getRestaurantReservations(
+        restaurantId: string,
+        request: PaginationRequest<Reservation, Prisma.ReservationWhereInput>
+    ): Promise<Pageable<Reservation>> {
+
+        const count = await this.prisma.reservation.count({
+            where: {
+                restaurantId: restaurantId,
+            },
         })
+
+        return this.prisma.reservation.findMany({
+            skip: request.page * request.size,
+            take: request.size,
+            orderBy: request.sort.getSort(),
+            where: {
+                restaurantId: restaurantId,
+            },
+        }).then((reservations) => Pageable.of({
+            content: reservations,
+            totalElements: count,
+            request: request,
+        }));
     }
 
-    async getReservations(): Promise<Reservation[]> {
-        return this.prisma.reservation.findMany()
-    }
 }
