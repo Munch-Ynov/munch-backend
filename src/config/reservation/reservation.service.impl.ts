@@ -10,10 +10,13 @@ import { ParameterException } from '@/exception/parameter-exception'
 import { PrismaService } from '@/prisma.service'
 import { Prisma, Reservation, ReservationStatus } from '@prisma/client'
 import { Pageable, PaginationRequest } from '@/data/util'
+import { MailingService } from '@/module/mailing/mailing.service';
 
 @Injectable()
 export class ReservationServiceImpl implements ReservationService {
-    constructor(private readonly prisma: PrismaService) { }
+    constructor(private readonly prisma: PrismaService,
+        private readonly mailingService: MailingService
+    ) { }
 
     async getReservationById(reservationId: string): Promise<Reservation> {
         const reservation = await this.prisma.reservation.findUnique({
@@ -58,19 +61,36 @@ export class ReservationServiceImpl implements ReservationService {
             )
         }
 
+        let user = null;
+
         // check that the user exists
-        if (
-            reservation.userId &&
-            !(await this.prisma.userProfile.findUnique({
+        if (reservation.userId){
+            user = await this.prisma.userProfile.findUnique({
                 where: { id: reservation.userId },
-            }))
-        ) {
+            })
+
+            if (!user) {
+                throw new ParameterException('reservation.userId', 'User not found')
+            }
+        
+        }else{
             throw new ParameterException('reservation.userId', 'User not found')
         }
 
-        return this.prisma.reservation.create({
+        const reservationReturn = await this.prisma.reservation.create({
             data: reservation,
         })
+
+        // send email
+        this.mailingService.sendMail({
+            from: process.env.MAILGUN_FROM,
+            to: user.email,
+            subject: `Reservation ${reservationReturn.id} created`,
+            text: `Your reservation ${reservationReturn.id} has been created for ${reservation.date} at ${reservation.restaurantId}`,
+        })
+
+        return reservationReturn
+
     }
 
     async createReservation(
