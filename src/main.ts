@@ -4,7 +4,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
 import { ValidationPipe } from '@nestjs/common'
 import { SanitizerGuard } from './util/sanitizer.guard'
 import helmet from 'helmet'
-import * as cookieParser from 'cookie-parser'
+import cookieParser from 'cookie-parser'
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
