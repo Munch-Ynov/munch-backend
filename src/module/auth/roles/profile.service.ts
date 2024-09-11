@@ -15,7 +15,7 @@ export class ProfileService {
         private readonly restaurateurService: RestaurateurService,
         private readonly userService: UserService,
         private readonly prisma: PrismaService
-    ) {}
+    ) { }
 
     async getProfile({
         userId,
@@ -29,7 +29,7 @@ export class ProfileService {
             const auth = await this.prisma.auth.findUnique({
                 where: { id: userId },
             })
-            $role = auth.role
+            $role = auth?.role
         }
 
         switch ($role) {
@@ -38,6 +38,9 @@ export class ProfileService {
             case Role.RESTAURATEUR:
                 return this.restaurateurService.getProfile(userId)
             case Role.ADMIN:
+                return null
+            case null:
+            case undefined:
                 return null
             default:
                 throw new Error('Invalid role')

@@ -106,13 +106,20 @@ export class ReservationController {
         @Param('userId') userId: string,
         @Query('page') page = 0,
         @Query('size') size = 10,
-        @Query('sort') sort = 'id,asc'
+        @Query('sort') sort = 'id,asc',
+        @Query('upcoming') upcoming = 'true',
+        @Query('past') past = 'true',
     ): Promise<Pageable<Reservation>> {
         return this.reservationService.getUserReservations(userId, {
             page,
             size,
             sort: Sort.of(sort),
-        });
+        },
+            {
+                past: past === 'false' ? false : true,
+                upcoming: upcoming === 'false' ? false : true,
+            }
+        );
     }
 
     // get all reservations for a given restaurant
@@ -123,13 +130,20 @@ export class ReservationController {
         @Param('restaurantId') restaurantId: string,
         @Query('page') page = 0,
         @Query('size') size = 10,
-        @Query('sort') sort = 'id,asc'
+        @Query('sort') sort = 'id,asc',
+        @Query('upcoming') upcoming = 'true',
+        @Query('past') past = 'true',
     ): Promise<Pageable<Reservation>> {
         return this.reservationService.getRestaurantReservations(restaurantId, {
             page,
             size,
             sort: Sort.of(sort),
-        });
+        },
+            {
+                past: past === 'false' ? false : true,
+                upcoming: upcoming === 'false' ? false : true,
+            }
+        );
     }
 
 
@@ -140,5 +154,23 @@ export class ReservationController {
     async deleteReservation(@Param('reservationId') reservationId: string) {
         return this.reservationService.deleteReservation(reservationId);
     }
+
+
+    // get upcoming reservations for a given restaurant
+    @Get('restaurant/:restaurantId/upcoming')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @ApiBearerAuth()
+    async getUpcomingReservations(
+        @Param('restaurantId') restaurantId: string,
+        @Query('page') page = 0,
+        @Query('size') size = 10,
+    ): Promise<Pageable<Reservation>> {
+        return this.reservationService.getUpcomingReservations(restaurantId, {
+            page,
+            size,
+            sort: Sort.of('date,asc'),
+        });
+    }
+
 
 }

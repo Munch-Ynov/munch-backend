@@ -7,15 +7,24 @@ import { Prisma, Reservation, ReservationStatus } from '@prisma/client'
 
 
 abstract class ReservationService {
+
     abstract getRestaurantReservations(
         restaurantId: string,
         pageable: PaginationRequest<Reservation, Prisma.ReservationWhereInput>,
+        options?: {
+            past?: boolean;
+            upcoming?: boolean;
+        }
     ): Promise<Pageable<Reservation>>
 
 
     abstract getUserReservations(
         userId: string,
         pageable: PaginationRequest<Reservation, Prisma.ReservationWhereInput>,
+        options?: {
+            past?: boolean;
+            upcoming?: boolean;
+        }
     ): Promise<Pageable<Reservation>>
 
 
@@ -60,5 +69,13 @@ abstract class ReservationService {
      * only used for debugging
      */
     abstract deleteReservation(reservationId: string): Promise<void>
+
+
+    // get upcoming reservations for a given restaurant
+    abstract getUpcomingReservations(
+        restaurantId: string,
+        pageable: PaginationRequest<Reservation, Prisma.ReservationWhereInput>,
+    ): Promise<Pageable<Reservation>>
+
 }
 export { ReservationService }

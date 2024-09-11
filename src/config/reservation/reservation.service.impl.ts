@@ -3,7 +3,7 @@ import {
     ExternalReservationCreateDto,
     ReservationCreateDto,
 } from '@/module/reservation/dto/reservation-create.dto'
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { Injectable, Logger, NotFoundException } from '@nestjs/common'
 
 import { ReservationService } from '@/module/reservation/service/reservation.service'
 import { ParameterException } from '@/exception/parameter-exception'
@@ -174,12 +174,22 @@ export class ReservationServiceImpl implements ReservationService {
 
     async getUserReservations(
         userId: string,
-        request: PaginationRequest<Reservation, Prisma.ReservationWhereInput>
+        request: PaginationRequest<Reservation, Prisma.ReservationWhereInput>,
+        {
+            past = true,
+            upcoming = true,
+        }: {
+            past?: boolean; upcoming?: boolean
+        }
     ): Promise<Pageable<Reservation>> {
 
         const count = await this.prisma.reservation.count({
             where: {
                 userId: userId,
+                date: {
+                    ...(!past ? { gte: new Date() } : {}),
+                    ...(!upcoming ? { lt: new Date() } : {}),
+                },
             },
         })
 
@@ -189,6 +199,10 @@ export class ReservationServiceImpl implements ReservationService {
             orderBy: request.sort.getSort(),
             where: {
                 userId: userId,
+                date: {
+                    ...(!past ? { gte: new Date() } : {}),
+                    ...(!upcoming ? { lt: new Date() } : {}),
+                },
             },
         }).then((reservations) => Pageable.of({
             content: reservations,
@@ -200,14 +214,24 @@ export class ReservationServiceImpl implements ReservationService {
 
     async getRestaurantReservations(
         restaurantId: string,
-        request: PaginationRequest<Reservation, Prisma.ReservationWhereInput>
+        request: PaginationRequest<Reservation, Prisma.ReservationWhereInput>,
+        {
+            past = true,
+            upcoming = true,
+        }: {
+            past?: boolean; upcoming?: boolean
+        }
     ): Promise<Pageable<Reservation>> {
-
         const count = await this.prisma.reservation.count({
             where: {
                 restaurantId: restaurantId,
+                date: {
+                    ...(!past ? { gte: new Date() } : {}),
+                    ...(!upcoming ? { lt: new Date() } : {}),
+                },
             },
         })
+
 
         return this.prisma.reservation.findMany({
             skip: request.page * request.size,
@@ -215,6 +239,10 @@ export class ReservationServiceImpl implements ReservationService {
             orderBy: request.sort.getSort(),
             where: {
                 restaurantId: restaurantId,
+                date: {
+                    ...(!past ? { gte: new Date() } : {}),
+                    ...(!upcoming ? { lt: new Date() } : {}),
+                },
             },
         }).then((reservations) => Pageable.of({
             content: reservations,
@@ -223,4 +251,44 @@ export class ReservationServiceImpl implements ReservationService {
         }));
     }
 
+
+    async getUpcomingReservations(
+        restaurantId: string,
+        request: PaginationRequest<Reservation, Prisma.ReservationWhereInput>
+    ): Promise<Pageable<Reservation>> {
+
+        const count = await this.prisma.reservation.count({
+            where: {
+                restaurantId: restaurantId,
+                date: {
+                    gte: new Date(),
+                },
+                status: {
+                    notIn: [ReservationStatus.REFUSED, ReservationStatus.CANCELED]
+                }
+            },
+        })
+
+        return this.prisma.reservation.findMany({
+            skip: request.page * request.size,
+            take: request.size,
+            // order by date
+            orderBy: {
+                date: 'asc',
+            },
+            where: {
+                restaurantId: restaurantId,
+                date: {
+                    gte: new Date(),
+                },
+                status: {
+                    notIn: [ReservationStatus.REFUSED, ReservationStatus.CANCELED]
+                }
+            },
+        }).then((reservations) => Pageable.of({
+            content: reservations,
+            totalElements: count,
+            request: request,
+        }));
+    }
 }
