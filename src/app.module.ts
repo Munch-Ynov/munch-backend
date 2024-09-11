@@ -13,6 +13,7 @@ import { PrismaService } from './prisma.service'
 import { ProfileModule } from './module/auth/roles/profile.module'
 import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser'
 import { MailingModule } from './module/mailing/mailing.module';
+import { FeaturesModule } from './module/features/features.module'
 
 @Module({
     imports: [
@@ -23,6 +24,7 @@ import { MailingModule } from './module/mailing/mailing.module';
         ReservationModule,
         ProfileModule,
         MailingModule,
+        FeaturesModule,
     ],
     controllers: [],
     providers: [

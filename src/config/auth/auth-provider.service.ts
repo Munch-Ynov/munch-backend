@@ -111,7 +111,7 @@ export class AuthProviderService implements AuthService {
     public async createAccessToken(authUser: Auth) {
         return this.jwtService.sign(
             { authId: authUser.id, role: authUser.role },
-            { expiresIn: process.env.EXPIRATION_JWT_ACCESS_TOKEN || '15m' }
+            { expiresIn: process.env.EXPIRATION_JWT_ACCESS_TOKEN || '1d' }
         )
     }
 
