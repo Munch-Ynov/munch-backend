@@ -112,19 +112,21 @@ export class RestaurantService {
             data: {
                 ...updateRestaurantDto,
                 features: {
-                    connect: updateRestaurantDto.features?.map((feature) => ({
-                        id: feature,
+                    connect: updateRestaurantDto.features?.map((featureId) => ({
+                        id: featureId,
                     })),
                 },
                 favorites: {
-                    connect: updateRestaurantDto.favorites?.map((favorite) => ({
-                        id: favorite,
-                    })),
+                    connect: updateRestaurantDto.favorites?.map(
+                        (favoriteId) => ({
+                            id: favoriteId,
+                        })
+                    ),
                 },
                 reservations: {
                     connect: updateRestaurantDto.reservations?.map(
-                        (reservation) => ({
-                            id: reservation,
+                        (reservationId) => ({
+                            id: reservationId,
                         })
                     ),
                 },

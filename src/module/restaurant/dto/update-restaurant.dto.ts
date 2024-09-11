@@ -27,7 +27,7 @@ export class UpdateRestaurantDto extends PartialType(CreateRestaurantDto) {
     @ApiProperty()
     @IsEnum(PriceCategory)
     @IsNotEmpty()
-    price: string // Ensure this matches the enum type
+    price: string
 
     @ApiProperty()
     @IsString()
@@ -40,7 +40,6 @@ export class UpdateRestaurantDto extends PartialType(CreateRestaurantDto) {
 
     @ApiProperty()
     @IsString()
-    @IsPostalCode()
     code_postal: string
 
     @ApiProperty()

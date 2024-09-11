@@ -39,7 +39,6 @@ export class CreateRestaurantDto {
 
     @ApiProperty()
     @IsString()
-    @IsPostalCode()
     code_postal: string
 
     @ApiProperty()
@@ -50,14 +49,6 @@ export class CreateRestaurantDto {
     @IsString()
     @IsEmail()
     email: string
-
-    @ApiProperty()
-    @IsString()
-    coordinates: string
-
-    @ApiProperty()
-    @IsString()
-    opening_hours: string
 
     @ApiProperty()
     features: string[]

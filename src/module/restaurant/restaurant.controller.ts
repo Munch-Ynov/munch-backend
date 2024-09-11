@@ -13,12 +13,13 @@ import {
     Query,
     UseGuards,
 } from '@nestjs/common'
-import { ApiBearerAuth } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 import { CreateRestaurantDto } from './dto/create-restaurant.dto'
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto'
 import { RestaurantService } from './restaurant.service'
 
 @Controller('restaurant')
+@ApiTags('restaurants')
 export class RestaurantController {
     constructor(private readonly restaurantService: RestaurantService) {}
 

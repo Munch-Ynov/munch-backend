@@ -12,8 +12,9 @@ import { ReservationModule } from './module/reservation/reservation.module'
 import { PrismaService } from './prisma.service'
 import { ProfileModule } from './module/auth/roles/profile.module'
 import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser'
-import { MailingModule } from './module/mailing/mailing.module';
+import { MailingModule } from './module/mailing/mailing.module'
 import { FeaturesModule } from './module/features/features.module'
+import { RestaurantModule } from './module/restaurant/restaurant.module'
 
 @Module({
     imports: [
@@ -25,6 +26,7 @@ import { FeaturesModule } from './module/features/features.module'
         ProfileModule,
         MailingModule,
         FeaturesModule,
+        RestaurantModule,
     ],
     controllers: [],
     providers: [
