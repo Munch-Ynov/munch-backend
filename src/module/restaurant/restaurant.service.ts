@@ -8,11 +8,11 @@ import { UpdateRestaurantDto } from './dto/update-restaurant.dto'
 import { PrismaService } from '@/prisma.service'
 import { PriceCategory, Prisma, Restaurant } from '@prisma/client'
 import { Pageable } from '@/data/util'
-import { PaginationRequest } from '../../data/util/pageable';
+import { PaginationRequest } from '../../data/util/pageable'
 
 @Injectable()
 export class RestaurantService {
-    constructor(private readonly prisma: PrismaService) { }
+    constructor(private readonly prisma: PrismaService) {}
 
     async create(createRestaurantDto: CreateRestaurantDto) {
         // check if the n_siret is already used
@@ -52,23 +52,37 @@ export class RestaurantService {
         })
     }
 
-    async findAll(request?: PaginationRequest<Restaurant, Prisma.RestaurantWhereInput>): Promise<Pageable<Restaurant>> {
-
+    async findAll(
+        request?: PaginationRequest<Restaurant, Prisma.RestaurantWhereInput>
+    ): Promise<Pageable<Restaurant>> {
         const count = await this.prisma.restaurant.count({
             where: request?.filter,
         })
 
-        return this.prisma.restaurant.findMany({
-            skip: request?.page * request?.size,
-            take: request?.size,
-            orderBy: request?.sort.getSort(),
-            where: request?.filter,
-        }).then((restaurants) => {
-            return Pageable.of({
-                content: restaurants,
-                totalElements: count,
-                request: request,
+        return this.prisma.restaurant
+            .findMany({
+                skip: request?.page * request?.size,
+                take: request?.size,
+                orderBy: request?.sort.getSort(),
+                where: request?.filter,
             })
+            .then((restaurants) => {
+                return Pageable.of({
+                    content: restaurants,
+                    totalElements: count,
+                    request: request,
+                })
+            })
+    }
+
+    async findAllByOwner(ownerId: string) {
+        return this.prisma.restaurant.findFirst({
+            where: {
+                restaurateurProfileId: ownerId,
+            },
+            include: {
+                features: true,
+            },
         })
     }
 
