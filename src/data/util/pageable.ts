@@ -70,7 +70,7 @@ export class Pageable<T> {
             last,
             size,
             number: page,
-            sort: sort.toString(),
+            sort: sort?.toString() || 'id,asc',
             first,
             numberOfElements,
             empty,
