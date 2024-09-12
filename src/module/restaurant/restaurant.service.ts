@@ -12,7 +12,7 @@ import { PaginationRequest } from '../../data/util/pageable'
 
 @Injectable()
 export class RestaurantService {
-    constructor(private readonly prisma: PrismaService) {}
+    constructor(private readonly prisma: PrismaService) { }
 
     async create(createRestaurantDto: CreateRestaurantDto) {
         // check if the n_siret is already used
@@ -70,7 +70,7 @@ export class RestaurantService {
                 return Pageable.of({
                     content: restaurants,
                     totalElements: count,
-                    request: request,
+                    request,
                 })
             })
     }
