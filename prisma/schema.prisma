@@ -42,6 +42,7 @@ model Reservation {
   id           String            @id @unique @default(cuid())
   date         DateTime
   nb_people    Int
+  name         String?
   status       ReservationStatus
   userId       String?
   restaurantId String
