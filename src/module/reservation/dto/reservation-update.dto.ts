@@ -30,15 +30,24 @@ export class ReservationUpdateDto {
     })
     status?: ReservationStatus
 
+    @ApiProperty({
+        description: 'name',
+        type: 'string',
+        example: 'John Doe',
+    })
+    name?: string
+
 
     constructor(
         nb_people: number,
         date: Date,
-        status: ReservationStatus
+        status: ReservationStatus,
+        name: string
     ) {
         this.nb_people = nb_people
         this.date = date
         this.status = status
+        this.name = name
     }
 
     toEntity(): Partial<Reservation> {
@@ -46,6 +55,7 @@ export class ReservationUpdateDto {
             nb_people: this.nb_people,
             status: this.status,
             date: this.date,
+            name: this.name
         }
     }
 }

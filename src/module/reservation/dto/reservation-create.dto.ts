@@ -28,7 +28,7 @@ export class ReservationCreateDto {
         type: 'string',
         example: '60f6e1a2a4e5f0001f000001',
     })
-    userId: string
+    userId?: string
 
     @ApiProperty({
         description: 'Restaurant id',
@@ -37,6 +37,13 @@ export class ReservationCreateDto {
     })
     restaurantId: string
 
+    @ApiProperty({
+        description: 'Name of the reservation',
+        type: 'string',
+        example: 'John Doe',
+    })
+    name: string
+
     toEntity(): Omit<Reservation, 'id' | 'createdAt' | 'updatedAt'> {
         return {
             date: this.date,
@@ -44,6 +51,7 @@ export class ReservationCreateDto {
             userId: this.userId,
             restaurantId: this.restaurantId,
             status: ReservationStatus.PENDING,
+            name: this.name,
         }
     }
 
@@ -101,12 +109,22 @@ export class ExternalReservationCreateDto {
     })
     restaurantId: string
 
-    toEntity(): Omit<Reservation, 'id' | 'createdAt' | 'updatedAt' | 'userId' > {
+    @ApiProperty({
+        description: 'name',
+        type: 'string',
+        example: 'John Doe',
+    })
+    name: string
+
+
+
+    toEntity(): Omit<Reservation, 'id' | 'createdAt' | 'updatedAt' | 'userId'> {
         return {
             date: this.date,
             nb_people: this.nb_people,
             restaurantId: this.restaurantId,
             status: ReservationStatus.ACCEPTED,
+            name: this.name,
         }
     }
 
