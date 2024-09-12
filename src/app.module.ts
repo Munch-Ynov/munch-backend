@@ -15,6 +15,8 @@ import { CookieParserMiddleware } from '@nest-middlewares/cookie-parser'
 import { MailingModule } from './module/mailing/mailing.module'
 import { FeaturesModule } from './module/features/features.module'
 import { RestaurantModule } from './module/restaurant/restaurant.module'
+import { FavoriteController } from './module/favorite/controller/favorite.controller'
+import { FavoriteModule } from './module/favorite/favorite.module'
 
 @Module({
     imports: [
@@ -27,6 +29,7 @@ import { RestaurantModule } from './module/restaurant/restaurant.module'
         MailingModule,
         FeaturesModule,
         RestaurantModule,
+        FavoriteModule,
     ],
     controllers: [],
     providers: [
