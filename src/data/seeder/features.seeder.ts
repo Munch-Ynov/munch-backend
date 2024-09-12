@@ -31,22 +31,22 @@ export const cuisineSeeder: Omit<
     RestaurantFeature,
     'id' | 'category' | 'restaurant' | 'categoryId'
 >[] = [
-    { name: 'Moyen-Orient', icon: 'chicken-leg' },
-    { name: 'Asiatique', icon: 'asia-gate' },
-    { name: 'Européenne', icon: 'french-fries' },
-    { name: 'Américaine', icon: 'hamburger' },
-    { name: 'Africaine', icon: 'barbeque' },
-    { name: 'Latine', icon: 'taco' },
+    { name: 'Moyen-Orient' },
+    { name: 'Asiatique' },
+    { name: 'Européenne' },
+    { name: 'Américaine' },
+    { name: 'Africaine' },
+    { name: 'Latine' },
 ]
 
 export const typeSeeder: Omit<
     RestaurantFeature,
     'id' | 'category' | 'restaurant' | 'categoryId'
 >[] = [
-    { name: 'Fast-food', icon: 'hamburger' },
-    { name: 'Restaurant', icon: 'restaurant' },
-    { name: 'Brasserie', icon: 'beer' },
-    { name: 'Café', icon: 'coffee' },
-    { name: 'Bar', icon: 'cocktail' },
-    { name: 'Pizzeria', icon: 'pizza' },
+    { name: 'Fast-food' },
+    { name: 'Restaurant' },
+    { name: 'Brasserie' },
+    { name: 'Café' },
+    { name: 'Bar' },
+    { name: 'Pizzeria' },
 ]

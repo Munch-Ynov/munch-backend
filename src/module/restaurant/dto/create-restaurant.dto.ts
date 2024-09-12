@@ -51,6 +51,15 @@ export class CreateRestaurantDto {
     email: string
 
     @ApiProperty()
+    @IsString()
+    main_picture: string
+
+    @ApiProperty()
+    @IsArray()
+    @IsNotEmpty()
+    pictures: string[]
+
+    @ApiProperty()
     features: string[]
 
     @ApiProperty()

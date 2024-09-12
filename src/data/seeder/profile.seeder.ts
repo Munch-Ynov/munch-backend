@@ -5,7 +5,6 @@ export const adminSeeder: Partial<Auth> & Partial<UserProfile> = {
     password: 'admin',
     name: 'Administrator',
     avatar: 'https://api.dicebear.com/8.x/shapes/svg?seed=Sugar',
-    banner: 'https://picsum.photos/seed/munch/800',
 }
 
 export const userSeeder: Partial<Auth> & Partial<UserProfile> = {
@@ -13,7 +12,6 @@ export const userSeeder: Partial<Auth> & Partial<UserProfile> = {
     password: 'client',
     name: 'Client',
     avatar: 'https://api.dicebear.com/8.x/shapes/svg?seed=Client',
-    banner: 'https://picsum.photos/seed/client/800',
     phone: '+33612345678',
 }
 
