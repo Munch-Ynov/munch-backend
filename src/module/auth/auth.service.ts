@@ -32,4 +32,5 @@ export abstract class AuthService {
     }>
     createAccessToken: (auth: Auth) => Promise<string>
     createRefreshToken: (auth: Auth) => Promise<string>
+    deleteProfile: (authId: string) => Promise<void>
 }

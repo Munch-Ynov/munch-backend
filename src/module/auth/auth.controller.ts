@@ -2,9 +2,11 @@ import {
     BadRequestException,
     Body,
     Controller,
+    Delete,
     ForbiddenException,
     Get,
     HttpException,
+    Param,
     Post,
     Req,
     Res,
@@ -31,7 +33,7 @@ export class AuthController {
     constructor(
         private readonly authService: AuthService,
         private readonly profileService: ProfileService
-    ) { }
+    ) {}
 
     @Post('login')
     @ApiOkResponse({ type: TokenDto })
@@ -148,10 +150,9 @@ export class AuthController {
         return user
     }
 
-
     // get the profile of a user
     @Get('profile/:userId')
-    // @UseGuards(JwtAuthGuard, RolesGuard)
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @ApiBearerAuth()
     async getProfileById(@Req() req: Request) {
         const user = await this.profileService.getProfile({
@@ -161,4 +162,10 @@ export class AuthController {
         return user
     }
 
+    @Delete(':id')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @ApiBearerAuth()
+    async delete(@Param('id') id: string) {
+        return this.authService.deleteProfile(id)
+    }
 }

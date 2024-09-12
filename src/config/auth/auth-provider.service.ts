@@ -142,4 +142,51 @@ export class AuthProviderService implements AuthService {
         const payload = this.jwtService.verify(refreshToken) as Payload
         return this.validate(payload)
     }
+
+    async deleteProfile(authId: string) {
+        const authExists = await this.prisma.auth.findUnique({
+            where: {
+                id: authId,
+            },
+        })
+
+        if (!authExists) {
+            throw new NotFoundException(`No user found for id: ${authId}`)
+        }
+
+        await this.prisma.auth.delete({
+            where: {
+                id: authId,
+            },
+        })
+
+        const userExist = await this.prisma.userProfile.findUnique({
+            where: {
+                id: authId,
+            },
+        })
+
+        if (userExist) {
+            await this.prisma.userProfile.delete({
+                where: {
+                    id: authId,
+                },
+            })
+        }
+
+        const restaurateurProfileExist =
+            await this.prisma.restaurateurProfile.findUnique({
+                where: {
+                    id: authId,
+                },
+            })
+
+        if (restaurateurProfileExist) {
+            await this.prisma.restaurateurProfile.delete({
+                where: {
+                    id: authId,
+                },
+            })
+        }
+    }
 }
