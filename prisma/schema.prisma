@@ -18,8 +18,8 @@ model Restaurant {
   code_postal           String
   city                  String
   email                 String
-  coordinates           String
-  opening_hours         String
+  main_picture          String               @default("")
+  pictures              String[]             @default([])
   createdAt             DateTime             @default(now())
   updatedAt             DateTime?            @updatedAt
   restaurateurProfileId String?
@@ -54,7 +54,6 @@ model Reservation {
 model RestaurantFeature {
   id         String       @id @unique @default(cuid())
   name       String
-  icon       String?
   categoryId String
   category   Category     @relation(fields: [categoryId], references: [id])
   restaurant Restaurant[] @relation("RestaurantToRestaurantFeature")
@@ -80,7 +79,6 @@ model UserProfile {
   name        String
   phone       String?
   avatar      String?
-  banner      String?
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   favorite    Favorite[]
@@ -90,7 +88,6 @@ model UserProfile {
 model RestaurateurProfile {
   id          String       @id @unique
   avatar      String?
-  banner      String?
   name        String
   phone       String?
   createdAt   DateTime     @default(now())
