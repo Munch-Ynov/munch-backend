@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: munch-backend
+    environment:
+      - DATABASE_URL=postgres://munch:munch@database:5432/munch
+      - DIRECT_URL=http://localhost:3000
+      - PORT=3000
+      - EXPIRATION_JWT_ACCESS_TOKEN=15m
+      - EXPIRATION_JWT_REFRESH_TOKEN=7d
+      - JWT_SECRET=your_jwt_secret
+      - NODE_ENV=development
+    ports:
+      - '3000:3000'
+    depends_on:
+      - database
+
+  database:
+    image: postgres:16.2
+    container_name: database
+    environment:
+      - POSTGRES_USER=munch
+      - POSTGRES_PASSWORD=munch
+      - POSTGRES_DB=munch
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - '5050:80'
+    depends_on:
+      - database
+
+volumes:
+  postgres_data:

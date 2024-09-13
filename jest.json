@@ -1,0 +1,22 @@
+{
+    "moduleFileExtensions": [
+        "js",
+        "json",
+        "ts"
+    ],
+    "rootDir": ".",
+    "moduleNameMapper": {
+        "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "testEnvironment": "node",
+    "testRegex": ".spec.ts$",
+    "transform": {
+        "^.+\\.tsx?$": [
+            "ts-jest",
+            {
+                "tsconfig": "tsconfig.json",
+                "diagnostics": false
+            }
+        ]
+    }
+}

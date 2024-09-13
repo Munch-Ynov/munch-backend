@@ -1,64 +1,63 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Restaurant {
-  id           String                @id @unique @default(cuid())
-  name         String
-  address      String
-  description  String
-  price        PriceCategory
-  n_siret      String
-  phone        String
-  code_postal  String
-  city         String
-  email        String
-  features     RestaurantFeature[]
-  favorites    Favorite[]
-  reservations Reservation[]
-  createdAt    DateTime
-  updatedAt    DateTime
-  restaurateur RestaurateurProfile[]
+  id                    String               @id @unique @default(cuid())
+  name                  String
+  address               String
+  description           String
+  price                 PriceCategory
+  n_siret               String
+  phone                 String
+  code_postal           String
+  city                  String
+  email                 String
+  main_picture          String               @default("")
+  pictures              String[]             @default([])
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime?            @updatedAt
+  restaurateurProfileId String?
+  favorites             Favorite[]
+  reservations          Reservation[]
+  RestaurateurProfile   RestaurateurProfile? @relation(fields: [restaurateurProfileId], references: [id])
+  features              RestaurantFeature[]  @relation("RestaurantToRestaurantFeature")
 }
 
 model Favorite {
-  id           String       @id @unique @default(cuid())
-  user         UserProfile? @relation(fields: [userId], references: [id])
+  id           String      @id @unique @default(cuid())
   userId       String
-  restaurant   Restaurant   @relation(fields: [restaurantId], references: [id])
   restaurantId String
-  createdAt    DateTime     @default(now())
+  createdAt    DateTime    @default(now())
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id])
+  user         UserProfile @relation(fields: [userId], references: [id])
 }
 
 model Reservation {
   id           String            @id @unique @default(cuid())
   date         DateTime
   nb_people    Int
+  name         String?
   status       ReservationStatus
-  user         UserProfile?      @relation(fields: [userId], references: [id])
   userId       String?
-  restaurant   Restaurant        @relation(fields: [restaurantId], references: [id])
   restaurantId String
-  createdAt    DateTime
-  updatedAt    DateTime
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime?         @updatedAt
+  restaurant   Restaurant        @relation(fields: [restaurantId], references: [id])
+  user         UserProfile?      @relation(fields: [userId], references: [id])
 }
 
 model RestaurantFeature {
   id         String       @id @unique @default(cuid())
   name       String
-  icon       String?
-  category   Category     @relation(fields: [categoryId], references: [id])
   categoryId String
-  restaurant Restaurant[]
+  category   Category     @relation(fields: [categoryId], references: [id])
+  restaurant Restaurant[] @relation("RestaurantToRestaurantFeature")
 }
 
 model Category {
@@ -69,40 +68,33 @@ model Category {
 
 model Auth {
   id        String   @id @unique @default(cuid())
-  email     String
+  email     String   @unique
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  role      Role     @default(USER)
+  role      Role
 }
 
 model UserProfile {
-  // id of the auth
-  id String @id @unique
-
-  userId String
-  avatar String?
-  banner String?
-
+  id          String        @id @unique
+  name        String
+  phone       String?
+  avatar      String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   favorite    Favorite[]
   reservation Reservation[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }
 
 model RestaurateurProfile {
-  // id of the auth
-  id String @id @unique
-
-  avatar String?
-  banner String?
-
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
-  restaurantId String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String       @id @unique
+  avatar      String?
+  name        String
+  phone       String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  deletedAt   DateTime?
+  restaurants Restaurant[]
 }
 
 enum Role {
@@ -114,6 +106,7 @@ enum Role {
 enum ReservationStatus {
   PENDING
   ACCEPTED
+  CANCELED
   REFUSED
 }
 
