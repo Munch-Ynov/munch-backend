@@ -5,7 +5,7 @@ import { RestaurateurProfile } from '@prisma/client'
 
 @Injectable()
 export class RestaurateurServiceImpl implements RestaurateurService {
-    constructor(private readonly prisma: PrismaService) { }
+    constructor(private readonly prisma: PrismaService) {}
 
     async getProfile(id: string): Promise<RestaurateurProfile> {
         const profile = await this.prisma.restaurateurProfile.findUnique({
@@ -56,6 +56,14 @@ export class RestaurateurServiceImpl implements RestaurateurService {
         const profile = await this.prisma.restaurateurProfile.update({
             where: { id },
             data,
+            include: {
+                restaurants: {
+                    select: {
+                        id: true,
+                        name: true,
+                    },
+                },
+            },
         })
         return profile
     }
