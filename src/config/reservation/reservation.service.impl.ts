@@ -98,7 +98,7 @@ export class ReservationServiceImpl implements ReservationService {
             this.mailingService.sendMail({
                 from: process.env.MAILGUN_FROM,
                 to: authUser.email,
-                subject: `Reservation ${reservationReturn.id} created`,
+                subject: `Confirmation réservation ${reservationReturn.id}`,
                 text: `Your reservation ${reservationReturn.id} has been created for ${reservation.date} at ${reservation.restaurantId}`,
             })
         }
