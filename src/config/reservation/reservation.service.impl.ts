@@ -1,23 +1,21 @@
-import { Request } from 'express'
 import {
-    ExternalReservationCreateDto,
-    ReservationCreateDto,
+    ReservationCreateDto
 } from '@/module/reservation/dto/reservation-create.dto'
 import { Injectable, Logger, NotFoundException } from '@nestjs/common'
 
-import { ReservationService } from '@/module/reservation/service/reservation.service'
+import { Pageable, PaginationRequest } from '@/data/util'
 import { ParameterException } from '@/exception/parameter-exception'
+import { MailingService } from '@/module/mailing/mailing.service'
+import { ReservationService } from '@/module/reservation/service/reservation.service'
 import { PrismaService } from '@/prisma.service'
 import { Prisma, Reservation, ReservationStatus, Role } from '@prisma/client'
-import { Pageable, PaginationRequest } from '@/data/util'
-import { MailingService } from '@/module/mailing/mailing.service'
 
 @Injectable()
 export class ReservationServiceImpl implements ReservationService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly mailingService: MailingService
-    ) {}
+    ) { }
 
     async getReservationById(reservationId: string): Promise<Reservation> {
         const reservation = await this.prisma.reservation.findUnique({
@@ -211,9 +209,11 @@ export class ReservationServiceImpl implements ReservationService {
         {
             past = true,
             upcoming = true,
+            available = false,
         }: {
             past?: boolean
             upcoming?: boolean
+            available?: boolean
         }
     ): Promise<Pageable<Reservation>> {
         const count = await this.prisma.reservation.count({
@@ -222,6 +222,16 @@ export class ReservationServiceImpl implements ReservationService {
                 date: {
                     ...(!past ? { gte: new Date() } : {}),
                     ...(!upcoming ? { lt: new Date() } : {}),
+                },
+                status: {
+                    ...(available
+                        ? {
+                            notIn: [
+                                ReservationStatus.REFUSED,
+                                ReservationStatus.CANCELED,
+                            ],
+                        }
+                        : {}),
                 },
             },
         })
@@ -236,6 +246,16 @@ export class ReservationServiceImpl implements ReservationService {
                     date: {
                         ...(!past ? { gte: new Date() } : {}),
                         ...(!upcoming ? { lt: new Date() } : {}),
+                    },
+                    status: {
+                        ...(available
+                            ? {
+                                notIn: [
+                                    ReservationStatus.REFUSED,
+                                    ReservationStatus.CANCELED,
+                                ],
+                            }
+                            : {}),
                     },
                 },
             })
@@ -254,9 +274,11 @@ export class ReservationServiceImpl implements ReservationService {
         {
             past = true,
             upcoming = true,
+            available = false,
         }: {
             past?: boolean
             upcoming?: boolean
+            available?: boolean
         }
     ): Promise<Pageable<Reservation>> {
         const count = await this.prisma.reservation.count({
@@ -265,6 +287,16 @@ export class ReservationServiceImpl implements ReservationService {
                 date: {
                     ...(!past ? { gte: new Date() } : {}),
                     ...(!upcoming ? { lt: new Date() } : {}),
+                },
+                status: {
+                    ...(available
+                        ? {
+                            notIn: [
+                                ReservationStatus.REFUSED,
+                                ReservationStatus.CANCELED,
+                            ],
+                        }
+                        : {}),
                 },
             },
         })
@@ -280,6 +312,16 @@ export class ReservationServiceImpl implements ReservationService {
                         ...(!past ? { gte: new Date() } : {}),
                         ...(!upcoming ? { lt: new Date() } : {}),
                     },
+                    status: {
+                        ...(available
+                            ? {
+                                notIn: [
+                                    ReservationStatus.REFUSED,
+                                    ReservationStatus.CANCELED,
+                                ],
+                            }
+                            : {}),
+                    }
                 },
             })
             .then((reservations) =>

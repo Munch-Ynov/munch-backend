@@ -23,7 +23,7 @@ import { Pageable, Sort } from '@/data/util'
 @Controller('reservation')
 @ApiTags('reservation', 'API')
 export class ReservationController {
-    constructor(private readonly reservationService: ReservationService) {}
+    constructor(private readonly reservationService: ReservationService) { }
 
     /**
      * Get reservation by id
@@ -107,7 +107,8 @@ export class ReservationController {
         @Query('size') size = 10,
         @Query('sort') sort = 'createdAt,desc',
         @Query('upcoming') upcoming = 'true',
-        @Query('past') past = 'true'
+        @Query('past') past = 'true',
+        @Query('available') available = 'false'
     ): Promise<Pageable<Reservation>> {
         return this.reservationService.getUserReservations(
             userId,
@@ -119,6 +120,7 @@ export class ReservationController {
             {
                 past: past !== 'false',
                 upcoming: upcoming !== 'false',
+                available: available !== 'false',
             }
         )
     }
@@ -133,7 +135,8 @@ export class ReservationController {
         @Query('size') size = 10,
         @Query('sort') sort = 'id,asc',
         @Query('upcoming') upcoming = 'true',
-        @Query('past') past = 'true'
+        @Query('past') past = 'true',
+        @Query('available') available = 'false'
     ): Promise<Pageable<Reservation>> {
         return this.reservationService.getRestaurantReservations(
             restaurantId,
@@ -145,6 +148,7 @@ export class ReservationController {
             {
                 past: past !== 'false',
                 upcoming: upcoming !== 'false',
+                available: available !== 'false',
             }
         )
     }
