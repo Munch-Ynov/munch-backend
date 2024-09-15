@@ -1,9 +1,8 @@
-import { Filter, Pageable, PaginationRequest } from '@/data/util'
+import { Pageable, PaginationRequest } from '@/data/util';
 import {
-    ExternalReservationCreateDto,
-    ReservationCreateDto,
-} from '@/module/reservation/dto/reservation-create.dto'
-import { Prisma, Reservation, ReservationStatus } from '@prisma/client'
+    ReservationCreateDto
+} from '@/module/reservation/dto/reservation-create.dto';
+import { Prisma, Reservation, ReservationStatus } from '@prisma/client';
 
 
 abstract class ReservationService {
@@ -14,6 +13,7 @@ abstract class ReservationService {
         options?: {
             past?: boolean;
             upcoming?: boolean;
+            available?: boolean;
         }
     ): Promise<Pageable<Reservation>>
 
@@ -24,6 +24,7 @@ abstract class ReservationService {
         options?: {
             past?: boolean;
             upcoming?: boolean;
+            available?: boolean;
         }
     ): Promise<Pageable<Reservation>>
 
@@ -78,4 +79,5 @@ abstract class ReservationService {
     ): Promise<Pageable<Reservation>>
 
 }
-export { ReservationService }
+export { ReservationService };
+
