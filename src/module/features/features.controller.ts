@@ -32,6 +32,11 @@ export class FeaturesController {
         return this.featuresService.findOne(id)
     }
 
+    @Get('restaurant/:restaurantId')
+    findByRestaurantId(@Param('restaurantId') restaurantId: string) {
+        return this.featuresService.findByRestaurantId(restaurantId)
+    }
+
     @Patch(':id')
     update(
         @Param('id') id: string,
