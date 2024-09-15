@@ -67,4 +67,7 @@ export class CreateRestaurantDto {
 
     @ApiProperty()
     reservations: string[]
+
+    @ApiProperty()
+    restaurateurId: string
 }

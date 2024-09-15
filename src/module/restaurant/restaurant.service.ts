@@ -1,6 +1,7 @@
 import {
     ConflictException,
     Injectable,
+    Logger,
     NotFoundException,
 } from '@nestjs/common'
 import { CreateRestaurantDto } from './dto/create-restaurant.dto'
@@ -22,31 +23,26 @@ export class RestaurantService {
             },
         })
 
-        if (siretExist) {
-            throw new ConflictException('Siret already used')
-        }
+        const {
+            features,
+            restaurateurId,
+            price,
+            ...dto } = createRestaurantDto
 
         return this.prisma.restaurant.create({
             data: {
-                ...createRestaurantDto,
+                ...dto,
+                RestaurateurProfile: {
+                    connect: {
+                        id: restaurateurId,
+                    },
+                },
                 features: {
-                    connect: createRestaurantDto.features.map((feature) => ({
+                    connect: features?.map((feature) => ({
                         id: feature,
                     })),
                 },
-                favorites: {
-                    connect: createRestaurantDto.favorites.map((favorite) => ({
-                        id: favorite,
-                    })),
-                },
-                reservations: {
-                    connect: createRestaurantDto.reservations.map(
-                        (reservation) => ({
-                            id: reservation,
-                        })
-                    ),
-                },
-                price: createRestaurantDto.price as PriceCategory,
+                price: price as PriceCategory,
                 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
             } as any,
         })
