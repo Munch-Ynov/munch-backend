@@ -19,6 +19,14 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@master
+        - name: Set up Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 16
+        - name: Install dependencies for backend
+          run: npm install
+        - name: prisma
+          run: npx prisma generate
         - name: Run Snyk to check for vulnerabilities
           uses: snyk/actions/node@master
           env:
