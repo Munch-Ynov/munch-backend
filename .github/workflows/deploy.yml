@@ -11,6 +11,7 @@ on:
 env:
     REGISTRY: ghcr.io
     IMAGE_NAME: ${{ github.repository }}
+    
 
 # There is a single job in this workflow. It's configured to run on the latest available version of Ubuntu.
 jobs:
@@ -82,7 +83,6 @@ jobs:
               key: ${{ secrets.SSH_KEY }}
               source: ".env,docker-compose.yml"
               target: "~/${{ secrets.SSH_USERNAME }}/"
-              timeout: 120s
           - name: executing remote ssh commands
             uses: appleboy/ssh-action@master
             with:
