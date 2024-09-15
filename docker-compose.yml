@@ -5,6 +5,7 @@ services:
         container_name: munch-backend
         image: ghcr.io/munch-ynov/munch-backend:main
         # build: .
+        
         working_dir: /app
         restart: always
         ports:
