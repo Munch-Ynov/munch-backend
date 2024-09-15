@@ -21,7 +21,7 @@ import { RestaurantService } from './restaurant.service'
 @Controller('restaurant')
 @ApiTags('restaurants')
 export class RestaurantController {
-    constructor(private readonly restaurantService: RestaurantService) {}
+    constructor(private readonly restaurantService: RestaurantService) { }
 
     @Post()
     @UseGuards(JwtAuthGuard, RolesGuard)
@@ -48,7 +48,7 @@ export class RestaurantController {
             filter: {
                 ...(name && { name: { contains: name } }),
                 ...(features && {
-                    features: { some: { name: { in: features } } },
+                    features: { some: { id: { in: features.split(',') } } },
                 }),
             },
         })
