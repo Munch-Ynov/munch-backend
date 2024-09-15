@@ -17,6 +17,7 @@ import { FeaturesModule } from './module/features/features.module'
 import { RestaurantModule } from './module/restaurant/restaurant.module'
 import { FavoriteController } from './module/favorite/controller/favorite.controller'
 import { FavoriteModule } from './module/favorite/favorite.module'
+import { KpiModule } from './module/kpi/kpi.module'
 
 @Module({
     imports: [
@@ -30,6 +31,7 @@ import { FavoriteModule } from './module/favorite/favorite.module'
         FeaturesModule,
         RestaurantModule,
         FavoriteModule,
+        KpiModule,
     ],
     controllers: [],
     providers: [
