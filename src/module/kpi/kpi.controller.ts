@@ -15,8 +15,10 @@ export class KpiController {
         return this.kpiService.getKpiByUser(id)
     }
 
-    // @Get('restaurant/:id')
-    // async getKpiByRestaurant(@Param('id') id: string) {
-    //   return this.kpiService.getKpiByRestaurant(id);
-    // }
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
+    @Get('restaurant/:id')
+    async getKpiByRestaurant(@Param('id') id: string) {
+        return this.kpiService.getKpiByRestaurant(id)
+    }
 }

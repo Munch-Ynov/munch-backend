@@ -6,8 +6,6 @@ import { MailingService } from "@/module/mailing/mailing.service";
 @Injectable()
 export class MailingServiceImpl implements MailingService {
 
-  constructor() { }
-
   private enable = process.env.MAILGUN_ENABLED !== 'false';
 
   private MAILGUN_KEY = process.env.MAILGUN_KEY || '';
