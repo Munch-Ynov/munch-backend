@@ -15,24 +15,24 @@ env:
 
 # There is a single job in this workflow. It's configured to run on the latest available version of Ubuntu.
 jobs:
-    security:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@master
-        - name: Set up Node.js
-          uses: actions/setup-node@v4
-          with:
-            node-version: 16
-        - name: Install dependencies for backend
-          run: npm install
-        - name: prisma
-          run: npx prisma generate
-        - name: Run Snyk to check for vulnerabilities
-          uses: snyk/actions/node@master
-          env:
-            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '16'
+            - name: Install dependencies
+              run: npm install
+            - name: prisma generate
+              run: npx prisma generate
+            - name: Run tests
+              run: npm test
 
     build-and-push-image:
+        needs: test
         runs-on: ubuntu-latest
         # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job.
         permissions:
