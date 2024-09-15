@@ -91,13 +91,19 @@ export class ReservationServiceImpl implements ReservationService {
             data: reservation,
         })
 
+        const restaurant = await this.prisma.restaurant.findUnique({
+            where: { id: reservation.restaurantId },
+        })
+
+
         if (user) {
-            // send email
-            this.mailingService.sendMail({
-                from: process.env.MAILGUN_FROM,
-                to: authUser.email,
-                subject: `Confirmation réservation ${reservationReturn.id}`,
-                text: `Your reservation ${reservationReturn.id} has been created for ${reservation.date} at ${reservation.restaurantId}`,
+            // send email to user
+            this.sendReservationMail({
+                username: user.username,
+                restaurantName: restaurant.name,
+                reservationDate: reservationReturn.date.toISOString().split('T')[0],
+                reservationTime: reservationReturn.date.toISOString().split('T')[1].split('.')[0],
+                userEmail: authUser.email,
             })
         }
 
@@ -381,4 +387,63 @@ export class ReservationServiceImpl implements ReservationService {
                 })
             )
     }
+
+
+
+    async sendReservationMail(reservation: {
+        username: string;
+        restaurantName: string;
+        reservationDate: string;
+        reservationTime: string;
+        userEmail: string;
+    }
+    ) {
+        const { username, restaurantName, reservationDate, reservationTime } = reservation;
+
+        // Create calendar invite (ICS file)
+        const icsContent = this.createICSFile(reservationDate, reservationTime, restaurantName);
+
+        // Email content in French
+        const emailData = {
+            from: `Munch - ${restaurantName} <no-reply@munch.rest>`,
+            to: reservation.userEmail, // Email of the user
+            subject: `Confirmation de réservation - ${restaurantName}`,
+            text: `Bonjour ${username},\n\nVotre réservation au restaurant ${restaurantName} pour le ${reservationDate} à ${reservationTime} a été confirmée.\n\nVeuillez trouver les détails de votre réservation ci-dessous :\n- Nom du restaurant : ${restaurantName}\n- Date : ${reservationDate}\n- Heure : ${reservationTime}\n\nVous pouvez ajouter cette réservation à votre calendrier en pièce jointe.`,
+            attachment: {
+                filename: 'reservation.ics',
+                data: Buffer.from(icsContent, 'utf-8'),
+            },
+        };
+
+        try {
+            await this.mailingService.sendMail(emailData);
+            console.log('Reservation email sent successfully.');
+        } catch (error) {
+            console.error('Error sending reservation email:', error);
+        }
+    }
+
+    private createICSFile(reservationDate: string, reservationTime: string, restaurantName: string): string {
+        const date = new Date(`${reservationDate}T${reservationTime}`);
+        const startDate = this.formatDateICS(date);
+        const endDate = this.formatDateICS(new Date(date.getTime() + 2 * 60 * 60 * 1000)); // Assume 2-hour reservation
+
+        return `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Munch//Reservation//EN
+BEGIN:VEVENT
+UID:${new Date().getTime()}@yourdomain.com
+DTSTAMP:${this.formatDateICS(new Date())}
+DTSTART:${startDate}
+DTEND:${endDate}
+SUMMARY:Réservation au restaurant ${restaurantName}
+DESCRIPTION:Votre réservation au restaurant ${restaurantName} a été confirmée.
+END:VEVENT
+END:VCALENDAR`;
+    }
+
+    private formatDateICS(date: Date): string {
+        return `${date.toISOString().replace(/[-:]/g, '').split('.')[0]}Z`;
+    }
+
 }
