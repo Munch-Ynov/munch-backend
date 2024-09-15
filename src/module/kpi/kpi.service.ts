@@ -1,5 +1,6 @@
 import { PrismaService } from '@/prisma.service'
 import { Injectable } from '@nestjs/common'
+import { ReservationStatus } from '@prisma/client'
 
 @Injectable()
 export class KpiService {
@@ -85,6 +86,47 @@ export class KpiService {
             numberOfReservations,
             numberOfFavoriteRestaurants,
             distinctRestaurants: distinctRestaurants.length,
+        }
+    }
+
+    async getKpiByRestaurant(id: string) {
+        // number of reservations confirmed
+        const confirmedReservations = await this.prisma.reservation.count({
+            where: {
+                restaurantId: id,
+                status: ReservationStatus.ACCEPTED,
+            },
+        })
+
+        // return number of distinct users who have made a reservation
+        const distinctUsers = await this.prisma.reservation.findMany({
+            where: {
+                restaurantId: id,
+            },
+            distinct: ['userId'],
+        })
+
+        // return future reservations
+        const futureReservations = await this.prisma.reservation.findMany({
+            where: {
+                restaurantId: id,
+                date: {
+                    gte: new Date(),
+                },
+            },
+            include: {
+                user: {
+                    select: {
+                        name: true,
+                    },
+                },
+            },
+        })
+
+        return {
+            confirmedReservations,
+            distinctUsers: distinctUsers.length || 0,
+            futureReservations,
         }
     }
 }

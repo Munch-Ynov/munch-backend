@@ -23,7 +23,7 @@ import { Pageable, Sort } from '@/data/util'
 @Controller('reservation')
 @ApiTags('reservation', 'API')
 export class ReservationController {
-    constructor(private readonly reservationService: ReservationService) { }
+    constructor(private readonly reservationService: ReservationService) {}
 
     /**
      * Get reservation by id
@@ -97,7 +97,6 @@ export class ReservationController {
         })
     }
 
-
     // get all reservation for a given user
     @Get('user/:userId')
     @UseGuards(JwtAuthGuard, RolesGuard)
@@ -106,20 +105,22 @@ export class ReservationController {
         @Param('userId') userId: string,
         @Query('page') page = 0,
         @Query('size') size = 10,
-        @Query('sort') sort = 'id,asc',
+        @Query('sort') sort = 'createdAt,desc',
         @Query('upcoming') upcoming = 'true',
-        @Query('past') past = 'true',
+        @Query('past') past = 'true'
     ): Promise<Pageable<Reservation>> {
-        return this.reservationService.getUserReservations(userId, {
-            page,
-            size,
-            sort: Sort.of(sort),
-        },
+        return this.reservationService.getUserReservations(
+            userId,
             {
-                past: past === 'false' ? false : true,
-                upcoming: upcoming === 'false' ? false : true,
+                page,
+                size,
+                sort: Sort.of(sort),
+            },
+            {
+                past: past !== 'false',
+                upcoming: upcoming !== 'false',
             }
-        );
+        )
     }
 
     // get all reservations for a given restaurant
@@ -132,29 +133,29 @@ export class ReservationController {
         @Query('size') size = 10,
         @Query('sort') sort = 'id,asc',
         @Query('upcoming') upcoming = 'true',
-        @Query('past') past = 'true',
+        @Query('past') past = 'true'
     ): Promise<Pageable<Reservation>> {
-        return this.reservationService.getRestaurantReservations(restaurantId, {
-            page,
-            size,
-            sort: Sort.of(sort),
-        },
+        return this.reservationService.getRestaurantReservations(
+            restaurantId,
             {
-                past: past === 'false' ? false : true,
-                upcoming: upcoming === 'false' ? false : true,
+                page,
+                size,
+                sort: Sort.of(sort),
+            },
+            {
+                past: past !== 'false',
+                upcoming: upcoming !== 'false',
             }
-        );
+        )
     }
-
 
     // delete a reservation
     @Delete(':reservationId')
     @UseGuards(JwtAuthGuard, RolesGuard)
     @ApiBearerAuth()
     async deleteReservation(@Param('reservationId') reservationId: string) {
-        return this.reservationService.deleteReservation(reservationId);
+        return this.reservationService.deleteReservation(reservationId)
     }
-
 
     // get upcoming reservations for a given restaurant
     @Get('restaurant/:restaurantId/upcoming')
@@ -163,14 +164,12 @@ export class ReservationController {
     async getUpcomingReservations(
         @Param('restaurantId') restaurantId: string,
         @Query('page') page = 0,
-        @Query('size') size = 10,
+        @Query('size') size = 10
     ): Promise<Pageable<Reservation>> {
         return this.reservationService.getUpcomingReservations(restaurantId, {
             page,
             size,
             sort: Sort.of('date,asc'),
-        });
+        })
     }
-
-
 }
