@@ -14,10 +14,6 @@ export class FeaturesService {
     }
 
     async findAll() {
-        // return this.prisma.restaurantFeature.groupBy({
-        //     by: ['categoryId'],
-        // })
-
         return this.prisma.restaurantFeature.findMany({
             include: {
                 category: true,
@@ -29,6 +25,30 @@ export class FeaturesService {
         return this.prisma.restaurantFeature.findUnique({
             where: { id },
         })
+    }
+
+    async findByRestaurantId(restaurantId: string) {
+        return this.prisma.restaurantFeature
+            .findMany({
+                where: {
+                    restaurant: {
+                        some: { id: restaurantId },
+                    },
+                },
+                include: {
+                    category: true,
+                },
+            })
+            .then((features) => {
+                return features.reduce((acc, feature) => {
+                    const category = feature.category.name
+                    if (!acc[category]) {
+                        acc[category] = []
+                    }
+                    acc[category].push(feature)
+                    return acc
+                }, {})
+            })
     }
 
     async update(id: string, updateFeatureDto: UpdateFeatureDto) {

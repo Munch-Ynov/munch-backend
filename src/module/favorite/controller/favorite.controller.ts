@@ -37,8 +37,25 @@ export class FavoriteController {
     @Query('page') page = 0,
     @Query('size') size = 10,
     @Query('sort') sort = 'id,asc',
+    @Query('name') name?,
+    @Query('features') features?
   ) {
-    return this.favoriteService.getFavorites(userId, { page: +page, size: +size, sort: Sort.of(sort) })
+    return this.favoriteService.getFavorites(userId, {
+      page: +page,
+      size: +size,
+      sort: Sort.of(sort),
+      filter: {
+        ...(name && {
+          name: {
+            contains: name,
+            mode: 'insensitive',
+          }
+        }),
+        ...(features && {
+          features: { some: { id: { in: features.split(',') } } },
+        }),
+      },
+    })
   }
 
 

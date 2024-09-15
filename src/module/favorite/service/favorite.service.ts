@@ -45,10 +45,14 @@ export class FavoriteService {
   }
 
   // get all favorite restaurants for a user
-  async getFavorites(userId: string, request?: PaginationRequest<Restaurant, Prisma.RestaurantWhereInput>) {
+  async getFavorites(
+    userId: string,
+    request?: PaginationRequest<Restaurant, Prisma.RestaurantWhereInput>
+  ): Promise<Pageable<Restaurant>> {
     const count = await this.prisma.favorite.count({
       where: {
-        userId
+        userId,
+        restaurant: request?.filter
       }
     })
     return this.prisma.favorite.findMany({

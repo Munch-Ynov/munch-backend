@@ -21,7 +21,7 @@ import { RestaurantService } from './restaurant.service'
 @Controller('restaurant')
 @ApiTags('restaurants')
 export class RestaurantController {
-    constructor(private readonly restaurantService: RestaurantService) {}
+    constructor(private readonly restaurantService: RestaurantService) { }
 
     @Post()
     @UseGuards(JwtAuthGuard, RolesGuard)
@@ -32,8 +32,8 @@ export class RestaurantController {
 
     @Get()
     findAll(
-        @Query('page') page = 0,
-        @Query('size') size = 10,
+        @Query('page') page = '0',
+        @Query('size') size = '10',
         @Query('sort') sort = 'id,asc',
         @Query('name') name?,
         @Query('features') features?
@@ -42,13 +42,18 @@ export class RestaurantController {
             `Finding all restaurants with page: ${page}, size: ${size}, sort: ${sort}`
         )
         return this.restaurantService.findAll({
-            page: page,
-            size: size,
+            page: +page,
+            size: +size,
             sort: Sort.of(sort),
             filter: {
-                ...(name && { name: { contains: name } }),
+                ...(name && {
+                    name: {
+                        contains: name,
+                        mode: 'insensitive',
+                    }
+                }),
                 ...(features && {
-                    features: { some: { name: { in: features } } },
+                    features: { some: { id: { in: features.split(',') } } },
                 }),
             },
         })

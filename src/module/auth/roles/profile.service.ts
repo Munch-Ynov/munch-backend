@@ -15,7 +15,7 @@ export class ProfileService {
         private readonly restaurateurService: RestaurateurService,
         private readonly userService: UserService,
         private readonly prisma: PrismaService
-    ) { }
+    ) {}
 
     async getProfile({
         userId,
@@ -119,19 +119,21 @@ export class ProfileService {
         const { email, password, ...rest } = data
         switch ($role) {
             // TODO : Check type matching
-            case Role.USER:
+            case Role.USER: {
                 const updatedUser = await this.userService.updateProfile(
                     userId,
                     rest as Partial<UserProfile>
                 )
                 return { ...updatedUser, ...updateAuth }
-            case Role.RESTAURATEUR:
+            }
+            case Role.RESTAURATEUR: {
                 const updatedRest =
                     await this.restaurateurService.updateProfile(
                         userId,
                         rest as Partial<RestaurateurProfile>
                     )
                 return { ...updatedRest, ...updateAuth }
+            }
             default:
                 console.log('role', role)
             // throw new Error('Invalid role')
@@ -176,19 +178,21 @@ export class ProfileService {
         })
 
         switch (role) {
-            case Role.USER:
+            case Role.USER: {
                 const users = await this.userService.getProfiles()
                 return users.map((user) => {
                     const auth = allAuth.find((a) => a.id === user.id)
                     return { ...user, ...auth }
                 })
-            case Role.RESTAURATEUR:
+            }
+            case Role.RESTAURATEUR: {
                 const restaurateurs =
                     await this.restaurateurService.getProfiles()
                 return restaurateurs.map((restaurateur) => {
                     const auth = allAuth.find((a) => a.id === restaurateur.id)
                     return { ...restaurateur, ...auth }
                 })
+            }
             case Role.ADMIN:
                 return allAuth as Omit<Auth[], 'password'>
             default:

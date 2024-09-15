@@ -51,7 +51,11 @@ export class Pageable<T> {
     static of<T, F>({
         content = [],
         totalElements = 0,
-        request = { page: 0, size: 20, sort: Sort.of('id,asc') },
+        request = {
+            page: 0,
+            size: 20,
+            sort: Sort.of('id,asc')
+        },
     }: {
         content: T[]
         totalElements: number
@@ -79,7 +83,11 @@ export class Pageable<T> {
 
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     static defaultRequest<T>(): PaginationRequest<T, any> {
-        return { page: 0, size: 20, sort: Sort.of('id,asc') }
+        return {
+            page: 0,
+            size: 20,
+            sort: Sort.of('id,asc')
+        }
     }
 }
 
