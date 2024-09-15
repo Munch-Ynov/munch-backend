@@ -1,7 +1,7 @@
 import { ExecutionContext } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { RolesGuard } from './roles.guard'
-import { Role } from '../module/auth/model/role-enum'
+import { Role } from '@prisma/client'
 
 describe('RolesGuard', () => {
     let rolesGuard: RolesGuard
