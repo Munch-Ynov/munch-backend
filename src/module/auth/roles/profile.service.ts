@@ -1,3 +1,4 @@
+import { ExternalReservationCreateDto } from './../../reservation/dto/reservation-create.dto'
 import { Auth, RestaurateurProfile, Role, UserProfile } from '@prisma/client'
 import { Injectable } from '@nestjs/common'
 import { RestaurateurService } from './restaurateur/restaurateur.service'
@@ -116,22 +117,26 @@ export class ProfileService {
             },
         })
 
-        const { email, password, ...rest } = data
         switch ($role) {
             // TODO : Check type matching
             case Role.USER: {
                 const updatedUser = await this.userService.updateProfile(
                     userId,
-                    rest as Partial<UserProfile>
+                    {
+                        name: data.name,
+                        phone: data.phone,
+                        avatar: data.avatar,
+                    }
                 )
                 return { ...updatedUser, ...updateAuth }
             }
             case Role.RESTAURATEUR: {
                 const updatedRest =
-                    await this.restaurateurService.updateProfile(
-                        userId,
-                        rest as Partial<RestaurateurProfile>
-                    )
+                    await this.restaurateurService.updateProfile(userId, {
+                        name: data.name,
+                        phone: data.phone,
+                        avatar: data.avatar,
+                    })
                 return { ...updatedRest, ...updateAuth }
             }
             default:

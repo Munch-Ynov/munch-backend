@@ -23,7 +23,7 @@ import { Pageable, Sort } from '@/data/util'
 @Controller('reservation')
 @ApiTags('reservation', 'API')
 export class ReservationController {
-    constructor(private readonly reservationService: ReservationService) { }
+    constructor(private readonly reservationService: ReservationService) {}
 
     /**
      * Get reservation by id
@@ -133,7 +133,7 @@ export class ReservationController {
         @Param('restaurantId') restaurantId: string,
         @Query('page') page = 0,
         @Query('size') size = 10,
-        @Query('sort') sort = 'id,asc',
+        @Query('sort') sort = 'createdAt,desc',
         @Query('upcoming') upcoming = 'true',
         @Query('past') past = 'true',
         @Query('available') available = 'false'
