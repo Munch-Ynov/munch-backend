@@ -1,4 +1,4 @@
-FROM postgres:16.2
+FROM postgres:16.10
 
 COPY ./pgsync/conf.sql /docker-entrypoint-initdb.d/
 COPY ./pgsync/populate.sql /docker-entrypoint-initdb.d/
